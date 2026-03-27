@@ -3,6 +3,14 @@
     "title": "Stroop Task Process Schema",
     "description": "JSON schema representing a Stroop task process, encompassing experimental setup, stimuli, outputs, and neuroimaging extensions.",
     "type": "object",
+     "index": [
+        "task_details",
+        "stimuli",
+        "task_instructions",
+        "experimental_settings",
+        "outputs",
+        "data"
+    ]
     "properties": {
         "task_details": {
             "type": "object",
@@ -10,16 +18,18 @@
             "properties": {
                 "task_variant": {
                     "type": "string",
-                    "description": "The specific variant of the Stroop task (e.g., Emotional Stroop, Numerical Stroop, Spatial Stroop, Bilingual Stroop, Standard).",
                     "enum": [
                         "Emotional Stroop",
                         "Numerical Stroop",
                         "Spatial Stroop",
                         "Bilingual Stroop",
-                        "Standard"
+                        "Color-Word Stroop"
                     ]
                 },
-                "clinical_adaptation": {
+            }
+        },
+        "data":{
+            "clinical_adaptation": {
                     "type": "boolean",
                     "description": "Indicates if the task is a clinical adaptation (e.g., for ADHD, depression).",
                     "default": false
@@ -39,11 +49,9 @@
                     "minimum": 20,
                     "maximum": 200
                 }
-            }
-        },
+        }
         "stimuli": {
             "type": "object",
-            "description": "Details about the stimuli used in the task.",
             "properties": {
                 "color_set": {
                     "type": "array",
@@ -56,7 +64,6 @@
                 },
                 "stimulus_types": {
                     "type": "array",
-                    "description": "Types of stimuli presented (Congruent, Incongruent, Neutral).",
                     "items": {
                         "type": "string",
                         "enum": [
@@ -70,11 +77,9 @@
         },
         "task_instructions": {
             "type": "object",
-            "description": "Instructions given to the participants.",
             "properties": {
                 "response_type": {
                     "type": "string",
-                    "description": "The type of response required (Ink Color or Word Reading).",
                     "enum": [
                         "Ink Color",
                         "Word Reading"
@@ -82,7 +87,6 @@
                 },
                 "response_modality": {
                     "type": "string",
-                    "description": "The modality of the response (Verbal or Manual).",
                     "enum": [
                         "Verbal",
                         "Manual"
@@ -213,12 +217,5 @@
             }
         }
     },
-    "required": [
-        "task_details",
-        "stimuli",
-        "task_instructions",
-        "experimental_settings",
-        "outputs"
-    ]
 }
 
