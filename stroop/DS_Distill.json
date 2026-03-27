@@ -23,9 +23,13 @@
                 "Numerical Stroop",
                 "Spatial Stroop",
                 "Bilingual Stroop",
-                "Clinical Stroop"
+                "Color-Word Stroop"
             ],
-            "description": "Variant of the Stroop task being administered."
+            "description": "Variant of the Stroop task being administered.",
+            "required": [
+                "word",
+                "ink_color"
+            ]
         },
         "stimuli": {
             "type": "object",
@@ -36,18 +40,12 @@
                         "type": "object",
                         "properties": {
                             "word": {
-                                "type": "string",
-                                "description": "Color word."
+                                "type": "string"
                             },
                             "ink_color": {
                                 "type": "string",
-                                "description": "Matching color of the ink."
                             }
                         },
-                        "required": [
-                            "word",
-                            "ink_color"
-                        ]
                     },
                     "description": "Stimuli where word and ink color match."
                 },
@@ -57,18 +55,12 @@
                         "type": "object",
                         "properties": {
                             "word": {
-                                "type": "string",
-                                "description": "Color word."
+                                "type": "string"
                             },
                             "ink_color": {
-                                "type": "string",
-                                "description": "Non-matching color of the ink."
+                                "type": "string"
                             }
                         },
-                        "required": [
-                            "word",
-                            "ink_color"
-                        ]
                     },
                     "description": "Stimuli where word and ink color do not match."
                 },
@@ -77,19 +69,13 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "stimulus": {
-                                "type": "string",
-                                "description": "Non-color word or symbol."
+                            "word": {
+                                "type": "string"
                             },
                             "ink_color": {
-                                "type": "string",
-                                "description": "Color of the ink."
+                                "type": "string"
                             }
                         },
-                        "required": [
-                            "stimulus",
-                            "ink_color"
-                        ]
                     },
                     "description": "Non-color words or symbols in colored ink."
                 },
@@ -101,7 +87,6 @@
                     "description": "Set of colors used (e.g., red, blue, green, yellow)."
                 }
             },
-            "description": "Properties related to the stimuli presented in the task."
         },
         "task_instructions": {
             "type": "object",
@@ -112,7 +97,7 @@
                         "Name the ink color",
                         "Read the word"
                     ],
-                    "description": "Primary instruction given to the participant."
+                    "description": "Participant is expected to check if the word and the ink color are the same or if they differ"
                 },
                 "response_modality": {
                     "type": "string",
@@ -123,7 +108,6 @@
                     "description": "Method through which participants provide responses."
                 }
             },
-            "description": "Instructions provided to participants for task execution."
         },
         "experimental_settings": {
             "type": "object",
@@ -168,7 +152,7 @@
                     "enum": [
                         "PsychoPy",
                         "E-Prime",
-                        "MATLAB Psychtoolbox"
+                        "MATLAB Psychtoolbox-3"
                     ],
                     "description": "Software used for task administration."
                 },
@@ -199,46 +183,17 @@
                     "description": "Properties of the display used."
                 }
             },
-            "description": "Instruments and apparatus used in the experiment."
         },
         "outputs": {
             "type": "object",
             "properties": {
                 "reaction_time": {
-                    "type": "object",
-                    "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "description": "Mean RT for congruent trials in milliseconds."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Mean RT for incongruent trials in milliseconds."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Mean RT for neutral trials in milliseconds."
-                        }
-                    },
+                    "type": "number",
                     "description": "Reaction times across different trial types."
                 },
                 "error_rate": {
-                    "type": "object",
-                    "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "description": "Error rate for congruent trials as a percentage."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Error rate for incongruent trials as a percentage."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Error rate for neutral trials as a percentage."
-                        }
-                    },
-                    "description": "Error rates across different trial types."
+                    "type": "number",
+                    "description": "Error rates across different trial types as a percentage."
                 },
                 "interference_score": {
                     "type": "number",
@@ -276,7 +231,6 @@
                             "description": "Whether to exclude incorrect response trials from RT analysis."
                         }
                     },
-                    "description": "Criteria for data exclusion."
                 },
                 "statistical_method": {
                     "type": "string",
@@ -284,10 +238,8 @@
                         "Within-subject ANOVA",
                         "Mixed-effects modeling"
                     ],
-                    "description": "Statistical method used for analysis."
                 }
             },
-            "description": "Methods and criteria for data analysis."
         },
         "validity": {
             "type": "object",
@@ -308,7 +260,6 @@
                     "description": "Factors influencing task performance (e.g., reading proficiency)."
                 }
             },
-            "description": "Validity characteristics of the task."
         },
         "neuroimaging": {
             "type": "object",
@@ -455,7 +406,6 @@
                                     "role"
                                 ]
                             },
-                            "description": "Brain regions consistently reported in Stroop tasks."
                         },
                         "expected_contrast": {
                             "type": "string",
