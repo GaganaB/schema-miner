@@ -1,0 +1,224 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Stroop Task Process Schema",
+    "description": "JSON schema representing a Stroop task process, encompassing experimental setup, stimuli, outputs, and neuroimaging extensions.",
+    "type": "object",
+    "properties": {
+        "task_details": {
+            "type": "object",
+            "description": "General information about the Stroop task.",
+            "properties": {
+                "task_variant": {
+                    "type": "string",
+                    "description": "The specific variant of the Stroop task (e.g., Emotional Stroop, Numerical Stroop, Spatial Stroop, Bilingual Stroop, Standard).",
+                    "enum": [
+                        "Emotional Stroop",
+                        "Numerical Stroop",
+                        "Spatial Stroop",
+                        "Bilingual Stroop",
+                        "Standard"
+                    ]
+                },
+                "clinical_adaptation": {
+                    "type": "boolean",
+                    "description": "Indicates if the task is a clinical adaptation (e.g., for ADHD, depression).",
+                    "default": false
+                },
+                "population": {
+                    "type": "string",
+                    "description": "The target population for the task (e.g., Adults, Children, Clinical Population).",
+                    "enum": [
+                        "Adults",
+                        "Children",
+                        "Clinical Population"
+                    ]
+                },
+                "sample_size": {
+                    "type": "integer",
+                    "description": "The number of participants in the study.",
+                    "minimum": 20,
+                    "maximum": 200
+                }
+            }
+        },
+        "stimuli": {
+            "type": "object",
+            "description": "Details about the stimuli used in the task.",
+            "properties": {
+                "color_set": {
+                    "type": "array",
+                    "description": "The set of colors used in the task (e.g., ['red', 'blue', 'green']).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 3,
+                    "maxItems": 6
+                },
+                "stimulus_types": {
+                    "type": "array",
+                    "description": "Types of stimuli presented (Congruent, Incongruent, Neutral).",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "Congruent",
+                            "Incongruent",
+                            "Neutral"
+                        ]
+                    }
+                }
+            }
+        },
+        "task_instructions": {
+            "type": "object",
+            "description": "Instructions given to the participants.",
+            "properties": {
+                "response_type": {
+                    "type": "string",
+                    "description": "The type of response required (Ink Color or Word Reading).",
+                    "enum": [
+                        "Ink Color",
+                        "Word Reading"
+                    ]
+                },
+                "response_modality": {
+                    "type": "string",
+                    "description": "The modality of the response (Verbal or Manual).",
+                    "enum": [
+                        "Verbal",
+                        "Manual"
+                    ]
+                }
+            }
+        },
+        "experimental_settings": {
+            "type": "object",
+            "description": "Settings related to the experimental procedure.",
+            "properties": {
+                "stimulus_duration": {
+                    "type": "integer",
+                    "description": "Duration of stimulus presentation in milliseconds.",
+                    "minimum": 500,
+                    "maximum": 2000
+                },
+                "inter_trial_interval": {
+                    "type": "integer",
+                    "description": "Duration of the inter-trial interval in milliseconds.",
+                    "minimum": 500,
+                    "maximum": 1500
+                },
+                "trials_per_condition": {
+                    "type": "integer",
+                    "description": "Number of trials per condition.",
+                    "minimum": 20,
+                    "maximum": 100
+                },
+                "stimulus_order": {
+                    "type": "string",
+                    "description": "The order of stimulus presentation (Randomized or Counterbalanced).",
+                    "enum": [
+                        "Randomized",
+                        "Counterbalanced"
+                    ]
+                }
+            }
+        },
+        "instruments_apparatus": {
+            "type": "object",
+            "description": "Details about the instruments and apparatus used.",
+            "properties": {
+                "software": {
+                    "type": "string",
+                    "description": "The software used for the experiment (e.g., PsychoPy, E-Prime, MATLAB Psychtoolbox)."
+                },
+                "reaction_time_precision": {
+                    "type": "string",
+                    "description": "Precision of reaction time measurement.",
+                    "default": "millisecond"
+                }
+            }
+        },
+        "outputs": {
+            "type": "object",
+            "description": "The primary outputs or dependent variables of the task.",
+            "properties": {
+                "reaction_time": {
+                    "type": "number",
+                    "description": "Reaction time in milliseconds (ms)."
+                },
+                "error_rate": {
+                    "type": "number",
+                    "description": "Error rate as a percentage (%)",
+                    "minimum": 0,
+                    "maximum": 100
+                },
+                "interference_score": {
+                    "type": "number",
+                    "description": "Interference score calculated as RT(incongruent) - RT(congruent)."
+                }
+            }
+        },
+        "neuroimaging": {
+            "type": "object",
+            "description": "Details related to neuroimaging extensions of the Stroop task.",
+            "properties": {
+                "modality": {
+                    "type": "string",
+                    "description": "The neuroimaging modality used (EEG or fMRI).",
+                    "enum": [
+                        "EEG",
+                        "fMRI"
+                    ]
+                },
+                "eeg_parameters": {
+                    "type": "object",
+                    "description": "Parameters specific to EEG implementation.",
+                    "properties": {
+                        "channel_count": {
+                            "type": "integer",
+                            "description": "Number of EEG channels.",
+                            "minimum": 32,
+                            "maximum": 128
+                        },
+                        "sampling_rate": {
+                            "type": "integer",
+                            "description": "Sampling rate in Hz.",
+                            "minimum": 500
+                        }
+                    },
+                    "required": [
+                        "channel_count",
+                        "sampling_rate"
+                    ]
+                },
+                "fmri_parameters": {
+                    "type": "object",
+                    "description": "Parameters specific to fMRI implementation.",
+                    "properties": {
+                        "tr": {
+                            "type": "number",
+                            "description": "Repetition time in milliseconds.",
+                            "minimum": 2000,
+                            "maximum": 2500
+                        },
+                        "voxel_size": {
+                            "type": "string",
+                            "description": "Voxel size in mm (e.g., '2x2x2')."
+                        }
+                    },
+                    "required": [
+                        "tr",
+                        "voxel_size"
+                    ]
+                }
+            }
+        }
+    },
+    "required": [
+        "task_details",
+        "stimuli",
+        "task_instructions",
+        "experimental_settings",
+        "outputs"
+    ]
+}
+
