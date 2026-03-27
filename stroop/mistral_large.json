@@ -6,15 +6,12 @@
     "properties": {
         "experimentMetadata": {
             "type": "object",
-            "description": "General metadata about the Stroop task experiment.",
             "properties": {
                 "experimentName": {
                     "type": "string",
-                    "description": "Name or identifier of the experiment."
                 },
                 "experimentVariant": {
                     "type": "string",
-                    "description": "Type of Stroop task variant (e.g., 'Classic', 'Emotional', 'Numerical', 'Spatial', 'Bilingual').",
                     "enum": [
                         "Classic",
                         "Emotional",
@@ -24,24 +21,6 @@
                         "Clinical"
                     ]
                 },
-                "experimentDate": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "Date when the experiment was conducted."
-                },
-                "researcher": {
-                    "type": "string",
-                    "description": "Name or identifier of the researcher conducting the experiment."
-                },
-                "institution": {
-                    "type": "string",
-                    "description": "Institution where the experiment was conducted."
-                }
-            },
-            "required": [
-                "experimentName",
-                "experimentVariant"
-            ]
         },
         "sampleCharacteristics": {
             "type": "object",
@@ -49,20 +28,17 @@
             "properties": {
                 "sampleSize": {
                     "type": "integer",
-                    "description": "Number of participants in the experiment (range: 20\u2013200+).",
+                    "range": "20\u2013200+",
                     "minimum": 1
                 },
                 "ageRange": {
                     "type": "object",
-                    "description": "Age range of participants.",
                     "properties": {
                         "min": {
                             "type": "integer",
-                            "description": "Minimum age of participants."
                         },
                         "max": {
                             "type": "integer",
-                            "description": "Maximum age of participants."
                         }
                     },
                     "required": [
@@ -72,7 +48,6 @@
                 },
                 "populationType": {
                     "type": "string",
-                    "description": "Type of population (e.g., 'Adults', 'Children', 'Clinical').",
                     "enum": [
                         "Adults",
                         "Children",
@@ -81,7 +56,10 @@
                 },
                 "clinicalDetails": {
                     "type": "string",
-                    "description": "Additional details if the population is clinical (e.g., 'ADHD', 'Depression')."
+                    "enum": [
+                        "ADHD",
+                        "Depression"
+                    ]
                 }
             },
             "required": [
@@ -92,11 +70,9 @@
         },
         "stimuli": {
             "type": "object",
-            "description": "Details about the stimuli used in the Stroop task.",
             "properties": {
                 "colorSet": {
                     "type": "array",
-                    "description": "List of colors used in the experiment (e.g., ['red', 'blue', 'green']).",
                     "items": {
                         "type": "string"
                     },
@@ -105,25 +81,24 @@
                 },
                 "stimulusTypes": {
                     "type": "object",
-                    "description": "Types of stimuli used in the experiment.",
                     "properties": {
                         "congruent": {
                             "type": "array",
-                            "description": "List of congruent stimuli (e.g., ['RED in red', 'BLUE in blue']).",
+                            "example_stimulus": "(e.g., ['RED in red', 'BLUE in blue']).",
                             "items": {
                                 "type": "string"
                             }
                         },
                         "incongruent": {
                             "type": "array",
-                            "description": "List of incongruent stimuli (e.g., ['RED in blue', 'BLUE in green']).",
+                            "example_stimulus": "(e.g., ['RED in blue', 'BLUE in green']).",
                             "items": {
                                 "type": "string"
                             }
                         },
                         "neutral": {
                             "type": "array",
-                            "description": "List of neutral stimuli (e.g., ['XXXX in red', '&&&& in blue']).",
+                            "example_stimulus": "(e.g., ['XXXX in red', '&&&& in blue']).",
                             "items": {
                                 "type": "string"
                             }
@@ -131,29 +106,30 @@
                     },
                     "required": [
                         "congruent",
-                        "incongruent"
+                        "incongruent", 
+                        "neutral"
                     ]
                 },
                 "stimulusDuration": {
                     "type": "integer",
-                    "description": "Duration of each stimulus in milliseconds (range: 500\u20132000 ms).",
+                    "description": "Duration of each stimulus in milliseconds",
                     "minimum": 500,
                     "maximum": 2000
                 },
                 "interTrialInterval": {
                     "type": "integer",
-                    "description": "Duration of the inter-trial interval in milliseconds (range: 500\u20131500 ms).",
+                    "description": "Duration of the inter-trial interval in milliseconds.",
                     "minimum": 500,
                     "maximum": 1500
                 },
                 "trialsPerCondition": {
                     "type": "integer",
-                    "description": "Number of trials per condition (range: 20\u2013100+).",
+                    "description": "Number of trials per condition.",
                     "minimum": 20
                 },
                 "stimulusOrder": {
                     "type": "string",
-                    "description": "Order of stimulus presentation (e.g., 'Randomized', 'Counterbalanced').",
+                    "description": "Order of stimulus presentation.",
                     "enum": [
                         "Randomized",
                         "Counterbalanced"
@@ -171,11 +147,9 @@
         },
         "taskInstructions": {
             "type": "object",
-            "description": "Instructions given to participants for the Stroop task.",
             "properties": {
                 "responseMapping": {
                     "type": "string",
-                    "description": "What participants are instructed to respond to (e.g., 'InkColor', 'WordMeaning').",
                     "enum": [
                         "InkColor",
                         "WordMeaning"
@@ -183,7 +157,6 @@
                 },
                 "responseModality": {
                     "type": "string",
-                    "description": "Modality of participant response (e.g., 'Verbal', 'ManualKeypress').",
                     "enum": [
                         "Verbal",
                         "ManualKeypress"
@@ -204,7 +177,6 @@
         },
         "experimentalSettings": {
             "type": "object",
-            "description": "Settings and apparatus used in the experiment.",
             "properties": {
                 "software": {
                     "type": "string",
@@ -212,7 +184,6 @@
                 },
                 "hardware": {
                     "type": "object",
-                    "description": "Hardware used in the experiment.",
                     "properties": {
                         "responseDevice": {
                             "type": "string",
@@ -220,19 +191,15 @@
                         },
                         "display": {
                             "type": "object",
-                            "description": "Details about the display used.",
                             "properties": {
                                 "luminance": {
                                     "type": "number",
-                                    "description": "Luminance of the display in cd/m\u00b2."
                                 },
-                                "contrast": {
+                                "contrast_ratio": {
                                     "type": "number",
-                                    "description": "Contrast ratio of the display."
                                 },
                                 "resolution": {
                                     "type": "string",
-                                    "description": "Resolution of the display (e.g., '1920x1080')."
                                 }
                             }
                         }
@@ -247,11 +214,11 @@
                     "properties": {
                         "lighting": {
                             "type": "string",
-                            "description": "Lighting conditions (e.g., 'Controlled', 'Ambient')."
+                            "description": "(e.g., 'Controlled', 'Ambient')."
                         },
                         "distractions": {
                             "type": "string",
-                            "description": "Level of distractions (e.g., 'Minimal', 'Moderate')."
+                            "description": "(e.g., 'Minimal', 'Moderate')."
                         }
                     },
                     "required": [
@@ -274,15 +241,12 @@
                     "properties": {
                         "congruent": {
                             "type": "number",
-                            "description": "Average reaction time for congruent trials (ms)."
                         },
                         "incongruent": {
                             "type": "number",
-                            "description": "Average reaction time for incongruent trials (ms)."
                         },
                         "neutral": {
                             "type": "number",
-                            "description": "Average reaction time for neutral trials (ms)."
                         }
                     },
                     "required": [
@@ -292,31 +256,7 @@
                 },
                 "errorRate": {
                     "type": "object",
-                    "description": "Error rate per condition (percentage of incorrect responses).",
-                    "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "description": "Error rate for congruent trials (%).",
-                            "minimum": 0,
-                            "maximum": 100
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Error rate for incongruent trials (%).",
-                            "minimum": 0,
-                            "maximum": 100
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Error rate for neutral trials (%).",
-                            "minimum": 0,
-                            "maximum": 100
-                        }
-                    },
-                    "required": [
-                        "congruent",
-                        "incongruent"
-                    ]
+                    "description": "Error rate per condition (percentage of incorrect responses)."
                 },
                 "interferenceScore": {
                     "type": "number",
@@ -338,11 +278,10 @@
             "properties": {
                 "outlierExclusion": {
                     "type": "object",
-                    "description": "Criteria for excluding outliers in reaction time data.",
                     "properties": {
                         "method": {
                             "type": "string",
-                            "description": "Method used for outlier exclusion (e.g., '\u00b12 SD', 'FixedRange').",
+                            "description": "Method used for outlier exclusion.",
                             "enum": [
                                 "\u00b12 SD",
                                 "FixedRange"
@@ -353,12 +292,10 @@
                             "description": "Fixed range for outlier exclusion if method is 'FixedRange'.",
                             "properties": {
                                 "min": {
-                                    "type": "integer",
-                                    "description": "Minimum RT threshold in milliseconds (e.g., 200 ms)."
+                                    "type": "integer"
                                 },
                                 "max": {
-                                    "type": "integer",
-                                    "description": "Maximum RT threshold in milliseconds (e.g., 3000 ms)."
+                                    "type": "integer"
                                 }
                             },
                             "required": [
@@ -372,11 +309,11 @@
                     ]
                 },
                 "incorrectTrialHandling": {
-                    "type": "string",
-                    "description": "Method for handling incorrect trials (e.g., 'Exclude', 'Include').",
+                    "type": "boolean",
+                    "description": "Method for handling incorrect trials (e.g., 'Exclude or 0', 'Include or 1').",
                     "enum": [
-                        "Exclude",
-                        "Include"
+                        "1",
+                        "0"
                     ]
                 },
                 "statisticalAnalysis": {
@@ -506,7 +443,7 @@
                             "description": "Expected EEG patterns for incongruent trials.",
                             "properties": {
                                 "n450Amplitude": {
-                                    "type": "string",
+                                    "type": "boolean",
                                     "description": "Expected change in N450 amplitude (e.g., 'Increased').",
                                     "enum": [
                                         "Increased",
@@ -514,7 +451,7 @@
                                     ]
                                 },
                                 "frontoCentralActivation": {
-                                    "type": "string",
+                                    "type": "boolean",
                                     "description": "Expected change in fronto-central activation (e.g., 'Increased').",
                                     "enum": [
                                         "Increased",
@@ -522,7 +459,7 @@
                                     ]
                                 },
                                 "thetaPower": {
-                                    "type": "string",
+                                    "type": "boolean",
                                     "description": "Expected change in theta-band power (e.g., 'Increased').",
                                     "enum": [
                                         "Increased",
@@ -539,11 +476,9 @@
                 },
                 "fmri": {
                     "type": "object",
-                    "description": "fMRI-specific settings and outputs.",
                     "properties": {
                         "scannerParameters": {
                             "type": "object",
-                            "description": "fMRI scanner parameters.",
                             "properties": {
                                 "fieldStrength": {
                                     "type": "number",
@@ -551,7 +486,7 @@
                                 },
                                 "tr": {
                                     "type": "number",
-                                    "description": "Repetition time (TR) in milliseconds (range: 2000\u20132500 ms).",
+                                    "description": "Repetition time (TR) in milliseconds.",
                                     "minimum": 2000,
                                     "maximum": 2500
                                 },
