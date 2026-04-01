@@ -2,21 +2,14 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://example.com/stroop-task-schema.json",
     "title": "Stroop Task Process Schema",
-    "description": "A comprehensive schema for the Stroop task, capturing stimuli, task instructions, experimental settings, instruments, outputs, and neuroimaging extensions.",
     "type": "object",
     "properties": {
         "metadata": {
             "type": "object",
-            "description": "Metadata about the experiment and its context.",
             "properties": {
                 "experiment_id": {
                     "type": "string",
                     "description": "Unique identifier for the experiment run."
-                },
-                "date": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "Date when the experiment was conducted."
                 },
                 "study_type": {
                     "type": "string",
@@ -26,21 +19,29 @@
                         "neuroimaging",
                         "neurocomputational"
                     ],
-                    "description": "Type of study (basic, clinical, neuroimaging, or neurocomputational)."
                 },
                 "participant_group": {
                     "type": "string",
-                    "description": "Group characteristics (e.g., 'adults', 'children', 'clinical', 'healthy controls')."
+                    "enum": [
+                        "adults",
+                        "children"
+                    ],
+                },
+                "controls":{
+                    "type": "string", 
+                    "enum":[
+                    "clinical",
+                    "healthy controls"
+                    ],
                 },
                 "sample_size": {
                     "type": "integer",
                     "minimum": 20,
-                    "description": "Number of participants in the study."
                 }
             },
             "required": [
                 "experiment_id",
-                "date",
+                "controls",
                 "study_type",
                 "participant_group",
                 "sample_size"
@@ -57,10 +58,8 @@
                         "emotional",
                         "numerical",
                         "spatial",
-                        "bilingual",
-                        "clinical"
+                        "bilingual"
                     ],
-                    "description": "Type of Stroop variant used (e.g., emotional, numerical)."
                 },
                 "response_instruction": {
                     "type": "string",
@@ -69,7 +68,6 @@
                         "read_word",
                         "reverse_stroop"
                     ],
-                    "description": "Primary instruction to participants (e.g., 'name the color' or'read the word')."
                 },
                 "response_modality": {
                     "type": "string",
@@ -77,125 +75,17 @@
                         "verbal",
                         "manual_keypress"
                     ],
-                    "description": "How responses are recorded (verbal via voice key or manual keypress)."
                 },
                 "stimulus_properties": {
                     "type": "object",
-                    "description": "Properties of stimuli used in the task.",
-                    "properties": {
-                        "congruent_stimuli": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "word": {
-                                        "type": "string",
-                                        "description": "The word displayed (e.g., 'RED')."
-                                    },
-                                    "ink_color": {
-                                        "type": "string",
-                                        "enum": [
-                                            "red",
-                                            "blue",
-                                            "green",
-                                            "yellow",
-                                            "purple",
-                                            "orange"
-                                        ],
-                                        "description": "Color of the ink used for the word."
-                                    },
-                                    "condition": {
+                    "condition": {
                                         "type": "string",
                                         "enum": [
                                             "congruent",
-                                            "neutral"
+                                            "neutral", 
+                                            "incongruent"
                                         ],
-                                        "description": "Type of stimulus (congruent or neutral)."
-                                    }
-                                },
-                                "required": [
-                                    "word",
-                                    "ink_color",
-                                    "condition"
-                                ]
-                            },
-                            "description": "List of congruent stimuli (e.g., 'RED' in red ink)."
-                        },
-                        "incongruent_stimuli": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "word": {
-                                        "type": "string",
-                                        "description": "The word displayed (e.g., 'RED')."
-                                    },
-                                    "ink_color": {
-                                        "type": "string",
-                                        "enum": [
-                                            "red",
-                                            "blue",
-                                            "green",
-                                            "yellow",
-                                            "purple",
-                                            "orange"
-                                        ],
-                                        "description": "Color of the ink used for the word."
-                                    },
-                                    "condition": {
-                                        "type": "string",
-                                        "enum": [
-                                            "incongruent",
-                                            "neutral"
-                                        ],
-                                        "description": "Type of stimulus (incongruent or neutral)."
-                                    }
-                                },
-                                "required": [
-                                    "word",
-                                    "ink_color",
-                                    "condition"
-                                ]
-                            },
-                            "description": "List of incongruent stimuli (e.g., 'RED' in blue ink)."
-                        },
-                        "neutral_stimuli": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "symbol": {
-                                        "type": "string",
-                                        "description": "Non-word symbol (e.g., 'XXXX')."
-                                    },
-                                    "ink_color": {
-                                        "type": "string",
-                                        "enum": [
-                                            "red",
-                                            "blue",
-                                            "green",
-                                            "yellow",
-                                            "purple",
-                                            "orange"
-                                        ],
-                                        "description": "Color of the ink used for the symbol."
-                                    },
-                                    "condition": {
-                                        "type": "string",
-                                        "enum": [
-                                            "neutral"
-                                        ],
-                                        "description": "Type of stimulus (neutral)."
-                                    }
-                                },
-                                "required": [
-                                    "symbol",
-                                    "ink_color",
-                                    "condition"
-                                ]
-                            },
-                            "description": "List of neutral stimuli (e.g., 'XXXX' in green ink)."
-                        },
+                    },
                         "color_set": {
                             "type": "array",
                             "items": {
@@ -208,20 +98,11 @@
                                     "purple",
                                     "orange"
                                 ],
-                                "description": "Colors used in the task (3\u20136 basic colors)."
                             },
                             "minItems": 3,
                             "maxItems": 6,
-                            "description": "Standard color set for the task."
                         }
                     },
-                    "required": [
-                        "congruent_stimuli",
-                        "incongruent_stimuli",
-                        "neutral_stimuli",
-                        "color_set"
-                    ]
-                }
             },
             "required": [
                 "task_variant",
@@ -232,7 +113,6 @@
         },
         "experimental_settings": {
             "type": "object",
-            "description": "Experimental parameters and timing.",
             "properties": {
                 "stimulus_duration": {
                     "type": "number",
@@ -370,26 +250,11 @@
                 "error_rates": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
+                        "items": {
                             "type": "number",
                             "minimum": 0,
                             "maximum": 1,
-                            "description": "Error rate for congruent trials (0\u20131)."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "description": "Error rate for incongruent trials (0\u20131)."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "description": "Error rate for neutral trials (0\u20131)."
-                        }
                     },
-                    "description": "Error rates by condition."
                 },
                 "interference_score": {
                     "type": "number",
@@ -397,7 +262,6 @@
                 },
                 "accuracy_adjusted_rt": {
                     "type": "boolean",
-                    "description": "Flag indicating whether accuracy-adjusted RT is computed."
                 }
             },
             "required": [
@@ -408,7 +272,6 @@
         },
         "neuroimaging": {
             "type": "object",
-            "description": "Neuroimaging extensions for the Stroop task.",
             "properties": {
                 "implementation": {
                     "type": "string",
@@ -416,7 +279,6 @@
                         "EEG",
                         "fMRI"
                     ],
-                    "description": "Type of neuroimaging modality (EEG or fMRI)."
                 },
                 "setup": {
                     "type": "object",
@@ -429,8 +291,7 @@
                                     "properties": {
                                         "channels": {
                                             "type": "integer",
-                                            "minimum": 32,
-                                            "description": "Number of EEG channels (e.g., 32\u2013128)."
+                                            "minimum": 32
                                         },
                                         "sampling_rate": {
                                             "type": "number",
@@ -448,7 +309,6 @@
                                                 "linked_mastoids",
                                                 "average_reference"
                                             ],
-                                            "description": "Reference method for EEG signals."
                                         }
                                     },
                                     "required": [
@@ -463,7 +323,6 @@
                                     "properties": {
                                         "scanner": {
                                             "type": "string",
-                                            "description": "MRI scanner type (e.g., '3T')."
                                         },
                                         "TR": {
                                             "type": "number",
@@ -525,8 +384,9 @@
                         },
                         "event_markers": {
                             "type": "object",
-                            "properties": {
-                                "EEG": {
+                            {
+                            "$defs": {
+                                "eventMarkers": {
                                     "type": "array",
                                     "items": {
                                         "type": "string",
@@ -537,22 +397,18 @@
                                         ],
                                         "description": "Event type (e.g., stimulus onset, response onset)."
                                     },
-                                    "description": "Event markers for EEG data."
-                                },
-                                "fMRI": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string",
-                                        "enum": [
-                                            "stimulus_onset",
-                                            "response_onset",
-                                            "accuracy"
-                                        ],
-                                        "description": "Event type (e.g., stimulus onset, response onset)."
-                                    },
-                                    "description": "Event markers for fMRI data."
+                                    "description": "Event markers for neuroimaging data."
                                 }
                             },
+                            "properties": {
+                                "EEG": {
+                                    "$ref": "#/$defs/eventMarkers"
+                                },
+                                "fMRI": {
+                                    "$ref": "#/$defs/eventMarkers"
+                                }
+                            }
+                        }
                             "oneOf": [
                                 {
                                     "required": [
