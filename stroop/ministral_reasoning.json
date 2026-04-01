@@ -7,14 +7,12 @@
                 "type": "object",
                 "properties": {
                     "sample_size": {
-                        "description": "Number of participants in the study (20\u2013200+).",
                         "type": "integer",
                         "minimum": 20,
                         "maximum": 200,
                         "default": 50
                     },
                     "age_range": {
-                        "description": "Age range of participants (typically 18\u201365).",
                         "type": "array",
                         "items": {
                             "type": "integer",
@@ -26,32 +24,16 @@
                             65
                         ]
                     },
-                    "gender": {
-                        "description": "Gender of participants (optional).",
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "enum": [
-                                "male",
-                                "female",
-                                "non-binary",
-                                "other"
-                            ]
-                        }
-                    },
                     "language_proficiency": {
-                        "description": "Language proficiency of participants (e.g., native, fluent, limited).",
                         "type": "string",
                         "default": "native"
                     }
                 }
             },
             "stimuli": {
-                "description": "Stimuli used in the Stroop task.",
                 "type": "object",
                 "properties": {
                     "stimulus_type": {
-                        "description": "Type of stimuli (congruent, incongruent, neutral).",
                         "type": "array",
                         "items": {
                             "type": "string",
@@ -97,7 +79,6 @@
                         ]
                     },
                     "words": {
-                        "description": "Words used for congruent/incongruent stimuli (e.g.,'red', 'blue').",
                         "type": "array",
                         "items": {
                             "type": "string"
@@ -124,11 +105,9 @@
                 }
             },
             "task_instructions": {
-                "description": "Instructions given to participants.",
                 "type": "object",
                 "properties": {
                     "response_type": {
-                        "description": "Type of response (verbal or manual).",
                         "type": "string",
                         "enum": [
                             "verbal",
@@ -136,16 +115,13 @@
                         ]
                     },
                     "response_mapping": {
-                        "description": "Mapping of response to stimuli (e.g., color to key).",
                         "type": "object",
                         "properties": {
                             "verbal": {
-                                "description": "Voice key or microphone for verbal responses.",
-                                "type": "string"
+                                "description": "Voice key or microphone for verbal responses."
                             },
                             "manual": {
-                                "description": "Keyboard or response pad for manual responses.",
-                                "type": "string"
+                                "description": "Keyboard or response pad for manual responses."
                             }
                         }
                     },
