@@ -2,19 +2,16 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://example.com/schemas/stroop-task-process",
     "title": "Stroop Task Process Schema",
-    "description": "A comprehensive JSON schema representing the structure, parameters, and outputs of a Stroop task experiment used to measure cognitive control, selective attention, and response inhibition.",
     "type": "object",
     "properties": {
         "task_type": {
             "type": "string",
-            "description": "The specific variant of the Stroop task (e.g., standard, emotional, numerical, spatial, bilingual, clinical).",
             "enum": [
                 "standard",
                 "emotional",
                 "numerical",
                 "spatial",
-                "bilingual",
-                "clinical"
+                "bilingual"
             ],
             "default": "standard"
         },
@@ -24,9 +21,10 @@
                 "age_range": {
                     "type": "array",
                     "items": {
-                        "type": "number"
+                        "type": "number", 
+                        "minimum": 18, 
+                        "maximum": 65,
                     },
-                    "description": "Age range of participants in years (e.g., [18, 65]).",
                     "minItems": 2,
                     "maxItems": 2
                 },
@@ -34,11 +32,9 @@
                     "type": "integer",
                     "minimum": 20,
                     "maximum": 200,
-                    "description": "Total number of participants in the study (typically 20\u2013200+)."
-                },
+                    },
                 "population": {
                     "type": "string",
-                    "description": "Target population (e.g., adults, children, clinical groups like ADHD or depression).",
                     "enum": [
                         "adults",
                         "children",
@@ -54,63 +50,14 @@
                 "age_range",
                 "sample_size",
                 "population"
-            ],
-            "description": "Demographic and sample characteristics of the participant group."
+            ]
         },
         "stimuli": {
             "type": "object",
             "properties": {
                 "conditions": {
                     "type": "object",
-                    "properties": {
-                        "congruent": {
-                            "type": "object",
-                            "properties": {
-                                "description": {
-                                    "type": "string",
-                                    "description": "Description of congruent stimuli (e.g., 'RED' in red ink)."
-                                },
-                                "example": {
-                                    "type": "string",
-                                    "description": "Example stimulus string (e.g., 'RED')."
-                                }
-                            },
-                            "required": [
-                                "description"
-                            ]
-                        },
-                        "incongruent": {
-                            "type": "object",
-                            "properties": {
-                                "description": {
-                                    "type": "string",
-                                    "description": "Description of incongruent stimuli (e.g., 'RED' in blue ink)."
-                                },
-                                "example": {
-                                    "type": "string",
-                                    "description": "Example stimulus string (e.g., 'RED')."
-                                }
-                            },
-                            "required": [
-                                "description"
-                            ]
-                        },
-                        "neutral": {
-                            "type": "object",
-                            "properties": {
-                                "description": {
-                                    "type": "string",
-                                    "description": "Description of neutral stimuli (e.g., 'XXXX' in green ink)."
-                                },
-                                "example": {
-                                    "type": "string",
-                                    "description": "Example stimulus string (e.g., 'XXXX')."
-                                }
-                            },
-                            "required": [
-                                "description"
-                            ]
-                        }
+                    "enum": ["congruent", "incongruent", "neutral"]
                     },
                     "required": [
                         "congruent",
@@ -123,7 +70,6 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "List of basic colors used in stimuli (commonly 3\u20136 colors).",
                     "default": [
                         "red",
                         "blue",
@@ -144,7 +90,6 @@
             "properties": {
                 "response_mapping": {
                     "type": "string",
-                    "description": "The primary response instruction (e.g., 'Name the ink color' or 'Read the word').",
                     "enum": [
                         "name_color",
                         "read_word"
@@ -152,7 +97,6 @@
                 },
                 "response_modality": {
                     "type": "string",
-                    "description": "How participants respond (e.g., verbal, manual keypress).",
                     "enum": [
                         "verbal",
                         "manual_keypress"
@@ -171,26 +115,24 @@
                     "type": "integer",
                     "minimum": 500,
                     "maximum": 2000,
-                    "description": "Duration of each stimulus presentation in milliseconds (ms), typically until response.",
+                    "enum": ["type": "ms"], 
                     "default": 1000
                 },
                 "inter_trial_interval": {
                     "type": "integer",
                     "minimum": 500,
                     "maximum": 1500,
-                    "description": "Time between trials in milliseconds (ms).",
+                    "enum": ["type": "ms"], 
                     "default": 1000
                 },
                 "trials_per_condition": {
                     "type": "integer",
                     "minimum": 20,
                     "maximum": 100,
-                    "description": "Number of trials per condition (e.g., congruent, incongruent).",
                     "default": 30
                 },
                 "stimulus_order": {
                     "type": "string",
-                    "description": "Ordering of stimuli (e.g., randomized, counterbalanced).",
                     "enum": [
                         "randomized",
                         "counterbalanced"
@@ -199,7 +141,10 @@
                 },
                 "environment": {
                     "type": "string",
-                    "description": "Environmental conditions (e.g., controlled lighting, minimal distraction).",
+                    "enum":[
+                        "controlled lighting",
+                        "minimal distraction"
+                    ], 
                     "default": "controlled_lighting"
                 }
             },
@@ -215,7 +160,6 @@
             "properties": {
                 "software": {
                     "type": "string",
-                    "description": "Experimental software used (e.g., PsychoPy, E-Prime, MATLAB Psychtoolbox).",
                     "enum": [
                         "PsychoPy",
                         "E-Prime",
@@ -224,7 +168,6 @@
                 },
                 "response_device": {
                     "type": "string",
-                    "description": "Device used for response (e.g., keyboard, response pad, voice key).",
                     "enum": [
                         "keyboard",
                         "response_pad",
@@ -236,13 +179,12 @@
                     "properties": {
                         "luminance": {
                             "type": "number",
-                            "description": "Display luminance in candelas per square meter (cd/m\u00b2).",
+                            "enum":["type": "candelas per square meter (cd/m\u00b2)"],
                             "minimum": 0,
                             "maximum": 1000
                         },
                         "contrast": {
                             "type": "number",
-                            "description": "Display contrast ratio (e.g., 10:1).",
                             "minimum": 1,
                             "maximum": 100
                         }
@@ -254,7 +196,6 @@
                 },
                 "reaction_time_precision": {
                     "type": "string",
-                    "description": "Precision of reaction time measurement (e.g., millisecond resolution).",
                     "default": "millisecond"
                 }
             },
@@ -271,18 +212,8 @@
                 "reaction_time_ms": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "description": "Average reaction time in milliseconds (ms) for congruent trials."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Average reaction time in milliseconds (ms) for incongruent trials."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Average reaction time in milliseconds (ms) for neutral trials."
-                        }
+                        "type": "number",
+                        "enum": ["type": "ms"]
                     },
                     "required": [
                         "congruent",
@@ -293,16 +224,15 @@
                 "error_rate": {
                     "type": "number",
                     "minimum": 0,
-                    "maximum": 100,
-                    "description": "Percentage of incorrect responses (e.g., 5% error rate)."
+                    "maximum": 100
                 },
                 "interference_score": {
                     "type": "number",
-                    "description": "Interference score calculated as RT(incongruent) \u2013 RT(congruent) in milliseconds (ms)."
+                    "enum": ["type": "ms"],
+                    "description": "Interference score calculated as RT(incongruent) \u2013 RT(congruent)"
                 },
                 "accuracy_adjusted_rt": {
-                    "type": "number",
-                    "description": "Optional composite metric adjusting RT for accuracy (e.g., weighted RT)."
+                    "type": "number"
                 }
             },
             "required": [
@@ -315,16 +245,13 @@
             "type": "object",
             "properties": {
                 "expected_interference": {
-                    "type": "boolean",
-                    "description": "Whether incongruent trials are expected to produce significantly longer reaction times."
+                    "type": "boolean"
                 },
                 "expected_error_rate": {
-                    "type": "boolean",
-                    "description": "Whether error rates are expected to increase in incongruent conditions."
+                    "type": "boolean"
                 },
                 "robustness": {
                     "type": "string",
-                    "description": "Robustness of the interference effect across age groups and cultures.",
                     "enum": [
                         "robust",
                         "moderate",
@@ -342,8 +269,7 @@
             "type": "object",
             "properties": {
                 "test_retest_reliability": {
-                    "type": "string",
-                    "description": "Reliability of the task across repeated administrations (e.g., moderate-to-high).",
+                    "type": "string"
                     "enum": [
                         "moderate",
                         "high",
@@ -353,7 +279,6 @@
                 },
                 "individual_difference_reliability": {
                     "type": "string",
-                    "description": "Reliability of individual-level differences, which depends on trial count.",
                     "enum": [
                         "low",
                         "moderate",
@@ -392,7 +317,6 @@
                     "properties": {
                         "method": {
                             "type": "string",
-                            "description": "Method for excluding outliers (e.g., \u00b12 SD, <200 ms, >3000 ms).",
                             "enum": [
                                 "two_sd",
                                 "below_200_ms",
@@ -402,12 +326,10 @@
                     }
                 },
                 "incorrect_trial_exclusion": {
-                    "type": "boolean",
-                    "description": "Whether incorrect-response trials are removed from RT analysis."
+                    "type": "boolean"
                 },
                 "analysis_method": {
                     "type": "string",
-                    "description": "Statistical method used (e.g., within-subject ANOVA, mixed-effects modeling).",
                     "enum": [
                         "within_subject_ANOVA",
                         "mixed_effects_modeling"
@@ -425,7 +347,6 @@
             "properties": {
                 "construct_validity": {
                     "type": "string",
-                    "description": "Strength of construct validity for interference control.",
                     "enum": [
                         "strong",
                         "moderate",
@@ -435,7 +356,6 @@
                 },
                 "sensitivity": {
                     "type": "string",
-                    "description": "Sensitivity to frontal lobe dysfunction.",
                     "enum": [
                         "high",
                         "moderate",
@@ -448,7 +368,6 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Factors that may influence results (e.g., reading proficiency, language familiarity).",
                     "default": [
                         "reading_proficiency",
                         "language_familiarity"
@@ -471,38 +390,34 @@
                             "type": "integer",
                             "minimum": 32,
                             "maximum": 128,
-                            "description": "Number of EEG channels (e.g., 32\u2013128)."
                         },
                         "sampling_rate": {
                             "type": "integer",
                             "minimum": 500,
                             "maximum": 1000,
-                            "description": "EEG sampling rate in Hz (\u2265500 Hz)."
+                            "enum": ["type": "Hz"]
                         },
                         "impedance": {
                             "type": "number",
                             "minimum": 0,
                             "maximum": 10000,
-                            "description": "Electrode impedance in ohms (\u03a9), typically <5\u201310 k\u03a9."
+                            "enum": ["type": "ohms"]
                         },
                         "reference": {
                             "type": "string",
-                            "description": "EEG reference type (e.g., linked mastoids, average reference).",
                             "enum": [
                                 "linked_mastoids",
                                 "average_reference"
                             ]
                         },
                         "eog_channels": {
-                            "type": "boolean",
-                            "description": "Whether EOG channels are used for blink correction."
+                            "type": "boolean"
                         },
                         "event_markers": {
                             "type": "array",
                             "items": {
                                 "type": "string"
                             },
-                            "description": "Event markers recorded (e.g., stimulus onset, response onset, accuracy).",
                             "default": [
                                 "stimulus_onset",
                                 "response_onset",
@@ -517,12 +432,10 @@
                                     "properties": {
                                         "latency": {
                                             "type": "string",
-                                            "description": "Latency range of N200 component (~200\u2013350 ms).",
                                             "default": "200-350 ms"
                                         },
                                         "amplitude": {
-                                            "type": "string",
-                                            "description": "Amplitude interpretation (e.g., conflict detection)."
+                                            "type": "string"
                                         }
                                     }
                                 },
@@ -531,12 +444,10 @@
                                     "properties": {
                                         "latency": {
                                             "type": "string",
-                                            "description": "Latency range of N450 component (~350\u2013500 ms).",
                                             "default": "350-500 ms"
                                         },
                                         "amplitude": {
-                                            "type": "string",
-                                            "description": "Amplitude interpretation (e.g., conflict processing)."
+                                            "type": "string"
                                         }
                                     }
                                 },
@@ -545,12 +456,10 @@
                                     "properties": {
                                         "latency": {
                                             "type": "string",
-                                            "description": "Latency range of P300 component (~300\u2013600 ms).",
                                             "default": "300-600 ms"
                                         },
                                         "amplitude": {
-                                            "type": "string",
-                                            "description": "Amplitude interpretation (e.g., attention allocation)."
+                                            "type": "string"
                                         }
                                     }
                                 },
@@ -559,12 +468,10 @@
                                     "properties": {
                                         "latency": {
                                             "type": "string",
-                                            "description": "Latency range of Late Positive Component (>500 ms).",
                                             "default": ">500 ms"
                                         },
                                         "amplitude": {
-                                            "type": "string",
-                                            "description": "Amplitude interpretation (e.g., control resolution)."
+                                            "type": "string"
                                         }
                                     }
                                 }
@@ -586,29 +493,27 @@
                     "properties": {
                         "scanner": {
                             "type": "string",
-                            "description": "Scanner model (e.g., 3T MRI).",
                             "default": "3T"
                         },
                         "tr": {
                             "type": "integer",
                             "minimum": 2000,
                             "maximum": 2500,
-                            "description": "Repetition time in milliseconds (ms)."
+                            "enum": ["type": "ms"]
                         },
                         "te": {
                             "type": "integer",
                             "minimum": 30,
                             "maximum": 100,
-                            "description": "Echo time in milliseconds (ms)."
+                            "enum": ["type": "ms"]
                         },
                         "voxel_size": {
                             "type": "string",
-                            "description": "Voxel size in mm (e.g., 2\u20133 mm isotropic).",
+                            "enum": ["type": "mm"],
                             "default": "2-3 mm"
                         },
                         "design": {
                             "type": "string",
-                            "description": "Design type (e.g., event-related, block design).",
                             "enum": [
                                 "event_related",
                                 "block_design"
@@ -620,7 +525,6 @@
                             "items": {
                                 "type": "string"
                             },
-                            "description": "Brain regions showing increased activation in incongruent vs. congruent conditions.",
                             "default": [
                                 "anterior_cingulate_cortex",
                                 "dorsolateral_prefrontal_cortex",
@@ -631,7 +535,6 @@
                         },
                         "expected_contrast": {
                             "type": "string",
-                            "description": "Expected activation contrast (e.g., incongruent > congruent).",
                             "default": "incongruent > congruent"
                         }
                     },
@@ -650,7 +553,6 @@
                     "properties": {
                         "functional_connectivity": {
                             "type": "string",
-                            "description": "Type of connectivity analysis (e.g., PPI, fronto-parietal network).",
                             "enum": [
                                 "PPI",
                                 "fronto_parietal_network",
@@ -663,7 +565,6 @@
                             "items": {
                                 "type": "string"
                             },
-                            "description": "Derived measures linking behavioral and neural data.",
                             "default": [
                                 "interference_score_vs_ACC_activation",
                                 "N450_amplitude_vs_RT_slowing",
@@ -673,7 +574,6 @@
                         },
                         "neurocomputational_model": {
                             "type": "string",
-                            "description": "Model used to simulate conflict dynamics (e.g., drift diffusion, Botvinick framework).",
                             "enum": [
                                 "drift_diffusion_modeling",
                                 "botvinick_framework"
@@ -684,7 +584,6 @@
                             "items": {
                                 "type": "string"
                             },
-                            "description": "Key variables in the neurocomputational model.",
                             "default": [
                                 "drift_rate",
                                 "decision_threshold",
@@ -712,7 +611,6 @@
             "items": {
                 "type": "string"
             },
-            "description": "Clinical populations or conditions where Stroop task is applied.",
             "default": [
                 "ADHD",
                 "depression",
