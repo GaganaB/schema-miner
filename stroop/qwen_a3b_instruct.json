@@ -1,7 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "StroopTaskProcess",
-    "description": "A comprehensive JSON schema representing the structure, parameters, and outputs of a Stroop task experiment, including behavioral, neuroimaging, and computational modeling components.",
     "type": "object",
     "properties": {
         "taskType": {
@@ -30,7 +29,6 @@
                         ]
                     },
                     "minItems": 1,
-                    "description": "List of stimulus types used in the task. Congruent: word matches ink color; Incongruent: word mismatches ink color; Neutral: non-color word or symbol in colored ink."
                 },
                 "colorSet": {
                     "type": "array",
@@ -47,32 +45,15 @@
                     },
                     "minItems": 3,
                     "maxItems": 6,
-                    "description": "Set of basic colors used in the task. Typically 3\u20136 colors, commonly red, blue, green, yellow."
                 },
                 "wordContent": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "array",
-                            "items": {
+                        "type": "array",
+                        "enum": ["congruent", "incongruent", "neutral"],
+                        "items": {
                                 "type": "string"
                             },
-                            "description": "List of color words that match their ink color (e.g., 'RED' in red ink)."
-                        },
-                        "incongruent": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "description": "List of color words that do not match their ink color (e.g., 'RED' in blue ink)."
-                        },
-                        "neutral": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "description": "List of non-color words or symbols used as neutral stimuli (e.g., 'XXXX')."
-                        }
                     },
                     "required": [
                         "congruent",
@@ -85,28 +66,24 @@
                     "minimum": 500,
                     "maximum": 2000,
                     "unit": "milliseconds",
-                    "description": "Duration of each stimulus presentation in milliseconds. Often presented until response is made."
-                },
+                   },
                 "interTrialInterval": {
                     "type": "number",
                     "minimum": 500,
                     "maximum": 1500,
                     "unit": "milliseconds",
-                    "description": "Time between the offset of one trial and the onset of the next trial."
                 },
                 "trialCountPerCondition": {
                     "type": "integer",
                     "minimum": 20,
                     "maximum": 100,
-                    "description": "Number of trials per stimulus condition (congruent, incongruent, neutral). Typically 20\u2013100+."
-                },
+               },
                 "stimulusOrder": {
                     "type": "string",
                     "enum": [
                         "randomized",
                         "counterbalanced"
-                    ],
-                    "description": "Order in which stimuli are presented across trials. Randomization reduces order effects; counterbalancing ensures equal exposure across conditions."
+                    ]
                 }
             },
             "required": [
@@ -125,10 +102,9 @@
                 "responseMapping": {
                     "type": "string",
                     "enum": [
-                        "Name ink color (ignore word)",
-                        "Read word (ignore ink color)"
+                        "ink color",
+                        "word"
                     ],
-                    "description": "The primary instruction given to participants. Most common is naming ink color while ignoring word meaning."
                 },
                 "responseModality": {
                     "type": "string",
@@ -136,36 +112,12 @@
                         "verbal",
                         "manual"
                     ],
-                    "description": "How participants provide their response. Verbal: spoken response recorded via voice key; Manual: keypress mapped to colors."
                 },
                 "responseKeyMapping": {
                     "type": "object",
-                    "description": "Mapping of response keys to colors (if manual response). Only applicable when responseModality is 'manual'.",
                     "properties": {
-                        "red": {
-                            "type": "string",
-                            "description": "Key assigned to red ink."
-                        },
-                        "blue": {
-                            "type": "string",
-                            "description": "Key assigned to blue ink."
-                        },
-                        "green": {
-                            "type": "string",
-                            "description": "Key assigned to green ink."
-                        },
-                        "yellow": {
-                            "type": "string",
-                            "description": "Key assigned to yellow ink."
-                        },
-                        "black": {
-                            "type": "string",
-                            "description": "Key assigned to black ink."
-                        },
-                        "white": {
-                            "type": "string",
-                            "description": "Key assigned to white ink."
-                        }
+                        "type": "string",
+                        "enum": ["red", "blue", "green", "yellow", "black", "white"],
                     },
                     "additionalProperties": false
                 }
@@ -188,7 +140,6 @@
                                 "dim",
                                 "standard"
                             ],
-                            "description": "Lighting conditions during the experiment to minimize distraction."
                         },
                         "distractionLevel": {
                             "type": "string",
@@ -197,7 +148,6 @@
                                 "none",
                                 "low"
                             ],
-                            "description": "Level of environmental distractions allowed during testing."
                         }
                     },
                     "required": [
@@ -211,19 +161,16 @@
                         "luminance": {
                             "type": "number",
                             "minimum": 0,
-                            "unit": "cd/m\u00b2",
-                            "description": "Calibrated luminance of the display screen."
+                            "unit": "cd/m\u00b2"
                         },
                         "contrast": {
                             "type": "number",
                             "minimum": 0,
                             "maximum": 1,
-                            "unit": "ratio",
-                            "description": "Contrast ratio of the display (e.g., 0.8 means 80% contrast)."
+                            "unit": "ratio"
                         },
                         "resolution": {
-                            "type": "string",
-                            "description": "Screen resolution (e.g., '1920x1080')."
+                            "type": "string"
                         }
                     },
                     "required": [
@@ -251,8 +198,7 @@
                         "Presentation",
                         "Custom"
                     ],
-                    "description": "Experimental software used to present stimuli and record responses."
-                },
+                 },
                 "responseDevice": {
                     "type": "string",
                     "enum": [
@@ -261,20 +207,17 @@
                         "touchscreen",
                         "custom"
                     ],
-                    "description": "Physical device used for participant responses."
                 },
                 "voiceKey": {
                     "type": "object",
                     "properties": {
                         "microphone": {
                             "type": "string",
-                            "description": "Model or type of microphone used for voice recording."
                         },
                         "samplingRate": {
                             "type": "integer",
                             "minimum": 16000,
-                            "unit": "Hz",
-                            "description": "Sampling rate of the audio recording system."
+                            "unit": "Hz"
                         }
                     },
                     "required": [
@@ -288,7 +231,6 @@
                         "millisecond",
                         "microsecond"
                     ],
-                    "description": "Precision of reaction time measurement. Millisecond resolution is standard."
                 }
             },
             "required": [
@@ -308,7 +250,6 @@
                         "properties": {
                             "trialId": {
                                 "type": "integer",
-                                "description": "Unique identifier for the trial."
                             },
                             "condition": {
                                 "type": "string",
@@ -321,16 +262,13 @@
                             "rtMs": {
                                 "type": "number",
                                 "minimum": 0,
-                                "unit": "milliseconds",
-                                "description": "Reaction time in milliseconds."
+                                "unit": "milliseconds"
                             },
                             "accuracy": {
-                                "type": "boolean",
-                                "description": "Whether the response was correct."
+                                "type": "boolean"
                             },
                             "responseKey": {
-                                "type": "string",
-                                "description": "Key pressed or word spoken."
+                                "type": "string"
                             }
                         },
                         "required": [
@@ -341,7 +279,6 @@
                             "responseKey"
                         ]
                     },
-                    "description": "List of all reaction times and accuracy outcomes per trial."
                 },
                 "interferenceScore": {
                     "type": "number",
@@ -352,27 +289,11 @@
                 "errorRate": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 100,
-                            "unit": "%",
-                            "description": "Percentage of incorrect responses in congruent trials."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 100,
-                            "unit": "%",
-                            "description": "Percentage of incorrect responses in incongruent trials."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 100,
-                            "unit": "%",
-                            "description": "Percentage of incorrect responses in neutral trials."
-                        }
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100,
+                        "unit": "%", 
+                        "enum": ["congruent", "incongruent", "neutral"]
                     },
                     "required": [
                         "congruent",
@@ -383,8 +304,7 @@
                 "accuracyAdjustedRT": {
                     "type": "number",
                     "minimum": 0,
-                    "unit": "milliseconds",
-                    "description": "Optional composite metric combining RT and accuracy (e.g., inverse accuracy RT)."
+                    "unit": "milliseconds"
                 }
             },
             "required": [
@@ -403,7 +323,6 @@
                         "incongruent < congruent",
                         "no difference"
                     ],
-                    "description": "Expected pattern of reaction times across conditions. Incongruent trials should have longer RTs."
                 },
                 "errorPattern": {
                     "type": "string",
@@ -412,11 +331,9 @@
                         "incongruent < congruent",
                         "no difference"
                     ],
-                    "description": "Expected pattern of error rates. Incongruent trials typically have higher error rates."
                 },
                 "robustness": {
-                    "type": "boolean",
-                    "description": "Whether the interference effect is expected to be robust across age groups and cultures."
+                    "type": "boolean"
                 }
             },
             "required": [
@@ -428,23 +345,13 @@
         "reliability": {
             "type": "object",
             "properties": {
-                "testRetestReliability": {
-                    "type": "string",
-                    "enum": [
+                "type": "string",
+                "enum": [
                         "low",
                         "moderate",
                         "high"
                     ],
-                    "description": "Reliability of the task across repeated administrations. Varies by scoring method."
-                },
-                "individualDifferenceReliability": {
-                    "type": "string",
-                    "enum": [
-                        "low",
-                        "moderate",
-                        "high"
-                    ],
-                    "description": "Reliability of individual differences in performance. Depends on number of trials."
+                "enum": ["testRetestReliability", "individualDifferenceReliability"]                    
                 }
             },
             "required": [
@@ -464,7 +371,6 @@
                     "Conflict monitoring"
                 ]
             },
-            "description": "Cognitive constructs measured by the Stroop task."
         },
         "dataAnalysis": {
             "type": "object",
@@ -478,21 +384,14 @@
                                 "\u00b12SD",
                                 "200ms-3000ms"
                             ],
-                            "description": "Method used to exclude reaction time outliers."
                         },
                         "threshold": {
                             "type": "object",
                             "properties": {
-                                "min": {
-                                    "type": "number",
-                                    "minimum": 0,
-                                    "unit": "milliseconds"
-                                },
-                                "max": {
-                                    "type": "number",
-                                    "minimum": 0,
-                                    "unit": "milliseconds"
-                                }
+                                "type": "number",
+                                "minimum": 0,
+                                "unit": "milliseconds"
+                                "enum": ["max", "min"]
                             },
                             "required": [
                                 "min",
@@ -506,8 +405,7 @@
                     ]
                 },
                 "incorrectTrialRemoval": {
-                    "type": "boolean",
-                    "description": "Whether incorrect-response trials are excluded from RT analysis."
+                    "type": "boolean"
                 },
                 "statisticalModel": {
                     "type": "string",
@@ -517,7 +415,6 @@
                         "linear regression",
                         "Bayesian models"
                     ],
-                    "description": "Primary statistical method used to analyze data."
                 }
             },
             "required": [
@@ -536,7 +433,6 @@
                         "moderate",
                         "weak"
                     ],
-                    "description": "Strength of evidence that the task measures interference control."
                 },
                 "sensitivityToDysfunction": {
                     "type": "array",
@@ -551,7 +447,6 @@
                             "language proficiency"
                         ]
                     },
-                    "description": "Clinical or demographic factors that influence Stroop performance."
                 }
             },
             "required": [
@@ -571,8 +466,7 @@
                                 "channels": {
                                     "type": "integer",
                                     "minimum": 32,
-                                    "maximum": 128,
-                                    "description": "Number of EEG channels (e.g., 32\u2013128)."
+                                    "maximum": 128
                                 },
                                 "system": {
                                     "type": "string",
@@ -580,21 +474,18 @@
                                         "10-20",
                                         "high-density"
                                     ],
-                                    "description": "Electrode placement system."
                                 },
                                 "samplingRate": {
                                     "type": "integer",
                                     "minimum": 500,
                                     "maximum": 1000,
-                                    "unit": "Hz",
-                                    "description": "EEG sampling frequency."
+                                    "unit": "Hz"
                                 },
                                 "impedance": {
                                     "type": "number",
                                     "minimum": 0,
                                     "maximum": 10000,
-                                    "unit": "k\u03a9",
-                                    "description": "Electrode impedance (target: <5\u201310 k\u03a9)."
+                                    "unit": "k\u03a9"
                                 },
                                 "reference": {
                                     "type": "string",
@@ -602,12 +493,10 @@
                                         "linked mastoids",
                                         "average reference"
                                     ],
-                                    "description": "Reference electrode configuration."
                                 },
                                 "eogChannels": {
                                     "type": "integer",
-                                    "minimum": 1,
-                                    "description": "Number of EOG channels used for blink correction."
+                                    "minimum": 1
                                 }
                             },
                             "required": [
@@ -629,7 +518,6 @@
                                     "accuracy coding"
                                 ]
                             },
-                            "description": "Types of event markers recorded during EEG acquisition."
                         },
                         "keyComponents": {
                             "type": "array",
@@ -648,14 +536,9 @@
                                     "latencyRange": {
                                         "type": "object",
                                         "properties": {
-                                            "min": {
-                                                "type": "number",
-                                                "unit": "milliseconds"
-                                            },
-                                            "max": {
-                                                "type": "number",
-                                                "unit": "milliseconds"
-                                            }
+                                            "type": "number",
+                                            "unit": "milliseconds"
+                                            "enum": ["min", "max"]
                                         },
                                         "required": [
                                             "min",
@@ -683,7 +566,6 @@
                                         "greater fronto-central activation",
                                         "increased theta power"
                                     ],
-                                    "description": "Expected neural differences between incongruent and congruent trials."
                                 }
                             },
                             "required": [
@@ -709,28 +591,25 @@
                                     "minimum": 1,
                                     "maximum": 7,
                                     "unit": "Tesla",
-                                    "description": "MRI scanner field strength (e.g., 3T)."
+                                    "enum": ["type": "3T"]
                                 },
                                 "tr": {
                                     "type": "number",
                                     "minimum": 2000,
                                     "maximum": 2500,
-                                    "unit": "milliseconds",
-                                    "description": "Repetition time (TR) for fMRI scans."
+                                    "unit": "milliseconds"
                                 },
                                 "te": {
                                     "type": "number",
                                     "minimum": 10,
                                     "maximum": 50,
-                                    "unit": "milliseconds",
-                                    "description": "Echo time (TE)."
+                                    "unit": "milliseconds"
                                 },
                                 "voxelSize": {
                                     "type": "number",
                                     "minimum": 1,
                                     "maximum": 5,
-                                    "unit": "mm",
-                                    "description": "Isotropic voxel size (e.g., 2\u20133 mm)."
+                                    "unit": "mm"
                                 },
                                 "coverage": {
                                     "type": "string",
@@ -738,7 +617,6 @@
                                         "whole-brain",
                                         "targeted"
                                     ],
-                                    "description": "Extent of brain coverage."
                                 }
                             },
                             "required": [
@@ -755,7 +633,6 @@
                                 "event-related",
                                 "block"
                             ],
-                            "description": "Experimental design used in fMRI. Event-related preferred for conflict separation."
                         },
                         "keyRegions": {
                             "type": "array",
@@ -787,7 +664,6 @@
                             "enum": [
                                 "incongruent > congruent"
                             ],
-                            "description": "Primary contrast used to identify brain activation related to conflict processing."
                         }
                     },
                     "required": [
@@ -810,7 +686,6 @@
                                     "fronto-parietal network engagement"
                                 ]
                             },
-                            "description": "Advanced fMRI connectivity analyses."
                         },
                         "EEG": {
                             "type": "array",
@@ -834,7 +709,6 @@
                                     "dynamic causal modeling"
                                 ]
                             },
-                            "description": "Methods for modeling directed influence between brain regions."
                         }
                     },
                     "required": [
@@ -854,7 +728,6 @@
                             "trial-by-trial conflict adaptation (Gratton effect)"
                         ]
                     },
-                    "description": "Common derived measures linking behavior and neural activity."
                 }
             },
             "required": [
@@ -874,7 +747,6 @@
                         "Conflict Monitoring Model (Botvinick)",
                         "Parallel Processing with Inhibition"
                     ],
-                    "description": "Computational model used to simulate Stroop performance."
                 },
                 "keyVariables": {
                     "type": "array",
@@ -887,7 +759,6 @@
                             "control gain modulation"
                         ]
                     },
-                    "description": "Core parameters in the model that influence response latency and accuracy."
                 },
                 "modelFit": {
                     "type": "object",
@@ -930,8 +801,7 @@
                     "aging research (executive control decline)"
                 ]
             },
-            "description": "Clinical populations or conditions where Stroop paradigms are used for assessment or research."
-        }
+      }
     },
     "required": [
         "taskType",
