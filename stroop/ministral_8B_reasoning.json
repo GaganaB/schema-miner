@@ -1,36 +1,38 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Stroop Task Process Schema",
-    "description": "A JSON schema representing the Stroop task process, including stimuli, experimental settings, outputs, and neuroimaging extensions.",
     "type": "object",
     "properties": {
         "experiment": {
             "type": "object",
-            "description": "Core properties of the Stroop task experiment.",
             "properties": {
                 "name": {
                     "type": "string",
-                    "description": "Name of the Stroop task variant (e.g., 'Standard', 'Emotional', 'Bilingual')."
+                    "enum": [
+                        "Standard", 
+                        "Emotional", 
+                        "Bilingual",
+                    ], 
                 },
                 "purpose": {
                     "type": "string",
-                    "description": "Primary research question or cognitive construct being measured (e.g., 'Selective attention', 'Executive control')."
+                     "enum": [
+                        "Selective attention", 
+                        "Executive Control"
+                    ],
                 },
                 "population": {
                     "type": "object",
-                    "description": "Characteristics of the participant sample.",
                     "properties": {
                         "age_range": {
                             "type": "object",
                             "properties": {
                                 "min": {
                                     "type": "number",
-                                    "description": "Minimum age of participants in years (default: 18).",
                                     "minimum": 0
                                 },
                                 "max": {
                                     "type": "number",
-                                    "description": "Maximum age of participants in years (default: 65).",
                                     "minimum": 0
                                 }
                             },
@@ -41,23 +43,24 @@
                         },
                         "size": {
                             "type": "integer",
-                            "description": "Number of participants in the study (default: 30).",
                             "minimum": 20,
-                            "maximum": 200
+                            "maximum": 200, 
+                            "default": 30
                         },
                         "clinical": {
                             "type": "boolean",
-                            "description": "Whether the study includes clinical populations (e.g., ADHD, depression)."
+                            "enum": [
+                                "ADHD", 
+                                "depression"
+                            ],
                         }
                     }
                 },
                 "task_instruction": {
                     "type": "object",
-                    "description": "Instructions and response modality for the task.",
                     "properties": {
                         "response_mode": {
                             "type": "string",
-                            "description": "How participants respond (e.g., 'Verbal', 'Manual').",
                             "enum": [
                                 "Verbal",
                                 "Manual"
@@ -65,15 +68,12 @@
                         },
                         "response_mapping": {
                             "type": "object",
-                            "description": "How responses are mapped to colors or words.",
                             "properties": {
                                 "standard": {
                                     "type": "boolean",
-                                    "description": "Whether participants name the ink color (most common)."
                                 },
                                 "reverse": {
                                     "type": "boolean",
-                                    "description": "Whether participants read the word (reverse Stroop)."
                                 }
                             }
                         }
@@ -81,11 +81,9 @@
                 },
                 "stimuli": {
                     "type": "object",
-                    "description": "Details about the stimuli used in the task.",
                     "properties": {
                         "color_set": {
                             "type": "array",
-                            "description": "List of colors used in the stimuli (e.g.,'red', 'blue', 'green').",
                             "items": {
                                 "type": "string",
                                 "enum": [
@@ -101,26 +99,9 @@
                             "maxItems": 6
                         },
                         "conditions": {
-                            "type": "object",
-                            "description": "Types of stimuli used in the experiment.",
-                            "properties": {
-                                "congruent": {
-                                    "type": "boolean",
-                                    "description": "Whether congruent stimuli (color word matches ink color) are included."
-                                },
-                                "incongruent": {
-                                    "type": "boolean",
-                                    "description": "Whether incongruent stimuli (color word does not match ink color) are included."
-                                },
-                                "neutral": {
-                                    "type": "boolean",
-                                    "description": "Whether neutral stimuli (non-color words or symbols) are included."
-                                },
-                                "emotional": {
-                                    "type": "boolean",
-                                    "description": "Whether emotionally valenced words are used (e.g., 'happy', 'angry')."
-                                }
-                            },
+                            "type": "string",
+                            "enum": ["congruent", "incongruent", "neutral", "emotional"],
+                        }, 
                             "default": {
                                 "congruent": true,
                                 "incongruent": true,
@@ -129,70 +110,46 @@
                             }
                         },
                         "trial_count": {
-                            "type": "object",
-                            "description": "Number of trials per condition.",
-                            "properties": {
-                                "congruent": {
-                                    "type": "integer",
-                                    "description": "Number of congruent trials (default: 20).",
-                                    "minimum": 20,
-                                    "maximum": 100
-                                },
-                                "incongruent": {
-                                    "type": "integer",
-                                    "description": "Number of incongruent trials (default: 20).",
-                                    "minimum": 20,
-                                    "maximum": 100
-                                },
-                                "neutral": {
-                                    "type": "integer",
-                                    "description": "Number of neutral trials (default: 20).",
-                                    "minimum": 20,
-                                    "maximum": 100
-                                }
-                            },
-                            "default": {
-                                "congruent": 20,
-                                "incongruent": 20,
-                                "neutral": 20
-                            }
-                        }
+                            "type": "integer",
+                            "enum": ["congruent", "incongruent", "neutral", "emotional"],
+                            "minimum": 20,
+                            "maximum": 100, 
+                                    "default": 20
+                        },
                     }
                 },
                 "timing": {
                     "type": "object",
-                    "description": "Temporal parameters of the experiment.",
                     "properties": {
                         "stimulus_duration": {
                             "type": "number",
-                            "description": "Duration of stimulus presentation in milliseconds (default: 1000).",
+                            "enum":{
+                                "type":"ms"
+                            }
                             "minimum": 500,
-                            "maximum": 2000
+                            "maximum": 2000, 
+                            "default": 1000
                         },
                         "inter_trial_interval": {
                             "type": "number",
-                            "description": "Interval between trials in milliseconds (default: 1000).",
+                            "enum":{
+                                "type":"ms"
+                            },
                             "minimum": 500,
-                            "maximum": 1500
+                            "maximum": 1500,
+                            "default": 1000,
                         },
                         "randomization": {
                             "type": "boolean",
-                            "description": "Whether trials are presented in randomized order."
+                            "default": "true"
                         }
                     },
-                    "default": {
-                        "stimulus_duration": 1000,
-                        "inter_trial_interval": 1000,
-                        "randomization": true
-                    }
                 },
                 "environment": {
                     "type": "object",
-                    "description": "Experimental environment settings.",
                     "properties": {
                         "lighting": {
                             "type": "string",
-                            "description": "Lighting conditions (e.g., 'Controlled', 'Dim').",
                             "enum": [
                                 "Controlled",
                                 "Dim"
@@ -200,7 +157,6 @@
                         },
                         "distraction_level": {
                             "type": "string",
-                            "description": "Level of environmental distraction (e.g., 'Minimal', 'Moderate').",
                             "enum": [
                                 "Minimal",
                                 "Moderate"
@@ -216,11 +172,9 @@
         },
         "apparatus": {
             "type": "object",
-            "description": "Hardware and software used to administer the Stroop task.",
             "properties": {
                 "software": {
                     "type": "string",
-                    "description": "Experimental software used (e.g., 'PsychoPy', 'E-Prime', 'MATLAB Psychtoolbox').",
                     "enum": [
                         "PsychoPy",
                         "E-Prime",
@@ -230,7 +184,6 @@
                 },
                 "response_device": {
                     "type": "string",
-                    "description": "Device used for participant responses (e.g., 'Keyboard', 'Response Pad', 'Voice Key').",
                     "enum": [
                         "Keyboard",
                         "Response Pad",
@@ -243,19 +196,16 @@
                     "properties": {
                         "luminance": {
                             "type": "number",
-                            "description": "Luminance of the display in candela per square meter (default: 100).",
                             "minimum": 50,
-                            "maximum": 200
+                            "maximum": 200, 
                         },
                         "contrast": {
                             "type": "number",
-                            "description": "Contrast ratio of the display (default: 1.0).",
                             "minimum": 0.1,
                             "maximum": 2.0
                         },
                         "resolution": {
-                            "type": "string",
-                            "description": "Display resolution (e.g., '1920x1080')."
+                            "type": "string"
                         }
                     },
                     "default": {
@@ -267,75 +217,36 @@
         },
         "outputs": {
             "type": "object",
-            "description": "Dependent variables and derived metrics from the Stroop task.",
             "properties": {
                 "behavioral": {
                     "type": "object",
-                    "description": "Behavioral data collected during the task.",
                     "properties": {
                         "reaction_time": {
                             "type": "object",
-                            "description": "Reaction times per condition in milliseconds.",
                             "properties": {
-                                "congruent": {
-                                    "type": "array",
-                                    "description": "Array of reaction times for congruent trials.",
-                                    "items": {
+                                "type": "array",
+                                "enum": ["congruent", "incongruent", "neutral", "emotional"],
+                                 "items": {
                                         "type": "number",
                                         "minimum": 200,
                                         "maximum": 3000
                                     }
-                                },
-                                "incongruent": {
-                                    "type": "array",
-                                    "description": "Array of reaction times for incongruent trials.",
-                                    "items": {
-                                        "type": "number",
-                                        "minimum": 200,
-                                        "maximum": 3000
-                                    }
-                                },
-                                "neutral": {
-                                    "type": "array",
-                                    "description": "Array of reaction times for neutral trials.",
-                                    "items": {
-                                        "type": "number",
-                                        "minimum": 200,
-                                        "maximum": 3000
-                                    }
-                                }
                             }
                         },
                         "error_rate": {
                             "type": "object",
-                            "description": "Error rates per condition as a percentage.",
                             "properties": {
-                                "congruent": {
-                                    "type": "number",
-                                    "description": "Error rate for congruent trials (default: 0).",
-                                    "minimum": 0,
-                                    "maximum": 100,
-                                    "default": 0
-                                },
-                                "incongruent": {
-                                    "type": "number",
-                                    "description": "Error rate for incongruent trials (default: 0).",
-                                    "minimum": 0,
-                                    "maximum": 100,
-                                    "default": 0
-                                },
-                                "neutral": {
-                                    "type": "number",
-                                    "description": "Error rate for neutral trials (default: 0).",
-                                    "minimum": 0,
-                                    "maximum": 100,
-                                    "default": 0
-                                }
+                                "enum": ["congruent", "incongruent", "neutral"],
+                                "items": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 100,
+                                        "default": 0,
+                                    }
                             }
                         },
                         "interference_score": {
                             "type": "number",
-                            "description": "Difference between incongruent and congruent reaction times (default: 0).",
                             "minimum": 0,
                             "default": 0
                         }
@@ -343,25 +254,22 @@
                 },
                 "data_analysis": {
                     "type": "object",
-                    "description": "Methods used to analyze the collected data.",
                     "properties": {
                         "outlier_removal": {
                             "type": "object",
-                            "description": "Criteria for removing outliers from reaction time data.",
                             "properties": {
                                 "rt_threshold": {
                                     "type": "object",
-                                    "description": "Reaction time thresholds for outlier removal.",
                                     "properties": {
                                         "min": {
                                             "type": "number",
-                                            "description": "Minimum reaction time in milliseconds (default: 200).",
+                                            "enum": ["type": "ms"],
                                             "minimum": 200,
                                             "default": 200
                                         },
                                         "max": {
                                             "type": "number",
-                                            "description": "Maximum reaction time in milliseconds (default: 3000).",
+                                            "enum": ["type": "ms"],
                                             "minimum": 200,
                                             "maximum": 3000,
                                             "default": 3000
@@ -370,7 +278,6 @@
                                 },
                                 "sd_threshold": {
                                     "type": "number",
-                                    "description": "Number of standard deviations from the mean to consider as an outlier (default: 2).",
                                     "minimum": 1,
                                     "maximum": 3,
                                     "default": 2
@@ -386,7 +293,6 @@
                         },
                         "analysis_method": {
                             "type": "string",
-                            "description": "Statistical method used to analyze the data (e.g., 'ANOVA', 'Mixed-effects modeling').",
                             "enum": [
                                 "ANOVA",
                                 "Mixed-effects modeling",
@@ -400,25 +306,21 @@
         },
         "neuroimaging": {
             "type": "object",
-            "description": "Neuroimaging extensions for the Stroop task, if applicable.",
             "properties": {
                 "eeg": {
                     "type": "object",
-                    "description": "EEG setup and parameters.",
                     "properties": {
                         "cap": {
                             "type": "object",
-                            "description": "EEG cap specifications.",
                             "properties": {
                                 "channels": {
                                     "type": "integer",
-                                    "description": "Number of EEG channels (default: 64).",
                                     "minimum": 32,
-                                    "maximum": 128
+                                    "maximum": 128, 
+                                    "default": 64
                                 },
                                 "system": {
                                     "type": "string",
-                                    "description": "EEG system used (e.g., '10-20', 'High-density').",
                                     "enum": [
                                         "10-20",
                                         "High-density"
@@ -431,13 +333,13 @@
                         },
                         "sampling_rate": {
                             "type": "number",
-                            "description": "EEG sampling rate in Hz (default: 500).",
+                            "enum": ["type": "Hz"]
                             "minimum": 500,
-                            "maximum": 1000
+                            "maximum": 1000, 
+                            "default": 500
                         },
                         "reference": {
                             "type": "string",
-                            "description": "EEG reference type (e.g., 'Linked mastoids', 'Average').",
                             "enum": [
                                 "Linked mastoids",
                                 "Average"
@@ -449,57 +351,42 @@
                         },
                         "event_markers": {
                             "type": "object",
-                            "description": "Event markers recorded during the experiment.",
                             "properties": {
                                 "stimulus_onset": {
                                     "type": "object",
-                                    "description": "Event markers for stimulus onset.",
                                     "properties": {
-                                        "congruent": {
-                                            "type": "string",
-                                            "description": "Marker code for congruent stimulus onset."
-                                        },
-                                        "incongruent": {
-                                            "type": "string",
-                                            "description": "Marker code for incongruent stimulus onset."
-                                        },
-                                        "neutral": {
-                                            "type": "string",
-                                            "description": "Marker code for neutral stimulus onset."
-                                        }
+                                        "type": "string",
+                                        "enum": ["congruent", "incongruent", "neutral"],
                                     }
                                 },
                                 "response_onset": {
                                     "type": "string",
-                                    "description": "Marker code for response onset."
                                 },
                                 "accuracy": {
                                     "type": "string",
-                                    "description": "Marker code for accuracy (correct/incorrect)."
+                                    "enum":[
+                                        "correct", 
+                                        "incorrect"
+                                    ],
                                 }
                             }
                         },
                         "components": {
                             "type": "object",
-                            "description": "Expected EEG components and their interpretations.",
                             "properties": {
                                 "n200": {
                                     "type": "object",
-                                    "description": "N200 component (conflict detection).",
                                     "properties": {
                                         "latency": {
                                             "type": "object",
-                                            "description": "Latency range of the N200 component in milliseconds.",
                                             "properties": {
                                                 "min": {
                                                     "type": "number",
-                                                    "description": "Minimum latency (default: 200).",
                                                     "minimum": 200,
                                                     "default": 200
                                                 },
                                                 "max": {
                                                     "type": "number",
-                                                    "description": "Maximum latency (default: 350).",
                                                     "minimum": 200,
                                                     "maximum": 350,
                                                     "default": 350
@@ -508,26 +395,23 @@
                                         },
                                         "amplitude": {
                                             "type": "number",
-                                            "description": "Amplitude of the N200 component in microvolts (\u03bcV)."
+                                            "enum":["type": "mV"]
                                         }
                                     }
                                 },
                                 "n450": {
                                     "type": "object",
-                                    "description": "N450 component (Stroop-specific conflict processing).",
                                     "properties": {
                                         "latency": {
                                             "type": "object",
                                             "properties": {
                                                 "min": {
                                                     "type": "number",
-                                                    "description": "Minimum latency (default: 350).",
                                                     "minimum": 350,
                                                     "default": 350
                                                 },
                                                 "max": {
                                                     "type": "number",
-                                                    "description": "Maximum latency (default: 500).",
                                                     "minimum": 350,
                                                     "maximum": 500,
                                                     "default": 500
@@ -536,7 +420,7 @@
                                         },
                                         "amplitude": {
                                             "type": "number",
-                                            "description": "Amplitude of the N450 component in microvolts (\u03bcV)."
+                                            "enum":["type": "mV"]
                                         }
                                     }
                                 },
@@ -549,13 +433,11 @@
                                             "properties": {
                                                 "min": {
                                                     "type": "number",
-                                                    "description": "Minimum latency (default: 300).",
                                                     "minimum": 300,
                                                     "default": 300
                                                 },
                                                 "max": {
                                                     "type": "number",
-                                                    "description": "Maximum latency (default: 600).",
                                                     "minimum": 300,
                                                     "maximum": 600,
                                                     "default": 600
@@ -564,7 +446,7 @@
                                         },
                                         "amplitude": {
                                             "type": "number",
-                                            "description": "Amplitude of the P300 component in microvolts (\u03bcV)."
+                                            "enum":["type": "mV"]
                                         }
                                     }
                                 },
@@ -577,7 +459,6 @@
                                             "properties": {
                                                 "min": {
                                                     "type": "number",
-                                                    "description": "Minimum latency (default: 500).",
                                                     "minimum": 500,
                                                     "default": 500
                                                 }
@@ -585,7 +466,7 @@
                                         },
                                         "amplitude": {
                                             "type": "number",
-                                            "description": "Amplitude of the LPC component in microvolts (\u03bcV)."
+                                            "enum":["type": "mV"]
                                         }
                                     }
                                 }
@@ -595,15 +476,12 @@
                 },
                 "fMRI": {
                     "type": "object",
-                    "description": "fMRI setup and parameters.",
                     "properties": {
                         "scanner": {
                             "type": "object",
-                            "description": "fMRI scanner specifications.",
                             "properties": {
                                 "model": {
                                     "type": "string",
-                                    "description": "Model of the MRI scanner (e.g., '3T', '7T').",
                                     "enum": [
                                         "3T",
                                         "7T"
@@ -611,37 +489,36 @@
                                 },
                                 "tr": {
                                     "type": "number",
-                                    "description": "Repetition time in milliseconds (default: 2000).",
+                                    "enum":["type": "ms"],
                                     "minimum": 2000,
-                                    "maximum": 2500
+                                    "maximum": 2500,
+                                    "default": 2000,
                                 },
                                 "te": {
                                     "type": "number",
-                                    "description": "Echo time in milliseconds (default: 30).",
+                                    "enum":["type": "ms"],
                                     "minimum": 10,
-                                    "maximum": 50
+                                    "maximum": 50,
+                                    "default": 30
                                 },
                                 "voxel_size": {
                                     "type": "object",
-                                    "description": "Voxel size in millimeters.",
+                                    "enum":["type": "mm"],
                                     "properties": {
                                         "x": {
                                             "type": "number",
-                                            "description": "Voxel size along the x-axis (default: 3).",
                                             "minimum": 2,
                                             "maximum": 3,
                                             "default": 3
                                         },
                                         "y": {
                                             "type": "number",
-                                            "description": "Voxel size along the y-axis (default: 3).",
                                             "minimum": 2,
                                             "maximum": 3,
                                             "default": 3
                                         },
                                         "z": {
                                             "type": "number",
-                                            "description": "Voxel size along the z-axis (default: 3).",
                                             "minimum": 2,
                                             "maximum": 3,
                                             "default": 3
@@ -649,19 +526,9 @@
                                     }
                                 }
                             },
-                            "default": {
-                                "tr": 2000,
-                                "te": 30,
-                                "voxel_size": {
-                                    "x": 3,
-                                    "y": 3,
-                                    "z": 3
-                                }
-                            }
                         },
                         "design": {
                             "type": "string",
-                            "description": "fMRI design type (e.g., 'Event-related', 'Block').",
                             "enum": [
                                 "Event-related",
                                 "Block"
@@ -669,7 +536,6 @@
                         },
                         "regions_of_interest": {
                             "type": "array",
-                            "description": "Brain regions of interest for analysis.",
                             "items": {
                                 "type": "string",
                                 "enum": [
@@ -682,8 +548,7 @@
                             }
                         },
                         "contrast": {
-                            "type": "string",
-                            "description": "Primary fMRI contrast (e.g., 'Incongruent > Congruent')."
+                            "type": "string"
                         }
                     }
                 }
@@ -691,7 +556,6 @@
         },
         "cognitive_constructs": {
             "type": "array",
-            "description": "Cognitive constructs being measured by the Stroop task.",
             "items": {
                 "type": "string",
                 "enum": [
@@ -708,7 +572,6 @@
         },
         "clinical_applications": {
             "type": "array",
-            "description": "Clinical populations or conditions being studied.",
             "items": {
                 "type": "string",
                 "enum": [
@@ -807,4 +670,3 @@
         }
     }
 }
-
