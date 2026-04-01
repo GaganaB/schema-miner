@@ -1,7 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "StroopTaskProcess",
-    "description": "Comprehensive schema for Stroop task processes capturing behavioral and neuroimaging implementations with precise units, constraints, and hierarchical relationships",
     "type": "object",
     "properties": {
         "task_type": {
@@ -10,7 +9,6 @@
                 "behavioral",
                 "neuroimaging"
             ],
-            "description": "Primary implementation type of the Stroop task (behavioral = standard reaction time measurement; neuroimaging = EEG/fMRI based neural correlates)"
         },
         "core_process": {
             "type": "object",
@@ -24,12 +22,10 @@
                                 "type": "object",
                                 "properties": {
                                     "word": {
-                                        "type": "string",
-                                        "description": "Color word matching ink color (e.g., 'RED')"
+                                        "type": "string"
                                     },
                                     "ink_color": {
-                                        "type": "string",
-                                        "description": "Color of ink matching word (e.g.,'red')"
+                                        "type": "string"
                                     }
                                 },
                                 "required": [
@@ -38,7 +34,6 @@
                                 ]
                             },
                             "minItems": 1,
-                            "description": "Array of congruent stimuli (word meaning matches ink color)"
                         },
                         "incongruent": {
                             "type": "array",
@@ -46,12 +41,10 @@
                                 "type": "object",
                                 "properties": {
                                     "word": {
-                                        "type": "string",
-                                        "description": "Color word that does NOT match ink color (e.g., 'RED')"
+                                        "type": "string"
                                     },
                                     "ink_color": {
-                                        "type": "string",
-                                        "description": "Color of ink that does NOT match word (e.g., 'blue')"
+                                        "type": "string"
                                     }
                                 },
                                 "required": [
@@ -60,7 +53,6 @@
                                 ]
                             },
                             "minItems": 1,
-                            "description": "Array of incongruent stimuli (word meaning conflicts with ink color)"
                         },
                         "neutral": {
                             "type": "array",
@@ -68,12 +60,10 @@
                                 "type": "object",
                                 "properties": {
                                     "symbol": {
-                                        "type": "string",
-                                        "description": "Non-color symbol (e.g., 'XXXX')"
+                                        "type": "string"
                                     },
                                     "ink_color": {
-                                        "type": "string",
-                                        "description": "Color of ink (e.g., 'green')"
+                                        "type": "string"
                                     }
                                 },
                                 "required": [
@@ -82,22 +72,18 @@
                                 ]
                             },
                             "minItems": 1,
-                            "description": "Array of neutral stimuli (non-color words/symbols in colored ink)"
                         }
                     },
-                    "description": "Stimulus configurations for different conditions (congruent, incongruent, neutral)"
                 },
                 "task_instruction": {
                     "type": "string",
-                    "description": "Primary response instruction (e.g., 'Name the ink color, ignoring the word meaning' or 'Read the word, ignoring ink color')"
-                },
+                 },
                 "response_modality": {
                     "type": "string",
                     "enum": [
                         "verbal",
                         "manual"
-                    ],
-                    "description": "Response method (verbal = voice key recording; manual = keyboard response)"
+                    ]
                 }
             },
             "required": [
@@ -114,19 +100,16 @@
                     "minimum": 500,
                     "maximum": 2000,
                     "unit": "ms",
-                    "description": "Duration each stimulus is displayed before response (500-2000 ms)"
                 },
                 "inter_trial_interval": {
                     "type": "number",
                     "minimum": 500,
                     "maximum": 1500,
                     "unit": "ms",
-                    "description": "Time between stimulus presentations (500-1500 ms)"
                 },
                 "trials_per_condition": {
                     "type": "integer",
-                    "minimum": 20,
-                    "description": "Number of trials per condition (20-100+)"
+                    "minimum": 20
                 },
                 "stimulus_order": {
                     "type": "string",
@@ -134,11 +117,10 @@
                         "randomized",
                         "counterbalanced"
                     ],
-                    "description": "Stimulus presentation order strategy"
                 },
                 "environment": {
                     "type": "string",
-                    "description": "Environmental controls (e.g., 'controlled lighting','minimal distraction')"
+                    "enum": ["controlled lighting", "minimal distraction"]
                 }
             },
             "required": [
@@ -153,33 +135,29 @@
             "properties": {
                 "software": {
                     "type": "string",
-                    "description": "Experimental software (e.g., 'PsychoPy', 'E-Prime', 'MATLAB Psychtoolbox')"
+                    "enum": ["PsychoPy", "E-Prime", "MATLAB Psychtoolbox"]
                 },
                 "response_device": {
                     "type": "string",
-                    "description": "Response input device (e.g., 'keyboard','response pad', 'voice key')"
+                    "enum": ["keyboard", "response pad", "voice key"]
                 },
                 "rt_precision": {
                     "type": "number",
                     "minimum": 0.001,
-                    "unit": "ms",
-                    "description": "Reaction time measurement precision (millisecond resolution)"
+                    "unit": "ms"
                 },
                 "display": {
                     "type": "object",
                     "properties": {
                         "luminance": {
                             "type": "number",
-                            "unit": "cd/m\u00b2",
-                            "description": "Display luminance (calibrated for consistency)"
+                            "unit": "cd/m\u00b2"
                         },
                         "contrast": {
                             "type": "number",
-                            "unit": "dimensionless",
-                            "description": "Display contrast ratio"
+                            "unit": "dimensionless"
                         }
                     },
-                    "description": "Display calibration parameters"
                 }
             },
             "required": [
@@ -193,26 +171,16 @@
             "properties": {
                 "reaction_time": {
                     "type": "object",
+                    "unit": "ms",
                     "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "unit": "ms",
-                            "description": "Average reaction time for congruent trials"
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "unit": "ms",
-                            "description": "Average reaction time for incongruent trials"
-                        }
+                        "type": "number",
                     },
-                    "description": "Reaction times per condition (ms)"
                 },
                 "error_rate": {
                     "type": "number",
                     "minimum": 0,
                     "maximum": 100,
                     "unit": "%",
-                    "description": "Percentage of incorrect responses across all trials"
                 },
                 "interference_score": {
                     "type": "number",
@@ -221,8 +189,7 @@
                 },
                 "accuracy_adjusted_rt": {
                     "type": "number",
-                    "unit": "ms",
-                    "description": "Optional composite metric adjusting RT for accuracy"
+                    "unit": "ms"
                 }
             },
             "required": [
@@ -240,22 +207,19 @@
                         "channels": {
                             "type": "integer",
                             "minimum": 32,
-                            "maximum": 128,
-                            "description": "Number of EEG channels (32-128)"
+                            "maximum": 128
                         },
                         "sampling_rate": {
                             "type": "number",
                             "minimum": 500,
                             "maximum": 1000,
-                            "unit": "Hz",
-                            "description": "EEG sampling rate (500-1000 Hz)"
+                            "unit": "Hz"
                         },
                         "impedance": {
                             "type": "number",
                             "minimum": 5,
                             "maximum": 10000,
-                            "unit": "k\u03a9",
-                            "description": "Electrode impedance (<5-10 k\u03a9)"
+                            "unit": "k\u03a9"
                         },
                         "reference": {
                             "type": "string",
@@ -263,12 +227,10 @@
                                 "linked_mastoids",
                                 "average_reference"
                             ],
-                            "description": "EEG reference type"
                         },
                         "eog_channels": {
                             "type": "integer",
-                            "minimum": 0,
-                            "description": "Number of EOG channels for blink correction"
+                            "minimum": 0
                         },
                         "event_markers": {
                             "type": "array",
@@ -280,38 +242,33 @@
                                     "accuracy"
                                 ]
                             },
-                            "description": "Event markers recorded (e.g., stimulus onset, response onset)"
                         }
                     },
-                    "description": "EEG implementation parameters"
                 },
                 "fMRI": {
                     "type": "object",
                     "properties": {
                         "scanner": {
                             "type": "string",
-                            "description": "Scanner type (e.g., '3T MRI')"
+                            "enum":["3T"]
                         },
                         "tr": {
                             "type": "number",
                             "minimum": 2000,
                             "maximum": 2500,
-                            "unit": "ms",
-                            "description": "Repetition time (2000-2500 ms)"
+                            "unit": "ms"
                         },
                         "te": {
                             "type": "number",
                             "minimum": 20,
                             "maximum": 50,
-                            "unit": "ms",
-                            "description": "Echo time (~30 ms)"
+                            "unit": "ms"
                         },
                         "voxel_size": {
                             "type": "number",
                             "minimum": 2,
                             "maximum": 3,
                             "unit": "mm",
-                            "description": "Voxel size (2-3 mm isotropic)"
                         },
                         "design": {
                             "type": "string",
@@ -319,13 +276,10 @@
                                 "event_related",
                                 "block_design"
                             ],
-                            "description": "fMRI experimental design"
                         }
                     },
-                    "description": "fMRI implementation parameters"
                 }
             },
-            "description": "Neuroimaging data collection specifications (optional)"
         },
         "analysis_parameters": {
             "type": "object",
@@ -336,23 +290,17 @@
                         "rt_outliers": {
                             "type": "object",
                             "properties": {
+                                "type": "number",
+                                "unit": "ms"
                                 "lower_bound": {
-                                    "type": "number",
                                     "minimum": 200,
-                                    "unit": "ms",
-                                    "description": "Lower RT outlier threshold (e.g., <200 ms)"
                                 },
                                 "upper_bound": {
-                                    "type": "number",
-                                    "maximum": 3000,
-                                    "unit": "ms",
-                                    "description": "Upper RT outlier threshold (e.g., >3000 ms)"
+                                    "maximum": 3000
                                 }
                             },
-                            "description": "Reaction time outlier exclusion parameters"
                         }
                     },
-                    "description": "Outlier exclusion rules for RT analysis"
                 },
                 "incorrect_trial_handling": {
                     "type": "string",
@@ -360,10 +308,8 @@
                         "exclude",
                         "adjust"
                     ],
-                    "description": "Handling of incorrect-response trials (e.g., 'exclude' from RT analysis)"
                 }
             },
-            "description": "Data analysis protocols"
         }
     },
     "required": [
@@ -376,4 +322,3 @@
     ],
     "additionalProperties": false
 }
-
