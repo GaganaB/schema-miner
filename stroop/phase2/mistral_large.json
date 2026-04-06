@@ -1,0 +1,918 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "StroopTaskSchema",
+    "description": "A JSON schema representing the Stroop task process, including experimental design, stimuli, settings, outputs, practice effects, and neuroimaging extensions.",
+    "type": "object",
+    "properties": {
+        "experimentMetadata": {
+            "type": "object",
+            "description": "General metadata about the Stroop task experiment.",
+            "properties": {
+                "experimentName": {
+                    "type": "string",
+                    "description": "Name or identifier of the experiment."
+                },
+                "experimentVariant": {
+                    "type": "string",
+                    "description": "Type of Stroop task variant used in the experiment.",
+                    "enum": [
+                        "Classic",
+                        "Emotional",
+                        "Numerical",
+                        "Spatial",
+                        "Bilingual",
+                        "Clinical"
+                    ]
+                },
+                "experimentDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date when the experiment was conducted."
+                },
+                "institution": {
+                    "type": "string",
+                    "description": "Institution where the experiment was conducted."
+                }
+            },
+            "required": [
+                "experimentName",
+                "experimentVariant"
+            ]
+        },
+        "sampleCharacteristics": {
+            "type": "object",
+            "description": "Characteristics of the participant sample.",
+            "properties": {
+                "sampleSize": {
+                    "type": "integer",
+                    "description": "Number of participants in the experiment.",
+                    "minimum": 1
+                },
+                "ageRange": {
+                    "type": "object",
+                    "description": "Age range of participants in years.",
+                    "properties": {
+                        "min": {
+                            "type": "integer",
+                            "description": "Minimum age of participants."
+                        },
+                        "max": {
+                            "type": "integer",
+                            "description": "Maximum age of participants."
+                        }
+                    },
+                    "required": [
+                        "min",
+                        "max"
+                    ]
+                },
+                "populationType": {
+                    "type": "string",
+                    "description": "Type of population studied in the experiment.",
+                    "enum": [
+                        "Adults",
+                        "Children",
+                        "Clinical"
+                    ]
+                },
+                "clinicalDetails": {
+                    "type": "string",
+                    "description": "Additional details if the population is clinical (e.g., 'ADHD', 'Depression')."
+                },
+                "visionStatus": {
+                    "type": "string",
+                    "description": "Vision status of participants (e.g., 'Normal', 'CorrectedToNormal').",
+                    "enum": [
+                        "Normal",
+                        "CorrectedToNormal"
+                    ]
+                },
+                "exclusionCriteria": {
+                    "type": "array",
+                    "description": "Criteria for excluding participants (e.g., 'ColorBlindness', 'NeurologicalDisorders').",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "ColorBlindness",
+                            "NeurologicalDisorders",
+                            "ChronicMedicalIllness"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "sampleSize",
+                "ageRange",
+                "populationType"
+            ]
+        },
+        "stimuli": {
+            "type": "object",
+            "description": "Details about the stimuli used in the Stroop task.",
+            "properties": {
+                "colorSet": {
+                    "type": "array",
+                    "description": "List of colors used in the experiment.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "minItems": 3,
+                    "maxItems": 6
+                },
+                "stimulusTypes": {
+                    "type": "object",
+                    "description": "Types of stimuli used in the experiment.",
+                    "properties": {
+                        "congruent": {
+                            "type": "array",
+                            "description": "List of congruent stimuli (e.g., word and ink color match).",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "incongruent": {
+                            "type": "array",
+                            "description": "List of incongruent stimuli (e.g., word and ink color do not match).",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "neutral": {
+                            "type": "array",
+                            "description": "List of neutral stimuli (e.g., non-color words or symbols).",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "colorPatches": {
+                            "type": "boolean",
+                            "description": "Whether color patches were used as a baseline condition."
+                        }
+                    },
+                    "required": [
+                        "congruent",
+                        "incongruent"
+                    ]
+                },
+                "stimulusDuration": {
+                    "type": "integer",
+                    "description": "Duration of each stimulus presentation in milliseconds.",
+                    "minimum": 500,
+                    "maximum": 2000
+                },
+                "interTrialInterval": {
+                    "type": "integer",
+                    "description": "Duration of the inter-trial interval in milliseconds.",
+                    "minimum": 500,
+                    "maximum": 1500
+                },
+                "trialsPerCondition": {
+                    "type": "integer",
+                    "description": "Number of trials per condition.",
+                    "minimum": 20
+                },
+                "stimulusOrder": {
+                    "type": "string",
+                    "description": "Order of stimulus presentation.",
+                    "enum": [
+                        "Randomized",
+                        "Counterbalanced",
+                        "Sequential"
+                    ]
+                }
+            },
+            "required": [
+                "colorSet",
+                "stimulusTypes",
+                "stimulusDuration",
+                "interTrialInterval",
+                "trialsPerCondition",
+                "stimulusOrder"
+            ]
+        },
+        "taskInstructions": {
+            "type": "object",
+            "description": "Instructions given to participants for the Stroop task.",
+            "properties": {
+                "responseMapping": {
+                    "type": "string",
+                    "description": "What participants are instructed to respond to.",
+                    "enum": [
+                        "InkColor",
+                        "WordMeaning"
+                    ]
+                },
+                "responseModality": {
+                    "type": "string",
+                    "description": "Modality of participant response.",
+                    "enum": [
+                        "Verbal",
+                        "ManualKeypress"
+                    ]
+                },
+                "keyMapping": {
+                    "type": "object",
+                    "description": "Mapping of keys to colors if manual response is used.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "practiceInstructions": {
+                    "type": "string",
+                    "description": "Instructions provided during practice sessions (e.g., 'Name ink color ignoring word meaning')."
+                }
+            },
+            "required": [
+                "responseMapping",
+                "responseModality"
+            ]
+        },
+        "experimentalSettings": {
+            "type": "object",
+            "description": "Settings and apparatus used in the experiment.",
+            "properties": {
+                "software": {
+                    "type": "string",
+                    "description": "Software used for the experiment (e.g., 'PsychoPy', 'E-Prime')."
+                },
+                "hardware": {
+                    "type": "object",
+                    "description": "Hardware used in the experiment.",
+                    "properties": {
+                        "responseDevice": {
+                            "type": "string",
+                            "description": "Device used for responses (e.g., 'Keyboard', 'ResponsePad', 'Microphone')."
+                        },
+                        "display": {
+                            "type": "object",
+                            "description": "Details about the display used.",
+                            "properties": {
+                                "luminance": {
+                                    "type": "number",
+                                    "description": "Luminance of the display in cd/m\u00b2."
+                                },
+                                "contrast": {
+                                    "type": "number",
+                                    "description": "Contrast ratio of the display."
+                                },
+                                "resolution": {
+                                    "type": "string",
+                                    "description": "Resolution of the display (e.g., '1920x1080')."
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "responseDevice"
+                    ]
+                },
+                "environment": {
+                    "type": "object",
+                    "description": "Environmental conditions during the experiment.",
+                    "properties": {
+                        "lighting": {
+                            "type": "string",
+                            "description": "Lighting conditions during the experiment.",
+                            "enum": [
+                                "Controlled",
+                                "Ambient"
+                            ]
+                        },
+                        "distractions": {
+                            "type": "string",
+                            "description": "Level of distractions during the experiment.",
+                            "enum": [
+                                "Minimal",
+                                "Moderate"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "lighting"
+                    ]
+                }
+            },
+            "required": [
+                "software",
+                "hardware"
+            ]
+        },
+        "practiceSessions": {
+            "type": "object",
+            "description": "Details about practice sessions conducted before the main experiment.",
+            "properties": {
+                "conducted": {
+                    "type": "boolean",
+                    "description": "Whether practice sessions were conducted."
+                },
+                "durationDays": {
+                    "type": "integer",
+                    "description": "Number of days participants practiced the task.",
+                    "minimum": 1
+                },
+                "trialsPerSession": {
+                    "type": "integer",
+                    "description": "Number of trials per practice session.",
+                    "minimum": 1
+                },
+                "monitored": {
+                    "type": "boolean",
+                    "description": "Whether practice sessions were monitored by investigators."
+                }
+            }
+        },
+        "outputs": {
+            "type": "object",
+            "description": "Primary outputs and dependent variables from the Stroop task.",
+            "properties": {
+                "reactionTime": {
+                    "type": "object",
+                    "description": "Reaction time data per condition in milliseconds.",
+                    "properties": {
+                        "congruent": {
+                            "type": "number",
+                            "description": "Average reaction time for congruent trials."
+                        },
+                        "incongruent": {
+                            "type": "number",
+                            "description": "Average reaction time for incongruent trials."
+                        },
+                        "neutral": {
+                            "type": "number",
+                            "description": "Average reaction time for neutral trials."
+                        },
+                        "colorPatches": {
+                            "type": "number",
+                            "description": "Average reaction time for color patch trials (if used)."
+                        }
+                    },
+                    "required": [
+                        "congruent",
+                        "incongruent"
+                    ]
+                },
+                "errorRate": {
+                    "type": "object",
+                    "description": "Error rate per condition (percentage of incorrect responses).",
+                    "properties": {
+                        "congruent": {
+                            "type": "number",
+                            "description": "Error rate for congruent trials (%).",
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "incongruent": {
+                            "type": "number",
+                            "description": "Error rate for incongruent trials (%).",
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "neutral": {
+                            "type": "number",
+                            "description": "Error rate for neutral trials (%).",
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "trialWiseErrors": {
+                            "type": "array",
+                            "description": "List of error rates per trial for detailed analysis.",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "trialNumber": {
+                                        "type": "integer",
+                                        "description": "Trial number."
+                                    },
+                                    "condition": {
+                                        "type": "string",
+                                        "description": "Condition of the trial (e.g., 'congruent', 'incongruent')."
+                                    },
+                                    "error": {
+                                        "type": "boolean",
+                                        "description": "Whether the trial was incorrect."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "congruent",
+                        "incongruent"
+                    ]
+                },
+                "interferenceScore": {
+                    "type": "number",
+                    "description": "Interference score calculated as RT(incongruent) - RT(congruent) in milliseconds."
+                },
+                "practiceEffects": {
+                    "type": "object",
+                    "description": "Effects of practice on reaction time and error rates.",
+                    "properties": {
+                        "reactionTimeChange": {
+                            "type": "number",
+                            "description": "Change in reaction time after practice (ms)."
+                        },
+                        "interferenceScoreChange": {
+                            "type": "number",
+                            "description": "Change in interference score after practice (ms)."
+                        },
+                        "statisticalSignificance": {
+                            "type": "string",
+                            "description": "Statistical significance of practice effects (e.g., 'Significant', 'NotSignificant').",
+                            "enum": [
+                                "Significant",
+                                "NotSignificant"
+                            ]
+                        }
+                    }
+                },
+                "accuracyAdjustedRT": {
+                    "type": "number",
+                    "description": "Composite metric for accuracy-adjusted reaction time."
+                }
+            },
+            "required": [
+                "reactionTime",
+                "errorRate"
+            ]
+        },
+        "dataAnalysis": {
+            "type": "object",
+            "description": "Norms and methods for data analysis.",
+            "properties": {
+                "outlierExclusion": {
+                    "type": "object",
+                    "description": "Criteria for excluding outliers in reaction time data.",
+                    "properties": {
+                        "method": {
+                            "type": "string",
+                            "description": "Method used for outlier exclusion.",
+                            "enum": [
+                                "\u00b12 SD",
+                                "FixedRange"
+                            ]
+                        },
+                        "fixedRange": {
+                            "type": "object",
+                            "description": "Fixed range for outlier exclusion if method is 'FixedRange'.",
+                            "properties": {
+                                "min": {
+                                    "type": "integer",
+                                    "description": "Minimum RT threshold in milliseconds."
+                                },
+                                "max": {
+                                    "type": "integer",
+                                    "description": "Maximum RT threshold in milliseconds."
+                                }
+                            },
+                            "required": [
+                                "min",
+                                "max"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "method"
+                    ]
+                },
+                "incorrectTrialHandling": {
+                    "type": "string",
+                    "description": "Method for handling incorrect trials.",
+                    "enum": [
+                        "Exclude",
+                        "Include"
+                    ]
+                },
+                "statisticalAnalysis": {
+                    "type": "string",
+                    "description": "Type of statistical analysis used.",
+                    "enum": [
+                        "ANOVA",
+                        "MixedEffectsModel",
+                        "t-test"
+                    ]
+                },
+                "statisticalSoftware": {
+                    "type": "string",
+                    "description": "Software used for statistical analysis (e.g., 'SPSS', 'R')."
+                }
+            },
+            "required": [
+                "outlierExclusion",
+                "incorrectTrialHandling",
+                "statisticalAnalysis"
+            ]
+        },
+        "cognitiveConstructs": {
+            "type": "array",
+            "description": "List of cognitive constructs measured by the Stroop task.",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "SelectiveAttention",
+                    "ExecutiveControl",
+                    "InhibitoryControl",
+                    "ProcessingSpeed",
+                    "ConflictMonitoring",
+                    "Automaticity"
+                ]
+            }
+        },
+        "neuroimaging": {
+            "type": "object",
+            "description": "Neuroimaging extensions for the Stroop task (optional).",
+            "properties": {
+                "eeg": {
+                    "type": "object",
+                    "description": "EEG-specific settings and outputs.",
+                    "properties": {
+                        "setup": {
+                            "type": "object",
+                            "description": "EEG setup details.",
+                            "properties": {
+                                "channels": {
+                                    "type": "integer",
+                                    "description": "Number of EEG channels.",
+                                    "minimum": 32,
+                                    "maximum": 128
+                                },
+                                "samplingRate": {
+                                    "type": "integer",
+                                    "description": "Sampling rate in Hz.",
+                                    "minimum": 500,
+                                    "maximum": 1000
+                                },
+                                "impedance": {
+                                    "type": "number",
+                                    "description": "Impedance threshold in k\u03a9."
+                                },
+                                "reference": {
+                                    "type": "string",
+                                    "description": "Reference used for EEG.",
+                                    "enum": [
+                                        "LinkedMastoids",
+                                        "AverageReference"
+                                    ]
+                                },
+                                "eogChannels": {
+                                    "type": "boolean",
+                                    "description": "Whether EOG channels were used for blink correction."
+                                }
+                            },
+                            "required": [
+                                "channels",
+                                "samplingRate",
+                                "impedance",
+                                "reference"
+                            ]
+                        },
+                        "eventMarkers": {
+                            "type": "object",
+                            "description": "Event markers recorded during EEG.",
+                            "properties": {
+                                "stimulusOnset": {
+                                    "type": "boolean",
+                                    "description": "Whether stimulus onset was marked."
+                                },
+                                "responseOnset": {
+                                    "type": "boolean",
+                                    "description": "Whether response onset was marked."
+                                },
+                                "accuracyCoding": {
+                                    "type": "boolean",
+                                    "description": "Whether accuracy was coded."
+                                }
+                            },
+                            "required": [
+                                "stimulusOnset",
+                                "responseOnset"
+                            ]
+                        },
+                        "components": {
+                            "type": "object",
+                            "description": "Key EEG components analyzed.",
+                            "properties": {
+                                "n200": {
+                                    "type": "boolean",
+                                    "description": "Whether N200 component was analyzed."
+                                },
+                                "n450": {
+                                    "type": "boolean",
+                                    "description": "Whether N450 component was analyzed."
+                                },
+                                "p300": {
+                                    "type": "boolean",
+                                    "description": "Whether P300 component was analyzed."
+                                },
+                                "lpc": {
+                                    "type": "boolean",
+                                    "description": "Whether Late Positive Component (LPC) was analyzed."
+                                }
+                            }
+                        },
+                        "expectedPatterns": {
+                            "type": "object",
+                            "description": "Expected EEG patterns for incongruent trials.",
+                            "properties": {
+                                "n450Amplitude": {
+                                    "type": "string",
+                                    "description": "Expected change in N450 amplitude.",
+                                    "enum": [
+                                        "Increased",
+                                        "Decreased"
+                                    ]
+                                },
+                                "frontoCentralActivation": {
+                                    "type": "string",
+                                    "description": "Expected change in fronto-central activation.",
+                                    "enum": [
+                                        "Increased",
+                                        "Decreased"
+                                    ]
+                                },
+                                "thetaPower": {
+                                    "type": "string",
+                                    "description": "Expected change in theta-band power.",
+                                    "enum": [
+                                        "Increased",
+                                        "Decreased"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "setup",
+                        "eventMarkers"
+                    ]
+                },
+                "fmri": {
+                    "type": "object",
+                    "description": "fMRI-specific settings and outputs.",
+                    "properties": {
+                        "scannerParameters": {
+                            "type": "object",
+                            "description": "fMRI scanner parameters.",
+                            "properties": {
+                                "fieldStrength": {
+                                    "type": "number",
+                                    "description": "Magnetic field strength in Tesla."
+                                },
+                                "tr": {
+                                    "type": "number",
+                                    "description": "Repetition time (TR) in milliseconds.",
+                                    "minimum": 2000,
+                                    "maximum": 2500
+                                },
+                                "te": {
+                                    "type": "number",
+                                    "description": "Echo time (TE) in milliseconds."
+                                },
+                                "voxelSize": {
+                                    "type": "string",
+                                    "description": "Voxel size in mm."
+                                },
+                                "coverage": {
+                                    "type": "string",
+                                    "description": "Brain coverage."
+                                }
+                            },
+                            "required": [
+                                "fieldStrength",
+                                "tr",
+                                "te",
+                                "voxelSize",
+                                "coverage"
+                            ]
+                        },
+                        "design": {
+                            "type": "string",
+                            "description": "fMRI design type.",
+                            "enum": [
+                                "EventRelated",
+                                "BlockDesign"
+                            ]
+                        },
+                        "keyRegions": {
+                            "type": "object",
+                            "description": "Key brain regions analyzed.",
+                            "properties": {
+                                "acc": {
+                                    "type": "boolean",
+                                    "description": "Whether Anterior Cingulate Cortex (ACC) was analyzed."
+                                },
+                                "dlpfc": {
+                                    "type": "boolean",
+                                    "description": "Whether Dorsolateral Prefrontal Cortex (DLPFC) was analyzed."
+                                },
+                                "ifg": {
+                                    "type": "boolean",
+                                    "description": "Whether Inferior Frontal Gyrus (IFG) was analyzed."
+                                },
+                                "parietalCortex": {
+                                    "type": "boolean",
+                                    "description": "Whether Parietal Cortex was analyzed."
+                                },
+                                "basalGanglia": {
+                                    "type": "boolean",
+                                    "description": "Whether Basal Ganglia was analyzed."
+                                }
+                            }
+                        },
+                        "expectedContrast": {
+                            "type": "string",
+                            "description": "Expected contrast for incongruent vs. congruent trials.",
+                            "enum": [
+                                "Incongruent > Congruent"
+                            ]
+                        },
+                        "connectivityAnalysis": {
+                            "type": "object",
+                            "description": "Advanced connectivity analysis methods.",
+                            "properties": {
+                                "functionalConnectivity": {
+                                    "type": "boolean",
+                                    "description": "Whether functional connectivity was performed."
+                                },
+                                "frontoParietalNetwork": {
+                                    "type": "boolean",
+                                    "description": "Whether fronto-parietal network engagement was analyzed."
+                                },
+                                "eegCoherence": {
+                                    "type": "boolean",
+                                    "description": "Whether EEG coherence was analyzed (if combined with EEG)."
+                                },
+                                "dcm": {
+                                    "type": "boolean",
+                                    "description": "Whether Dynamic Causal Modeling (DCM) was used."
+                                }
+                            }
+                        }
+                    },
+                    "required": [
+                        "scannerParameters",
+                        "design"
+                    ]
+                },
+                "behavioralNeuralCoupling": {
+                    "type": "object",
+                    "description": "Measures coupling behavioral and neural data.",
+                    "properties": {
+                        "interferenceScoreAccCorrelation": {
+                            "type": "boolean",
+                            "description": "Whether correlation between interference score and ACC activation was analyzed."
+                        },
+                        "n450RtSlowingCorrelation": {
+                            "type": "boolean",
+                            "description": "Whether correlation between N450 amplitude and reaction time slowing was analyzed."
+                        },
+                        "thetaPowerErrorCorrelation": {
+                            "type": "boolean",
+                            "description": "Whether correlation between theta power increase and error likelihood was analyzed."
+                        },
+                        "grattonEffect": {
+                            "type": "boolean",
+                            "description": "Whether trial-by-trial conflict adaptation (Gratton effect) was analyzed."
+                        }
+                    }
+                }
+            }
+        },
+        "neurocomputationalModeling": {
+            "type": "object",
+            "description": "Neurocomputational modeling extensions (optional).",
+            "properties": {
+                "modelType": {
+                    "type": "string",
+                    "description": "Type of neurocomputational model.",
+                    "enum": [
+                        "DriftDiffusion",
+                        "ConflictMonitoring"
+                    ]
+                },
+                "keyVariables": {
+                    "type": "object",
+                    "description": "Key variables in the neurocomputational model.",
+                    "properties": {
+                        "driftRate": {
+                            "type": "boolean",
+                            "description": "Whether drift rate was modeled."
+                        },
+                        "decisionThreshold": {
+                            "type": "boolean",
+                            "description": "Whether decision threshold was modeled."
+                        },
+                        "conflictSignalStrength": {
+                            "type": "boolean",
+                            "description": "Whether conflict signal strength was modeled."
+                        },
+                        "controlGainModulation": {
+                            "type": "boolean",
+                            "description": "Whether control gain modulation was modeled."
+                        }
+                    }
+                }
+            }
+        },
+        "clinicalApplications": {
+            "type": "array",
+            "description": "Clinical applications of the Stroop task (optional).",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "ADHD",
+                    "Depression",
+                    "Schizophrenia",
+                    "FrontalLobeLesions",
+                    "Aging"
+                ]
+            }
+        },
+        "reliability": {
+            "type": "object",
+            "description": "Reliability characteristics of the Stroop task.",
+            "properties": {
+                "testRetestReliability": {
+                    "type": "string",
+                    "description": "Test-retest reliability of the Stroop task.",
+                    "enum": [
+                        "Low",
+                        "Moderate",
+                        "High"
+                    ]
+                },
+                "groupLevelEffects": {
+                    "type": "string",
+                    "description": "Strength of group-level effects.",
+                    "enum": [
+                        "Weak",
+                        "Moderate",
+                        "Strong"
+                    ]
+                },
+                "individualDifferenceReliability": {
+                    "type": "string",
+                    "description": "Reliability of individual differences."
+                }
+            },
+            "required": [
+                "testRetestReliability",
+                "groupLevelEffects"
+            ]
+        },
+        "validity": {
+            "type": "object",
+            "description": "Validity characteristics of the Stroop task.",
+            "properties": {
+                "constructValidity": {
+                    "type": "string",
+                    "description": "Construct validity for interference control.",
+                    "enum": [
+                        "Weak",
+                        "Moderate",
+                        "Strong"
+                    ]
+                },
+                "sensitivity": {
+                    "type": "string",
+                    "description": "Sensitivity to frontal lobe dysfunction.",
+                    "enum": [
+                        "Low",
+                        "Moderate",
+                        "High"
+                    ]
+                },
+                "influencingFactors": {
+                    "type": "array",
+                    "description": "Factors influencing validity.",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "ReadingProficiency",
+                            "LanguageFamiliarity",
+                            "Age",
+                            "CulturalBackground",
+                            "PracticeEffects"
+                        ]
+                    }
+                }
+            },
+            "required": [
+                "constructValidity",
+                "sensitivity"
+            ]
+        }
+    },
+    "required": [
+        "experimentMetadata",
+        "sampleCharacteristics",
+        "stimuli",
+        "taskInstructions",
+        "experimentalSettings",
+        "outputs",
+        "dataAnalysis",
+        "cognitiveConstructs",
+        "reliability",
+        "validity"
+    ]
+}
