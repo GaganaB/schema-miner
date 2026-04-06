@@ -1,9 +1,6 @@
-
-
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Stroop Task Process",
-    "description": "JSON schema representing the Stroop task process for cognitive assessment, incorporating research findings and expert feedback.",
     "type": "object",
     "required": [
         "task_type",
@@ -31,107 +28,67 @@
         },
         "stimuli": {
             "type": "object",
-            "properties": {
-                "congruent": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "word": {
-                                "type": "string"
-                            },
-                            "ink_color": {
-                                "type": "string"
-                            }
+            "items": {
+                "type": "object",
+                "properties": {
+                    "word": {
+                            "type": "string"
                         },
-                        "required": [
-                            "word",
-                            "ink_color"
-                        ]
+                    "ink_color": {
+                            "type": "string"
+                        }
                     },
-                    "description": "Stimuli where word and ink color match."
-                },
-                "incongruent": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "word": {
-                                "type": "string"
-                            },
-                            "ink_color": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "word",
-                            "ink_color"
-                        ]
+                    "required": [
+                        "word",
+                        "ink_color"
+                    ], 
+                "enum": [
+                    "congruent", 
+                    "incongruent", 
+                    "neutral"
+                ]
                     },
-                    "description": "Stimuli where word and ink color do not match."
-                },
-                "neutral": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "stimulus": {
-                                "type": "string"
-                            },
-                            "ink_color": {
-                                "type": "string"
-                            }
-                        },
-                        "required": [
-                            "stimulus",
-                            "ink_color"
-                        ]
-                    },
-                    "description": "Non-color words or symbols in colored ink."
                 },
                 "color_set": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Set of colors used (e.g., red, blue, green, yellow)."
                 }
             },
-            "description": "Properties related to the stimuli presented in the task."
         },
         "task_instructions": {
             "type": "object",
             "properties": {
-                "primary_task": {
-                    "type": "string",
-                    "enum": [
-                        "Name the ink color",
-                        "Read the word"
-                    ],
-                    "description": "Primary instruction given to the participant."
-                },
                 "response_modality": {
                     "type": "string",
                     "enum": [
                         "Verbal response",
-                        "Manual keypress"
+                        "Manual keypress",
                     ],
-                    "description": "Method through which participants provide responses."
+                    "if": {
+                        "properties": {
+                            "condition": { "const": "manual keypress" },
+                            "enum": [
+                                "Standard keyboard",
+                                "Response pad"
+                            ]
+                    }
+                },
+                    "then":{
+                      "properties"{
+                          "condition": {"const": "verbal response"},
+                          "type": "boolean",
+                      },  
+                    },
                 },
                 "stimulus_description": {
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "enum": [
-                            "Name the color of the ink for congruent stimuli.",
-                            "Name the ink color for incongruent stimuli.",
-                            "Read the word for neutral stimuli."
-                        ]
                     },
-                    "description": "Detailed instructions for each stimulus type."
                 }
             },
-            "description": "Instructions provided to participants for task execution."
         },
         "experimental_settings": {
             "type": "object",
@@ -140,18 +97,17 @@
                     "type": "integer",
                     "minimum": 500,
                     "maximum": 2000,
-                    "description": "Duration of stimulus presentation in milliseconds."
+                    "unit": "ms"
                 },
                 "iti": {
                     "type": "integer",
                     "minimum": 500,
                     "maximum": 1500,
-                    "description": "Inter-trial interval in milliseconds."
+                    "unit": "ms"
                 },
                 "trials_per_condition": {
                     "type": "integer",
                     "minimum": 20,
-                    "description": "Number of trials per condition."
                 },
                 "stimulus_order": {
                     "type": "string",
@@ -159,14 +115,11 @@
                         "Randomized",
                         "Counterbalanced"
                     ],
-                    "description": "Order in which stimuli are presented."
                 },
                 "environment": {
                     "type": "string",
-                    "description": "Description of the experimental environment."
                 }
             },
-            "description": "Settings governing the experimental procedure."
         },
         "instruments": {
             "type": "object",
@@ -178,42 +131,20 @@
                         "E-Prime",
                         "MATLAB Psychtoolbox"
                     ],
-                    "description": "Software used for task administration."
-                },
-                "response_methods": {
-                    "type": "object",
-                    "properties": {
-                        "device": {
-                            "type": "string",
-                            "enum": [
-                                "Standard keyboard",
-                                "Response pad"
-                            ],
-                            "description": "Device used for participant responses."
-                        },
-                        "voice_recording": {
-                            "type": "boolean",
-                            "description": "Whether verbal responses are recorded."
-                        }
-                    },
-                    "description": "Methods through which participants provide responses."
                 },
                 "display": {
                     "type": "object",
                     "properties": {
                         "luminance": {
                             "type": "number",
-                            "description": "Display luminance in candelas per square meter."
+                            "type": "candelas per square meter."
                         },
                         "contrast": {
                             "type": "number",
-                            "description": "Display contrast ratio."
                         }
                     },
-                    "description": "Properties of the display used."
                 }
             },
-            "description": "Instruments and apparatus used in the experiment."
         },
         "outputs": {
             "type": "object",
@@ -221,45 +152,22 @@
                 "reaction_time": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "description": "Mean RT for congruent trials in milliseconds."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Mean RT for incongruent trials in milliseconds."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Mean RT for neutral trials in milliseconds."
-                        }
+                        "type": "number",
+                        "unit": "Mean RT in milliseconds."   
                     },
-                    "description": "Reaction times across different trial types."
                 },
                 "error_rate": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "description": "Error rate for congruent trials as a percentage."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Error rate for incongruent trials as a percentage."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Error rate for neutral trials as a percentage."
-                        }
+                        "type": "number",
+                        "unit": "percentage"
                     },
-                    "description": "Error rates across different trial types."
                 },
                 "interference_score": {
                     "type": "number",
-                    "description": "Difference in RT between incongruent and congruent trials in milliseconds."
+                    "unit": "Difference in RT in milliseconds."
                 }
             },
-            "description": "Primary dependent variables measured in the task."
         },
         "cognitive_constructs": {
             "type": "array",
@@ -273,7 +181,6 @@
                     "Conflict monitoring"
                 ]
             },
-            "description": "Cognitive constructs measured by the task."
         },
         "data_analysis": {
             "type": "object",
@@ -283,14 +190,11 @@
                     "properties": {
                         "rt_outliers": {
                             "type": "string",
-                            "description": "Criteria for excluding reaction time outliers (e.g., \u00b12 SD)."
                         },
                         "incorrect_responses": {
                             "type": "boolean",
-                            "description": "Whether to exclude incorrect response trials from RT analysis."
                         }
                     },
-                    "description": "Criteria for data exclusion."
                 },
                 "statistical_method": {
                     "type": "string",
@@ -298,31 +202,25 @@
                         "Within-subject ANOVA",
                         "Mixed-effects modeling"
                     ],
-                    "description": "Statistical method used for analysis."
                 }
             },
-            "description": "Methods and criteria for data analysis."
         },
         "validity": {
             "type": "object",
             "properties": {
                 "construct_validity": {
                     "type": "string",
-                    "description": "Description of construct validity (e.g., strong for interference control)."
                 },
                 "sensitivity": {
                     "type": "string",
-                    "description": "Populations or conditions the task is sensitive to (e.g., frontal lobe dysfunction)."
                 },
                 "influencing_factors": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Factors influencing task performance (e.g., reading proficiency)."
                 }
             },
-            "description": "Validity characteristics of the task."
         },
         "neuroimaging": {
             "type": "object",
@@ -334,27 +232,25 @@
                             "type": "integer",
                             "minimum": 32,
                             "maximum": 128,
-                            "description": "Number of EEG channels used."
                         },
                         "sampling_rate": {
                             "type": "integer",
                             "minimum": 500,
                             "maximum": 1000,
-                            "description": "Sampling rate in Hz."
+                            "unit": "Hz."
                         },
                         "impedance": {
                             "type": "number",
                             "minimum": 5,
                             "maximum": 10,
-                            "description": "Impedance level in kOhms."
+                            "unit": "kOhms."
                         },
-                        "reference": {
+                        "reference_type": {
                             "type": "string",
                             "enum": [
                                 "Linked mastoids",
                                 "Average reference"
                             ],
-                            "description": "Reference type used."
                         },
                         "event_markers": {
                             "type": "array",
@@ -387,54 +283,54 @@
                                         "properties": {
                                             "min": {
                                                 "type": "number",
-                                                "description": "Minimum latency in milliseconds."
+                                                "unit": "milliseconds."
                                             },
                                             "max": {
                                                 "type": "number",
-                                                "description": "Maximum latency in milliseconds."
+                                                "unit": "milliseconds."
                                             }
                                         }
                                     },
-                                    "interpretation": {
+                                    "component_interpretation": {
                                         "type": "string",
-                                        "description": "Neural interpretation of the component."
                                     }
                                 },
                                 "required": [
                                     "name",
                                     "latency",
-                                    "interpretation"
+                                    "component_interpretation"
                                 ]
                             },
-                            "description": "Key EEG components and their properties."
                         }
                     },
-                    "description": "EEG-specific implementation details."
                 },
                 "fmri": {
                     "type": "object",
                     "properties": {
                         "scanner": {
                             "type": "string",
-                            "description": "Type of MRI scanner used (e.g., 3T)."
                         },
                         "parameters": {
                             "type": "object",
                             "properties": {
                                 "TR": {
                                     "type": "number",
-                                    "description": "Repetition time in milliseconds."
+                                    "unit": "milliseconds."
                                 },
                                 "TE": {
                                     "type": "number",
-                                    "description": "Echo time in milliseconds."
+                                    "unit": "milliseconds."
                                 },
                                 "voxel_size": {
                                     "type": "string",
-                                    "description": "Voxel size in millimeters (e.g., 2x2x2)."
+                                    "unit": "millimeters"
+                                    "enum": [
+                                        "x",
+                                        "y", 
+                                        "z"
+                                    ],
                                 }
                             },
-                            "description": "Key fMRI scanning parameters."
                         },
                         "design": {
                             "type": "string",
@@ -442,7 +338,6 @@
                                 "Event-related",
                                 "Block design"
                             ],
-                            "description": "fMRI design type used."
                         },
                         "brain_regions": {
                             "type": "array",
@@ -459,38 +354,31 @@
                                             "Basal Ganglia"
                                         ]
                                     },
-                                    "role": {
-                                        "type": "string",
-                                        "description": "Functional role of the brain region."
+                                    "func_role": {
+                                        "type": "string"
                                     }
                                 },
                                 "required": [
                                     "region",
-                                    "role"
+                                    "func_role"
                                 ]
                             },
-                            "description": "Brain regions consistently reported in Stroop tasks."
                         },
                         "expected_contrast": {
-                            "type": "string",
-                            "description": "Description of expected activation contrasts (e.g., Incongruent > Congruent)."
+                            "type": "string"
                         }
                     },
-                    "description": "fMRI-specific implementation details."
                 },
                 "connectivity_analysis": {
                     "type": "object",
                     "properties": {
                         "functional_connectivity": {
-                            "type": "string",
-                            "description": "Method used for functional connectivity analysis (e.g., PPI)."
+                            "type": "string"
                         },
                         "network_engagement": {
-                            "type": "string",
-                            "description": "Networks engaged during task performance (e.g., fronto-parietal network)."
+                            "type": "string"
                         }
                     },
-                    "description": "Details on connectivity analysis methods."
                 },
                 "behavioral_neural_coupling": {
                     "type": "array",
@@ -508,7 +396,6 @@
                             },
                             "description": {
                                 "type": "string",
-                                "description": "Description of the coupling measure."
                             }
                         },
                         "required": [
@@ -516,7 +403,6 @@
                             "description"
                         ]
                     },
-                    "description": "Coupling between behavioral and neural measures."
                 },
                 "neurocomputational_modeling": {
                     "type": "object",
@@ -529,7 +415,6 @@
                                 "Drift diffusion modeling (DDM)",
                                 "Conflict monitoring models (Botvinick framework)"
                             ],
-                            "description": "Type of neurocomputational model used."
                         },
                         "variables": {
                             "type": "array",
@@ -547,7 +432,6 @@
                                     },
                                     "description": {
                                         "type": "string",
-                                        "description": "Description of the variable."
                                     }
                                 },
                                 "required": [
@@ -555,10 +439,8 @@
                                     "description"
                                 ]
                             },
-                            "description": "Key variables in the computational model."
                         }
                     },
-                    "description": "Neurocomputational modeling extensions."
                 },
                 "clinical_applications": {
                     "type": "array",
@@ -572,11 +454,8 @@
                             "Aging research"
                         ]
                     },
-                    "description": "Clinical applications of the Stroop task."
                 }
-            },
-            "description": "Neuroimaging aspects of the Stroop task, including EEG, fMRI, and related analyses."
+            }
         }
     }
 }
-
