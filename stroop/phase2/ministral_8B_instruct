@@ -1,0 +1,647 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Stroop Task Process Schema",
+    "description": "A schema representing the Stroop task process, including behavioral, neuroimaging, and neurocomputational components. This schema incorporates insights from classic and emotional Stroop variants, practice effects, and clinical applications.",
+    "type": "object",
+    "properties": {
+        "metadata": {
+            "type": "object",
+            "description": "General metadata about the experiment.",
+            "properties": {
+                "experiment_id": {
+                    "type": "string",
+                    "description": "Unique identifier for the experiment."
+                },
+                "variant": {
+                    "type": "string",
+                    "description": "Type of Stroop variant used.",
+                    "enum": [
+                        "Standard",
+                        "Emotional",
+                        "Numerical",
+                        "Spatial",
+                        "Bilingual",
+                        "Clinical",
+                        "Emotional_Clinical"
+                    ]
+                },
+                "sample": {
+                    "type": "object",
+                    "description": "Characteristics of the participant sample.",
+                    "properties": {
+                        "age_range": {
+                            "type": "object",
+                            "properties": {
+                                "min": {
+                                    "type": "number",
+                                    "description": "Minimum age of participants (in years)."
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "description": "Maximum age of participants (in years)."
+                                }
+                            },
+                            "required": [
+                                "min",
+                                "max"
+                            ]
+                        },
+                        "sample_size": {
+                            "type": "integer",
+                            "description": "Number of participants in the experiment.",
+                            "minimum": 20
+                        },
+                        "clinical_population": {
+                            "type": "boolean",
+                            "description": "Whether the sample includes a clinical population."
+                        },
+                        "practice_session": {
+                            "type": "object",
+                            "description": "Details of the practice session.",
+                            "properties": {
+                                "duration_days": {
+                                    "type": "integer",
+                                    "description": "Number of days of practice."
+                                },
+                                "monitored": {
+                                    "type": "boolean",
+                                    "description": "Whether practice sessions were monitored."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "required": [
+                "variant"
+            ]
+        },
+        "stimuli": {
+            "type": "object",
+            "description": "Properties of the stimuli used in the experiment.",
+            "properties": {
+                "color_set": {
+                    "type": "array",
+                    "description": "List of colors used in the experiment.",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "red",
+                            "blue",
+                            "green",
+                            "yellow",
+                            "black",
+                            "white"
+                        ]
+                    },
+                    "minItems": 3,
+                    "maxItems": 6
+                },
+                "stimulus_types": {
+                    "type": "object",
+                    "description": "Types of stimuli used.",
+                    "properties": {
+                        "congruent": {
+                            "type": "boolean",
+                            "description": "Whether congruent stimuli are included."
+                        },
+                        "incongruent": {
+                            "type": "boolean",
+                            "description": "Whether incongruent stimuli are included."
+                        },
+                        "neutral": {
+                            "type": "boolean",
+                            "description": "Whether neutral stimuli are included."
+                        },
+                        "emotional": {
+                            "type": "boolean",
+                            "description": "Whether emotional stimuli are included."
+                        }
+                    },
+                    "required": [
+                        "congruent",
+                        "incongruent",
+                        "neutral"
+                    ]
+                },
+                "word_list": {
+                    "type": "array",
+                    "description": "List of words used in the experiment.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "emotional_words": {
+                    "type": "array",
+                    "description": "List of emotional words used in emotional Stroop variants.",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "color_set"
+            ]
+        },
+        "task_instructions": {
+            "type": "object",
+            "description": "Task instructions and response mapping for participants.",
+            "properties": {
+                "response_modality": {
+                    "type": "string",
+                    "description": "Response modality used by participants.",
+                    "enum": [
+                        "verbal",
+                        "manual"
+                    ]
+                },
+                "response_mapping": {
+                    "type": "string",
+                    "description": "Type of response mapping.",
+                    "enum": [
+                        "name_color",
+                        "read_word"
+                    ]
+                },
+                "response_keys": {
+                    "type": "object",
+                    "description": "Mapping of keys to colors for manual response modality.",
+                    "properties": {
+                        "red": {
+                            "type": "string",
+                            "description": "Key for red color response."
+                        },
+                        "blue": {
+                            "type": "string",
+                            "description": "Key for blue color response."
+                        },
+                        "green": {
+                            "type": "string",
+                            "description": "Key for green color response."
+                        },
+                        "yellow": {
+                            "type": "string",
+                            "description": "Key for yellow color response."
+                        }
+                    }
+                },
+                "task_description": {
+                    "type": "string",
+                    "description": "Description of the task instructions given to participants."
+                }
+            },
+            "required": [
+                "response_modality",
+                "response_mapping"
+            ]
+        },
+        "experimental_settings": {
+            "type": "object",
+            "description": "Settings for the experimental procedure.",
+            "properties": {
+                "stimulus_duration": {
+                    "type": "object",
+                    "description": "Duration of stimulus presentation in milliseconds.",
+                    "properties": {
+                        "min": {
+                            "type": "integer",
+                            "minimum": 500
+                        },
+                        "max": {
+                            "type": "integer",
+                            "maximum": 2000
+                        }
+                    },
+                    "required": [
+                        "min",
+                        "max"
+                    ]
+                },
+                "inter_trial_interval": {
+                    "type": "object",
+                    "description": "Inter-trial interval in milliseconds.",
+                    "properties": {
+                        "min": {
+                            "type": "integer",
+                            "minimum": 500
+                        },
+                        "max": {
+                            "type": "integer",
+                            "maximum": 1500
+                        }
+                    },
+                    "required": [
+                        "min",
+                        "max"
+                    ]
+                },
+                "trials_per_condition": {
+                    "type": "object",
+                    "description": "Number of trials per condition.",
+                    "properties": {
+                        "congruent": {
+                            "type": "integer",
+                            "minimum": 20
+                        },
+                        "incongruent": {
+                            "type": "integer",
+                            "minimum": 20
+                        },
+                        "neutral": {
+                            "type": "integer",
+                            "minimum": 0
+                        },
+                        "emotional": {
+                            "type": "integer",
+                            "minimum": 0
+                        }
+                    },
+                    "required": [
+                        "congruent",
+                        "incongruent"
+                    ]
+                },
+                "randomization": {
+                    "type": "string",
+                    "description": "Whether stimulus order is randomized or counterbalanced.",
+                    "enum": [
+                        "randomized",
+                        "counterbalanced"
+                    ]
+                }
+            },
+            "required": [
+                "stimulus_duration",
+                "inter_trial_interval",
+                "trials_per_condition"
+            ]
+        },
+        "instruments": {
+            "type": "object",
+            "description": "Apparatus and instruments used in the experiment.",
+            "properties": {
+                "software": {
+                    "type": "string",
+                    "description": "Experimental software used.",
+                    "enum": [
+                        "PsychoPy",
+                        "E-Prime",
+                        "MATLAB_Psychtoolbox",
+                        "Other"
+                    ]
+                },
+                "response_device": {
+                    "type": "string",
+                    "description": "Device used for responses.",
+                    "enum": [
+                        "keyboard",
+                        "response_pad"
+                    ]
+                },
+                "voice_recording": {
+                    "type": "boolean",
+                    "description": "Whether voice recording is used for verbal responses."
+                },
+                "reaction_time_precision": {
+                    "type": "string",
+                    "description": "Precision of reaction time measurement.",
+                    "enum": [
+                        "millisecond"
+                    ]
+                },
+                "display_calibration": {
+                    "type": "boolean",
+                    "description": "Whether display luminance and contrast are calibrated."
+                }
+            },
+            "required": [
+                "software",
+                "response_device"
+            ]
+        },
+        "behavioral_outputs": {
+            "type": "object",
+            "description": "Primary behavioral outputs of the experiment.",
+            "properties": {
+                "reaction_times": {
+                    "type": "object",
+                    "description": "Reaction times per condition in milliseconds.",
+                    "properties": {
+                        "congruent": {
+                            "type": "array",
+                            "items": {
+                                "type": "number",
+                                "minimum": 0
+                            }
+                        },
+                        "incongruent": {
+                            "type": "array",
+                            "items": {
+                                "type": "number",
+                                "minimum": 0
+                            }
+                        },
+                        "neutral": {
+                            "type": "array",
+                            "items": {
+                                "type": "number",
+                                "minimum": 0
+                            }
+                        },
+                        "emotional": {
+                            "type": "array",
+                            "items": {
+                                "type": "number",
+                                "minimum": 0
+                            }
+                        }
+                    }
+                },
+                "error_rates": {
+                    "type": "object",
+                    "description": "Error rates per condition in percentage.",
+                    "properties": {
+                        "congruent": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "incongruent": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "neutral": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                        },
+                        "emotional": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                        }
+                    }
+                },
+                "interference_score": {
+                    "type": "object",
+                    "description": "Interference score calculated as RT(incongruent) - RT(congruent).",
+                    "properties": {
+                        "standard": {
+                            "type": "number",
+                            "minimum": 0
+                        },
+                        "emotional": {
+                            "type": "number",
+                            "minimum": 0
+                        }
+                    }
+                }
+            },
+            "required": [
+                "reaction_times",
+                "error_rates"
+            ]
+        },
+        "neuroimaging": {
+            "type": "object",
+            "description": "Neuroimaging data collection parameters.",
+            "properties": {
+                "modality": {
+                    "type": "string",
+                    "description": "Neuroimaging modality used.",
+                    "enum": [
+                        "EEG",
+                        "fMRI",
+                        "None"
+                    ]
+                },
+                "eeg": {
+                    "type": "object",
+                    "description": "EEG-specific parameters.",
+                    "properties": {
+                        "channels": {
+                            "type": "integer",
+                            "minimum": 32,
+                            "maximum": 128
+                        },
+                        "sampling_rate": {
+                            "type": "integer",
+                            "description": "Sampling rate in Hz.",
+                            "minimum": 500
+                        },
+                        "impedance": {
+                            "type": "object",
+                            "description": "Impedance threshold in k\u03a9.",
+                            "properties": {
+                                "max": {
+                                    "type": "number",
+                                    "minimum": 5,
+                                    "maximum": 10
+                                }
+                            },
+                            "required": [
+                                "max"
+                            ]
+                        },
+                        "reference": {
+                            "type": "string",
+                            "enum": [
+                                "linked_mastoids",
+                                "average"
+                            ]
+                        },
+                        "event_markers": {
+                            "type": "array",
+                            "description": "Event markers recorded during EEG.",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "stimulus_onset",
+                                    "response_onset",
+                                    "accuracy"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "fMRI": {
+                    "type": "object",
+                    "description": "fMRI-specific parameters.",
+                    "properties": {
+                        "scanner": {
+                            "type": "string",
+                            "enum": [
+                                "3T"
+                            ]
+                        },
+                        "tr": {
+                            "type": "integer",
+                            "description": "Repetition time in ms.",
+                            "minimum": 2000,
+                            "maximum": 2500
+                        },
+                        "te": {
+                            "type": "integer",
+                            "description": "Echo time in ms.",
+                            "minimum": 20,
+                            "maximum": 50
+                        },
+                        "voxel_size": {
+                            "type": "object",
+                            "description": "Voxel size in mm.",
+                            "properties": {
+                                "x": {
+                                    "type": "number",
+                                    "minimum": 2,
+                                    "maximum": 3
+                                },
+                                "y": {
+                                    "type": "number",
+                                    "minimum": 2,
+                                    "maximum": 3
+                                },
+                                "z": {
+                                    "type": "number",
+                                    "minimum": 2,
+                                    "maximum": 3
+                                }
+                            },
+                            "required": [
+                                "x",
+                                "y",
+                                "z"
+                            ]
+                        },
+                        "design": {
+                            "type": "string",
+                            "enum": [
+                                "event_related",
+                                "block"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "neurocomputational_model": {
+            "type": "object",
+            "description": "Neurocomputational model parameters.",
+            "properties": {
+                "model_type": {
+                    "type": "string",
+                    "description": "Type of neurocomputational model used.",
+                    "enum": [
+                        "drift_diffusion",
+                        "conflict_monitoring",
+                        "None"
+                    ]
+                },
+                "drift_diffusion": {
+                    "type": "object",
+                    "description": "Parameters for the drift diffusion model.",
+                    "properties": {
+                        "drift_rate": {
+                            "type": "number"
+                        },
+                        "decision_threshold": {
+                            "type": "number"
+                        },
+                        "non_decision_time": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "conflict_monitoring": {
+                    "type": "object",
+                    "description": "Parameters for the conflict monitoring model.",
+                    "properties": {
+                        "conflict_signal_strength": {
+                            "type": "number"
+                        },
+                        "control_gain": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+        },
+        "data_analysis": {
+            "type": "object",
+            "description": "Data analysis parameters and norms.",
+            "properties": {
+                "outlier_removal": {
+                    "type": "object",
+                    "description": "Outlier removal criteria for reaction times.",
+                    "properties": {
+                        "threshold_sd": {
+                            "type": "number",
+                            "minimum": 1
+                        },
+                        "min_rt": {
+                            "type": "integer",
+                            "description": "Minimum reaction time in ms.",
+                            "minimum": 200
+                        },
+                        "max_rt": {
+                            "type": "integer",
+                            "description": "Maximum reaction time in ms.",
+                            "minimum": 2000
+                        }
+                    }
+                },
+                "accuracy_adjustment": {
+                    "type": "boolean",
+                    "description": "Whether accuracy-adjusted reaction time metrics are used."
+                },
+                "statistical_method": {
+                    "type": "string",
+                    "description": "Statistical method used for analysis.",
+                    "enum": [
+                        "within_subject_anova",
+                        "mixed_effects",
+                        "other"
+                    ]
+                }
+            },
+            "required": [
+                "outlier_removal"
+            ]
+        },
+        "clinical_applications": {
+            "type": "object",
+            "description": "Clinical applications and considerations.",
+            "properties": {
+                "diagnosis": {
+                    "type": "array",
+                    "description": "Clinical diagnoses being studied.",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "ADHD",
+                            "depression",
+                            "schizophrenia",
+                            "frontal_lobe_dysfunction",
+                            "aging"
+                        ]
+                    }
+                },
+                "behavioral_neural_coupling": {
+                    "type": "array",
+                    "description": "Derived measures for behavioral-neural coupling.",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "metadata",
+        "stimuli",
+        "task_instructions",
+        "experimental_settings",
+        "instruments",
+        "behavioral_outputs"
+    ]
+}
