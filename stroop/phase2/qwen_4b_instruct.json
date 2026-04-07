@@ -65,30 +65,7 @@
                 "conditions": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "object",
-                            "properties": {
-                                "description": { "type": "string" },
-                                "example": { "type": "string" }
-                            },
-                            "required": ["description"]
-                        },
-                        "incongruent": {
-                            "type": "object",
-                            "properties": {
-                                "description": { "type": "string" },
-                                "example": { "type": "string" }
-                            },
-                            "required": ["description"]
-                        },
-                        "neutral": {
-                            "type": "object",
-                            "properties": {
-                                "description": { "type": "string" },
-                                "example": { "type": "string" }
-                            },
-                            "required": ["description"]
-                        }
+                        "enum":["congruent", "incongruent", "neutral"]
                     },
                     "required": ["congruent", "incongruent", "neutral"]
                 },
