@@ -1,3 +1,5 @@
+
+
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "StroopTaskProcess",
@@ -12,7 +14,7 @@
                 "Spatial Stroop",
                 "Bilingual Stroop",
                 "Clinical Adaptation"
-            ]
+            ],
         },
         "stimuli": {
             "type": "object",
@@ -23,12 +25,12 @@
                         "type": "string",
                         "enum": [
                             "Congruent",
-                            "Incongrent",
+                            "Incongruent",
                             "Neutral"
                         ]
                     },
-                    "minItems": 1
-                },
+                    "minItems": 1,
+                    },
                 "colorSet": {
                     "type": "array",
                     "items": {
@@ -43,28 +45,16 @@
                         ]
                     },
                     "minItems": 3,
-                    "maxItems": 6
+                    "maxItems": 6,
                 },
                 "wordContent": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "array",
+                        "type": "array",
                             "items": {
                                 "type": "string"
-                            }
-                        },
-                        "incongruent": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "neutral": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
+                            },
+                        "enum": ["congruent", "incongruent", "neutral]
                         }
                     },
                     "required": [
@@ -77,25 +67,27 @@
                     "type": "number",
                     "minimum": 500,
                     "maximum": 2000,
-                    "unit": "milliseconds"
+                    "unit": "milliseconds",
                 },
                 "interTrialInterval": {
                     "type": "number",
                     "minimum": 500,
                     "maximum": 1500,
-                    "unit": "milliseconds"
+                    "unit": "milliseconds",
+                    
                 },
                 "trialCountPerCondition": {
                     "type": "integer",
                     "minimum": 20,
-                    "maximum": 100
+                    "maximum": 100,
+                    
                 },
                 "stimulusOrder": {
                     "type": "string",
                     "enum": [
                         "randomized",
                         "counterbalanced"
-                    ]
+                    ],
                 }
             },
             "required": [
@@ -116,25 +108,21 @@
                     "enum": [
                         "Name ink color (ignore word)",
                         "Read word (ignore ink color)"
-                    ]
+                    ],
+                    
                 },
                 "responseModality": {
                     "type": "string",
                     "enum": [
                         "verbal",
                         "manual"
-                    ]
+                    ],
+        
                 },
                 "responseKeyMapping": {
                     "type": "object",
-                    "properties": {
-                        "red": { "type": "string" },
-                        "blue": { "type": "string" },
-                        "green": { "type": "string" },
-                        "yellow": { "type": "string" },
-                        "black": { "type": "string" },
-                        "white": { "type": "string" }
-                    },
+                    "description": "Mapping of response keys to colors (if manual response). Only applicable when responseModality is 'manual'.",
+                    "enum": ["red", "blue", "green", "yellow", "black", "white"],
                     "additionalProperties": false
                 }
             },
@@ -155,7 +143,8 @@
                                 "controlled",
                                 "dim",
                                 "standard"
-                            ]
+                            ],
+                           
                         },
                         "distractionLevel": {
                             "type": "string",
@@ -163,7 +152,8 @@
                                 "minimal",
                                 "none",
                                 "low"
-                            ]
+                            ],
+                           
                         }
                     },
                     "required": [
@@ -177,16 +167,19 @@
                         "luminance": {
                             "type": "number",
                             "minimum": 0,
-                            "unit": "cd/m²"
+                            "unit": "cd/m\u00b2",
+                            
                         },
                         "contrast": {
                             "type": "number",
                             "minimum": 0,
                             "maximum": 1,
-                            "unit": "ratio"
+                            "unit": "ratio",
+                           
                         },
                         "resolution": {
-                            "type": "string"
+                            "type": "string",
+                            
                         }
                     },
                     "required": [
@@ -213,7 +206,8 @@
                         "OpenSesame",
                         "Presentation",
                         "Custom"
-                    ]
+                    ],
+                    
                 },
                 "responseDevice": {
                     "type": "string",
@@ -222,16 +216,21 @@
                         "response pad",
                         "touchscreen",
                         "custom"
-                    ]
+                    ],
+                    
                 },
                 "voiceKey": {
                     "type": "object",
                     "properties": {
-                        "microphone": { "type": "string" },
+                        "microphone": {
+                            "type": "string",
+                           
+                        },
                         "samplingRate": {
                             "type": "integer",
                             "minimum": 16000,
-                            "unit": "Hz"
+                            "unit": "Hz",
+                            
                         }
                     },
                     "required": [
@@ -241,10 +240,7 @@
                 },
                 "rtPrecision": {
                     "type": "string",
-                    "enum": [
-                        "millisecond",
-                        "microsecond"
-                    ]
+                    "unit": "millisecond"
                 }
             },
             "required": [
@@ -262,22 +258,33 @@
                     "items": {
                         "type": "object",
                         "properties": {
-                            "trialId": { "type": "integer" },
+                            "trialId": {
+                                "type": "integer",
+                                
+                            },
                             "condition": {
                                 "type": "string",
                                 "enum": [
                                     "Congruent",
                                     "Incongruent",
                                     "Neutral"
-                                ]
+                                ],
+                                
                             },
                             "rtMs": {
                                 "type": "number",
                                 "minimum": 0,
-                                "unit": "milliseconds"
+                                "unit": "milliseconds",
+                                
                             },
-                            "accuracy": { "type": "boolean" },
-                            "responseKey": { "type": "string" }
+                            "accuracy": {
+                                "type": "boolean",
+                                
+                            },
+                            "responseKey": {
+                                "type": "string",
+                                
+                            }
                         },
                         "required": [
                             "trialId",
@@ -286,12 +293,14 @@
                             "accuracy",
                             "responseKey"
                         ]
-                    }
+                    },
+                   
                 },
                 "interferenceScore": {
                     "type": "number",
                     "minimum": 0,
-                    "unit": "milliseconds"
+                    "unit": "milliseconds",
+                    
                 },
                 "errorRate": {
                     "type": "object",
@@ -300,19 +309,22 @@
                             "type": "number",
                             "minimum": 0,
                             "maximum": 100,
-                            "unit": "%"
+                            "unit": "%",
+                           
                         },
                         "incongruent": {
                             "type": "number",
                             "minimum": 0,
                             "maximum": 100,
-                            "unit": "%"
+                            "unit": "%",
+                            
                         },
                         "neutral": {
                             "type": "number",
                             "minimum": 0,
                             "maximum": 100,
-                            "unit": "%"
+                            "unit": "%",
+                           
                         }
                     },
                     "required": [
@@ -324,7 +336,8 @@
                 "accuracyAdjustedRT": {
                     "type": "number",
                     "minimum": 0,
-                    "unit": "milliseconds"
+                    "unit": "milliseconds",
+                    
                 }
             },
             "required": [
@@ -342,7 +355,8 @@
                         "incongruent > congruent",
                         "incongruent < congruent",
                         "no difference"
-                    ]
+                    ],
+                    
                 },
                 "errorPattern": {
                     "type": "string",
@@ -350,10 +364,12 @@
                         "incongruent > congruent",
                         "incongruent < congruent",
                         "no difference"
-                    ]
+                    ],
+                    
                 },
                 "robustness": {
-                    "type": "boolean"
+                    "type": "boolean",
+                   
                 }
             },
             "required": [
@@ -361,6 +377,497 @@
                 "errorPattern",
                 "robustness"
             ]
+        },
+        "reliability": {
+            "type": "object",
+            "properties": {
+                "testRetestReliability": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "moderate",
+                        "high"
+                    ],
+                    
+                },
+                "individualDifferenceReliability": {
+                    "type": "string",
+                    "enum": [
+                        "low",
+                        "moderate",
+                        "high"
+                    ],
+                    
+                }
+            },
+            "required": [
+                "testRetestReliability",
+                "individualDifferenceReliability"
+            ]
+        },
+        "cognitiveConstructs": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "Selective attention",
+                    "Executive control",
+                    "Inhibitory control",
+                    "Processing speed",
+                    "Conflict monitoring"
+                ]
+            },
+            
+        },
+        "dataAnalysis": {
+            "type": "object",
+            "properties": {
+                "outlierExclusion": {
+                    "type": "object",
+                    "properties": {
+                        "method": {
+                            "type": "string",
+                        },
+                        "threshold": {
+                            "type": "object",
+                            "properties": {
+                                "min": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "unit": "milliseconds"
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "unit": "milliseconds"
+                                }
+                            },
+                            "required": [
+                                "min",
+                                "max"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "method",
+                        "threshold"
+                    ]
+                },
+                "incorrectTrialRemoval": {
+                    "type": "boolean",
+                    
+                },
+                "statisticalModel": {
+                    "type": "string",
+                    "enum": [
+                        "within-subject ANOVA",
+                        "mixed-effects modeling",
+                        "linear regression",
+                        "Bayesian models"
+                    ],
+                  
+                }
+            },
+            "required": [
+                "outlierExclusion",
+                "incorrectTrialRemoval",
+                "statisticalModel"
+            ]
+        },
+        "validity": {
+            "type": "object",
+            "properties": {
+                "constructValidity": {
+                    "type": "string",
+                    "enum": [
+                        "strong",
+                        "moderate",
+                        "weak"
+                    ],
+                
+                },
+                "sensitivityToDysfunction": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "frontal lobe dysfunction",
+                            "ADHD",
+                            "depression",
+                            "schizophrenia",
+                            "aging",
+                            "language proficiency"
+                        ]
+                    },
+                    
+                }
+            },
+            "required": [
+                "constructValidity",
+                "sensitivityToDysfunction"
+            ]
+        },
+        "neuroimaging": {
+            "type": "object",
+            "properties": {
+                "eeg": {
+                    "type": "object",
+                    "properties": {
+                        "setup": {
+                            "type": "object",
+                            "properties": {
+                                "channels": {
+                                    "type": "integer",
+                                    "minimum": 32,
+                                    "maximum": 128,
+                                   
+                                },
+                                "system": {
+                                    "type": "string",
+                                    "enum": [
+                                        "10-20",
+                                        "high-density"
+                                    ],
+                                  
+                                },
+                                "samplingRate": {
+                                    "type": "integer",
+                                    "minimum": 500,
+                                    "maximum": 1000,
+                                    "unit": "Hz",
+                                    
+                                },
+                                "impedance": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 10000,
+                                    "unit": "k\u03a9",
+                                    
+                                },
+                                "reference": {
+                                    "type": "string",
+                                    "enum": [
+                                        "linked mastoids",
+                                        "average reference"
+                                    ],
+                                    
+                                },
+                                "eogChannels": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    
+                                }
+                            },
+                            "required": [
+                                "channels",
+                                "system",
+                                "samplingRate",
+                                "impedance",
+                                "reference",
+                                "eogChannels"
+                            ]
+                        },
+                        "eventMarkers": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "stimulus onset",
+                                    "response onset",
+                                    "accuracy coding"
+                                ]
+                            },
+                           
+                        },
+                        "keyComponents": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "component": {
+                                        "type": "string",
+                                        "enum": [
+                                            "N200",
+                                            "N450",
+                                            "P300",
+                                            "LPC"
+                                        ],
+                                        
+                                    },
+                                    "latencyRange": {
+                                        "type": "object",
+                                        "properties": {
+                                            "min": {
+                                                "type": "number",
+                                                "unit": "milliseconds"
+                                            },
+                                            "max": {
+                                                "type": "number",
+                                                "unit": "milliseconds"
+                                            }
+                                        },
+                                        "required": [
+                                            "min",
+                                            "max"
+                                        ]
+                                    },
+                                    "interpretation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "component",
+                                    "latencyRange",
+                                    "interpretation"
+                                ]
+                            }
+                        },
+                        "expectedPatterns": {
+                            "type": "object",
+                            "properties": {
+                                "incongruentVsCongruent": {
+                                    "type": "string",
+                                    "enum": [
+                                        "larger N450 amplitude",
+                                        "greater fronto-central activation",
+                                        "increased theta power"
+                                    ],
+                                }
+                            },
+                            "required": [
+                                "incongruentVsCongruent"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "setup",
+                        "eventMarkers",
+                        "keyComponents",
+                        "expectedPatterns"
+                    ]
+                },
+                "fmri": {
+                    "type": "object",
+                    "properties": {
+                        "scanner": {
+                            "type": "object",
+                            "properties": {
+                                "fieldStrength": {
+                                    "type": "number",
+                                    "minimum": 1,
+                                    "maximum": 7,
+                                    "unit": "Tesla",
+                                },
+                                "tr": {
+                                    "type": "number",
+                                    "minimum": 2000,
+                                    "maximum": 2500,
+                                    "unit": "milliseconds",
+                                    
+                                },
+                                "te": {
+                                    "type": "number",
+                                    "minimum": 10,
+                                    "maximum": 50,
+                                    "unit": "milliseconds",
+                                    
+                                },
+                                "voxelSize": {
+                                    "type": "number",
+                                    "minimum": 1,
+                                    "maximum": 5,
+                                    "unit": "mm",
+                                   
+                                },
+                                "coverage": {
+                                    "type": "string",
+                                    "enum": [
+                                        "whole-brain",
+                                        "targeted"
+                                    ],
+                                   
+                                }
+                            },
+                            "required": [
+                                "fieldStrength",
+                                "tr",
+                                "te",
+                                "voxelSize",
+                                "coverage"
+                            ]
+                        },
+                        "design": {
+                            "type": "string",
+                            "enum": [
+                                "event-related",
+                                "block"
+                            ],
+                        },
+                        "keyRegions": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "region": {
+                                        "type": "string",
+                                        "enum": [
+                                            "Anterior Cingulate Cortex (ACC)",
+                                            "Dorsolateral Prefrontal Cortex (DLPFC)",
+                                            "Inferior Frontal Gyrus",
+                                            "Parietal Cortex",
+                                            "Basal Ganglia"
+                                        ],
+                                    },
+                                    "functionalRole": {
+                                        "type": "string",
+                                    }
+                                },
+                                "required": [
+                                    "region",
+                                    "functionalRole"
+                                ]
+                            }
+                        },
+                        "expectedContrast": {
+                            "type": "string",
+                            "enum": [
+                                "incongruent > congruent"
+                            ],
+                        }
+                    },
+                    "required": [
+                        "scanner",
+                        "design",
+                        "keyRegions",
+                        "expectedContrast"
+                    ]
+                },
+                "connectivityAnalysis": {
+                    "type": "object",
+                    "properties": {
+                        "fMRI": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "PPI analysis",
+                                    "functional connectivity",
+                                    "fronto-parietal network engagement"
+                                ]
+                            },
+                        },
+                        "EEG": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "theta-band coherence",
+                                    "phase synchronization",
+                                    "EEG-fMRI fusion"
+                                ]
+                            },
+                        },
+                        "effectiveConnectivity": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "DCM",
+                                    "Granger causality",
+                                    "dynamic causal modeling"
+                                ]
+                            }
+                        }
+                    },
+                    "required": [
+                        "fMRI",
+                        "EEG",
+                        "effectiveConnectivity"
+                    ]
+                },
+                "behavioralNeuralCoupling": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "correlation between interference score and ACC activation",
+                            "N450 amplitude vs. reaction time slowing",
+                            "theta power increase vs. error likelihood",
+                            "trial-by-trial conflict adaptation (Gratton effect)"
+                        ]
+                    },
+                }
+            },
+            "required": [
+                "eeg",
+                "fmri",
+                "connectivityAnalysis",
+                "behavioralNeuralCoupling"
+            ]
+        },
+        "neurocomputationalModeling": {
+            "type": "object",
+            "properties": {
+                "modelType": {
+                    "type": "string",
+                    "enum": [
+                        "Drift Diffusion Model (DDM)",
+                        "Conflict Monitoring Model (Botvinick)",
+                        "Parallel Processing with Inhibition"
+                    ],
+                },
+                "keyVariables": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "drift rate",
+                            "decision threshold",
+                            "conflict signal strength",
+                            "control gain modulation"
+                        ]
+                    },
+                },
+                "modelFit": {
+                    "type": "object",
+                    "properties": {
+                        "fitMethod": {
+                            "type": "string",
+                            "enum": [
+                                "maximum likelihood",
+                                "Bayesian estimation"
+                            ],
+                        },
+                        "goodnessOfFit": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1,
+                        }
+                    },
+                    "required": [
+                        "fitMethod",
+                        "goodnessOfFit"
+                    ]
+                }
+            },
+            "required": [
+                "modelType",
+                "keyVariables",
+                "modelFit"
+            ]
+        },
+        "clinicalApplications": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "ADHD research",
+                    "depression (emotional Stroop bias)",
+                    "schizophrenia (impaired conflict monitoring)",
+                    "frontal lobe lesion studies",
+                    "aging research (executive control decline)"
+                ]
+            },
         }
     },
     "required": [
