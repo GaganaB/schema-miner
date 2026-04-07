@@ -2,21 +2,17 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://example.com/stroop-task-process-refined.json",
     "title": "Refined Stroop Task Process Schema",
-    "description": "A refined schema for the Stroop task process, capturing comprehensive details including stimuli, task variants, practice effects, clinical applications, and experimental nuances.",
     "type": "object",
     "properties": {
         "metadata": {
             "type": "object",
-            "description": "Metadata about the experiment and its context.",
             "properties": {
                 "experiment_id": {
-                    "type": "string",
-                    "description": "Unique identifier for the experiment run."
+                    "type": "string"
                 },
                 "date": {
                     "type": "string",
                     "format": "date",
-                    "description": "Date when the experiment was conducted."
                 },
                 "study_type": {
                     "type": "string",
@@ -26,11 +22,9 @@
                         "neuroimaging",
                         "neurocomputational"
                     ],
-                    "description": "Type of study (basic, clinical, neuroimaging, or neurocomputational)."
                 },
                 "participant_group": {
                     "type": "object",
-                    "description": "Group characteristics of participants.",
                     "properties": {
                         "age_group": {
                             "type": "string",
@@ -39,7 +33,6 @@
                                 "adults",
                                 "elderly"
                             ],
-                            "description": "Age group of participants (children, adults, elderly)."
                         },
                         "control_status": {
                             "type": "string",
@@ -47,7 +40,6 @@
                                 "healthy_controls",
                                 "clinical"
                             ],
-                            "description": "Control status (healthy controls or clinical group)."
                         }
                     },
                     "required": [
@@ -58,25 +50,20 @@
                 "sample_size": {
                     "type": "integer",
                     "minimum": 20,
-                    "description": "Number of participants in the study."
                 },
                 "practice_session": {
                     "type": "object",
-                    "description": "Details about practice sessions for the Stroop task.",
                     "properties": {
                         "duration_days": {
                             "type": "integer",
                             "minimum": 0,
-                            "description": "Number of days participants practiced the Stroop task."
                         },
                         "frequency": {
                             "type": "string",
-                            "description": "Frequency of practice sessions (e.g., daily, weekly)."
-                        },
+                          },
                         "monitored": {
                             "type": "boolean",
-                            "description": "Flag indicating whether practice sessions were monitored."
-                        }
+                            }
                     }
                 }
             },
@@ -90,7 +77,6 @@
         },
         "task_definition": {
             "type": "object",
-            "description": "Core task properties and variants.",
             "properties": {
                 "task_variant": {
                     "type": "string",
@@ -102,7 +88,6 @@
                         "bilingual",
                         "clinical"
                     ],
-                    "description": "Type of Stroop variant used (e.g., emotional, clinical)."
                 },
                 "response_instruction": {
                     "type": "string",
@@ -111,7 +96,6 @@
                         "read_word",
                         "reverse_stroop"
                     ],
-                    "description": "Primary instruction to participants (e.g., 'name the color' or'read the word')."
                 },
                 "response_modality": {
                     "type": "string",
@@ -119,11 +103,9 @@
                         "verbal",
                         "manual_keypress"
                     ],
-                    "description": "How responses are recorded (verbal via voice key or manual keypress)."
-                },
+                    },
                 "stimulus_properties": {
                     "type": "object",
-                    "description": "Properties of stimuli used in the task.",
                     "properties": {
                         "stimulus_set": {
                             "type": "array",
@@ -137,8 +119,7 @@
                                             "neutral",
                                             "incongruent"
                                         ],
-                                        "description": "Type of stimulus condition (congruent, neutral, or incongruent)."
-                                    },
+                                        },
                                     "stimulus_type": {
                                         "type": "string",
                                         "enum": [
@@ -146,18 +127,15 @@
                                             "color_words",
                                             "symbols"
                                         ],
-                                        "description": "Type of stimulus (color patches, color words, or symbols)."
-                                    },
+                                       },
                                     "items": {
                                         "type": "array",
-                                        "description": "List of specific stimuli for this condition.",
                                         "items": {
                                             "type": "object",
                                             "properties": {
                                                 "word": {
                                                     "type": "string",
-                                                    "description": "The word or symbol displayed (e.g., 'RED')."
-                                                },
+                                                    },
                                                 "ink_color": {
                                                     "type": "string",
                                                     "enum": [
@@ -168,12 +146,10 @@
                                                         "purple",
                                                         "orange"
                                                     ],
-                                                    "description": "Color of the ink used for the word or symbol."
-                                                },
+                                                    },
                                                 "color_name": {
                                                     "type": "string",
-                                                    "description": "Name of the color if the word is a color name."
-                                                }
+                                                    }
                                             },
                                             "required": [
                                                 "word",
@@ -201,11 +177,9 @@
                                     "purple",
                                     "orange"
                                 ],
-                                "description": "Colors used in the task (3\u20136 basic colors)."
-                            },
+                                },
                             "minItems": 3,
                             "maxItems": 6,
-                            "description": "Standard color set for the task."
                         }
                     },
                     "required": [
@@ -215,18 +189,17 @@
                 },
                 "practice_effect": {
                     "type": "object",
-                    "description": "Observed effects of practice on Stroop task performance.",
                     "properties": {
                         "pre_practice_response_times": {
                             "type": "object",
                             "properties": {
                                 "congruent": {
                                     "type": "number",
-                                    "description": "Mean response time for congruent trials before practice (in milliseconds)."
+                                    "unit": "milliseconds"
                                 },
                                 "incongruent": {
                                     "type": "number",
-                                    "description": "Mean response time for incongruent trials before practice (in milliseconds)."
+                                    "unit": "milliseconds"
                                 }
                             },
                             "required": [
@@ -237,14 +210,12 @@
                         "post_practice_response_times": {
                             "type": "object",
                             "properties": {
-                                "congruent": {
-                                    "type": "number",
-                                    "description": "Mean response time for congruent trials after practice (in milliseconds)."
-                                },
-                                "incongruent": {
-                                    "type": "number",
-                                    "description": "Mean response time for incongruent trials after practice (in milliseconds)."
-                                }
+                                "type": "number",
+                                "unit": "milliseconds",
+                                "enum": [
+                                    "congruent",
+                                    "incongruent"
+                                ],
                             },
                             "required": [
                                 "congruent",
@@ -253,7 +224,6 @@
                         },
                         "significant_change": {
                             "type": "boolean",
-                            "description": "Flag indicating whether there was a significant change in response times due to practice."
                         }
                     }
                 }
@@ -267,22 +237,22 @@
         },
         "experimental_settings": {
             "type": "object",
-            "description": "Experimental parameters and timing.",
             "properties": {
                 "stimulus_duration": {
                     "type": "number",
                     "minimum": 500,
-                    "description": "Duration of each stimulus in milliseconds (ms). Default: 1000 ms."
+                    "unit": "ms",
+                    "default": "1000"
                 },
                 "inter_trial_interval": {
                     "type": "number",
                     "minimum": 500,
-                    "description": "Time between trials in milliseconds (ms). Default: 1000 ms."
+                    "unit": "ms",
+                    "default": "1000"
                 },
                 "trials_per_condition": {
                     "type": "integer",
                     "minimum": 20,
-                    "description": "Number of trials per condition (e.g., congruent, incongruent)."
                 },
                 "ordering_strategy": {
                     "type": "string",
@@ -290,25 +260,20 @@
                         "randomized",
                         "counterbalanced"
                     ],
-                    "description": "How stimuli are ordered (randomized or counterbalanced)."
                 },
                 "environment": {
                     "type": "object",
                     "properties": {
                         "lighting": {
                             "type": "string",
-                            "description": "Controlled lighting conditions (e.g., 'dim', 'bright')."
                         },
                         "distractions": {
                             "type": "boolean",
-                            "description": "Presence of distractions (e.g., background noise)."
                         },
                         "background": {
                             "type": "string",
-                            "description": "Background conditions (e.g., 'noise','silent')."
                         }
                     },
-                    "description": "Environmental factors during the task."
                 }
             },
             "required": [
@@ -320,7 +285,6 @@
         },
         "instruments": {
             "type": "object",
-            "description": "Equipment used for the Stroop task.",
             "properties": {
                 "software": {
                     "type": "string",
@@ -330,7 +294,6 @@
                         "MATLAB Psychtoolbox",
                         "Custom"
                     ],
-                    "description": "Experimental software used (e.g., PsychoPy)."
                 },
                 "response_device": {
                     "type": "string",
@@ -340,7 +303,6 @@
                         "voice_key",
                         "touchscreen"
                     ],
-                    "description": "Device for recording responses (e.g., keyboard, voice key)."
                 },
                 "display": {
                     "type": "object",
@@ -348,25 +310,23 @@
                         "luminance": {
                             "type": "number",
                             "minimum": 0,
-                            "description": "Luminance level in candela per square meter (cd/m\u00b2)."
+                            "unit": "candela per square meter (cd/m\u00b2)."
                         },
                         "contrast": {
                             "type": "number",
                             "minimum": 0,
-                            "description": "Contrast ratio (e.g., 0.5\u20131.0)."
                         },
                         "screen_size": {
                             "type": "number",
                             "minimum": 19,
-                            "description": "Screen size in inches."
+                            "unit": "inches."
                         }
                     },
-                    "description": "Display specifications (luminance, contrast, and screen size)."
-                },
+                    },
                 "reaction_time_precision": {
                     "type": "number",
                     "minimum": 0.001,
-                    "description": "Millisecond resolution for reaction time measurements."
+                    "unit": "Millisecond resolution"
                 }
             },
             "required": [
@@ -378,85 +338,39 @@
         },
         "outputs": {
             "type": "object",
-            "description": "Primary outputs and dependent variables.",
             "properties": {
                 "reaction_times": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "array",
+                        "type": "array",
                             "items": {
                                 "type": "number",
                                 "minimum": 200,
-                                "description": "Reaction time for congruent trials in milliseconds (ms)."
+                                "unit": "milliseconds (ms)."
                             },
-                            "description": "Reaction times for congruent trials."
-                        },
-                        "incongruent": {
-                            "type": "array",
-                            "items": {
-                                "type": "number",
-                                "minimum": 200,
-                                "description": "Reaction time for incongruent trials in milliseconds (ms)."
-                            },
-                            "description": "Reaction times for incongruent trials."
-                        },
-                        "neutral": {
-                            "type": "array",
-                            "items": {
-                                "type": "number",
-                                "minimum": 200,
-                                "description": "Reaction time for neutral trials in milliseconds (ms)."
-                            },
-                            "description": "Reaction times for neutral trials."
-                        }
+                        "enum": ["congruent", "incongruent", "neutral"]
                     },
-                    "description": "Reaction times by condition."
                 },
                 "error_rates": {
                     "type": "object",
                     "properties": {
-                        "congruent": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "description": "Error rate for congruent trials (0\u20131)."
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "description": "Error rate for incongruent trials (0\u20131)."
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "description": "Error rate for neutral trials (0\u20131)."
-                        }
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "enum": ["congruent", "incongruent", "neutral"]
                     },
-                    "description": "Error rates by condition."
                 },
                 "interference_score": {
                     "type": "number",
-                    "description": "Interference score = RT(incongruent) \u2013 RT(congruent)."
                 },
                 "accuracy_adjusted_rt": {
                     "type": "boolean",
-                    "description": "Flag indicating whether accuracy-adjusted RT is computed."
                 },
                 "practice_effects": {
                     "type": "object",
-                    "description": "Impact of practice on interference scores.",
                     "properties": {
-                        "pre_practice_interference": {
-                            "type": "number",
-                            "description": "Interference score before practice."
-                        },
-                        "post_practice_interference": {
-                            "type": "number",
-                            "description": "Interference score after practice."
-                        }
+                        "type": "number",
+                        "enum": ["pre_practice_interference", "post_practice_interference"]
                     }
                 }
             },
@@ -468,7 +382,6 @@
         },
         "neuroimaging": {
             "type": "object",
-            "description": "Neuroimaging extensions for the Stroop task.",
             "properties": {
                 "implementation": {
                     "type": "string",
@@ -476,7 +389,6 @@
                         "EEG",
                         "fMRI"
                     ],
-                    "description": "Type of neuroimaging modality (EEG or fMRI)."
                 },
                 "setup": {
                     "type": "object",
@@ -490,17 +402,16 @@
                                         "channels": {
                                             "type": "integer",
                                             "minimum": 32,
-                                            "description": "Number of EEG channels (e.g., 32\u2013128)."
                                         },
                                         "sampling_rate": {
                                             "type": "number",
                                             "minimum": 500,
-                                            "description": "Sampling rate in Hertz (Hz)."
+                                            "unit": "Hertz (Hz)."
                                         },
                                         "impedance": {
                                             "type": "number",
                                             "minimum": 0,
-                                            "description": "Impedance in kilo-ohms (k\u03a9)."
+                                            "unit": "kilo-ohms"
                                         },
                                         "reference": {
                                             "type": "string",
@@ -508,7 +419,6 @@
                                                 "linked_mastoids",
                                                 "average_reference"
                                             ],
-                                            "description": "Reference method for EEG signals."
                                         }
                                     },
                                     "required": [
@@ -522,44 +432,31 @@
                                     "type": "object",
                                     "properties": {
                                         "scanner": {
-                                            "type": "string",
-                                            "description": "MRI scanner type (e.g., '3T')."
+                                            "type": "string"
                                         },
                                         "TR": {
                                             "type": "number",
                                             "minimum": 2000,
-                                            "description": "Repetition time in milliseconds (ms)."
+                                            "unit": "milliseconds (ms)."
                                         },
                                         "TE": {
                                             "type": "number",
                                             "minimum": 20,
-                                            "description": "Echo time in milliseconds (ms)."
+                                            "unit": "milliseconds (ms)."
                                         },
                                         "voxel_size": {
                                             "type": "object",
                                             "properties": {
-                                                "x": {
-                                                    "type": "number",
-                                                    "minimum": 1,
-                                                    "description": "Voxel size in millimeters (mm)."
-                                                },
-                                                "y": {
-                                                    "type": "number",
-                                                    "minimum": 1,
-                                                    "description": "Voxel size in millimeters (mm)."
-                                                },
-                                                "z": {
-                                                    "type": "number",
-                                                    "minimum": 1,
-                                                    "description": "Voxel size in millimeters (mm)."
-                                                }
+                                                "unit": "milliseconds (ms)."
+                                                "type": "number",
+                                                "minimum": 1,
+                                                "enum": ["x", "y", "z"],
                                             },
                                             "required": [
                                                 "x",
                                                 "y",
                                                 "z"
                                             ],
-                                            "description": "Voxel dimensions (isotropic or anisotropic)."
                                         }
                                     },
                                     "required": [
@@ -595,9 +492,7 @@
                                             "response_onset",
                                             "accuracy"
                                         ],
-                                        "description": "Event type (e.g., stimulus onset, response onset)."
-                                    },
-                                    "description": "Event markers for EEG data."
+                                        },
                                 },
                                 "fMRI": {
                                     "type": "array",
@@ -608,10 +503,8 @@
                                             "response_onset",
                                             "accuracy"
                                         ],
-                                        "description": "Event type (e.g., stimulus onset, response onset)."
-                                    },
-                                    "description": "Event markers for fMRI data."
-                                }
+                                      },
+                                    }
                             },
                             "oneOf": [
                                 {
@@ -634,7 +527,6 @@
                 },
                 "key_components": {
                     "type": "object",
-                    "description": "Key components and regions for neuroimaging analysis.",
                     "properties": {
                         "EEG": {
                             "type": "object",
@@ -652,16 +544,14 @@
                                                     "P300",
                                                     "LPC"
                                                 ],
-                                                "description": "EEG component name (e.g., N200)."
-                                            },
+                                                },
                                             "latency": {
                                                 "type": "number",
-                                                "description": "Latency in milliseconds (ms)."
+                                                "unit": "milliseconds (ms)."
                                             },
                                             "interpretation": {
                                                 "type": "string",
-                                                "description": "Functional interpretation of the component."
-                                            }
+                                                }
                                         },
                                         "required": [
                                             "component",
@@ -669,8 +559,7 @@
                                             "interpretation"
                                         ]
                                     },
-                                    "description": "EEG components and their properties."
-                                }
+                                  }
                             },
                             "required": [
                                 "components"
@@ -693,11 +582,9 @@
                                                     "parietal_cortex",
                                                     "basal_ganglia"
                                                 ],
-                                                "description": "Brain region (e.g., ACC)."
                                             },
                                             "role": {
                                                 "type": "string",
-                                                "description": "Functional role of the region."
                                             }
                                         },
                                         "required": [
@@ -705,7 +592,6 @@
                                             "role"
                                         ]
                                     },
-                                    "description": "Key brain regions and their roles."
                                 }
                             },
                             "required": [
@@ -735,7 +621,6 @@
         },
         "neurocomputational": {
             "type": "object",
-            "description": "Neurocomputational modeling extensions.",
             "properties": {
                 "model_type": {
                     "type": "string",
@@ -745,30 +630,14 @@
                         "drift_diffusion",
                         "conflict_monitoring"
                     ],
-                    "description": "Type of neurocomputational model used."
                 },
                 "variables": {
                     "type": "object",
                     "properties": {
-                        "drift_rate": {
-                            "type": "number",
-                            "description": "Rate of information accumulation in drift diffusion models."
-                        },
-                        "decision_threshold": {
-                            "type": "number",
-                            "description": "Threshold for response decision in drift diffusion models."
-                        },
-                        "conflict_signal_strength": {
-                            "type": "number",
-                            "description": "Strength of conflict signal in conflict monitoring models."
-                        },
-                        "control_gain_modulation": {
-                            "type": "number",
-                            "description": "Modulation of control processes in response to conflict."
-                        }
+                        "type": "number",
+                        "enum": ["drift_rate", "decision_threshold", "conflict_signal_strength", "control_gain_modulation"]
                     },
-                    "description": "Key variables in the neurocomputational model."
-                }
+                  }
             },
             "required": [
                 "model_type"
@@ -776,7 +645,6 @@
         },
         "clinical_applications": {
             "type": "object",
-            "description": "Clinical applications of the Stroop task.",
             "properties": {
                 "condition": {
                     "type": "string",
@@ -788,16 +656,13 @@
                         "aging",
                         "clinical"
                     ],
-                    "description": "Clinical condition being studied (e.g., ADHD)."
-                },
+                   },
                 "expected_pattern": {
                     "type": "string",
-                    "description": "Expected behavioral or neuroimaging pattern in the condition."
-                },
+                    },
                 "diagnostic_criteria": {
                     "type": "string",
-                    "description": "Diagnostic criteria or criteria used for the clinical condition."
-                }
+                    }
             },
             "required": [
                 "condition"
@@ -805,7 +670,6 @@
         },
         "data_analysis": {
             "type": "object",
-            "description": "Data analysis norms and exclusions.",
             "properties": {
                 "outlier_exclusion": {
                     "type": "object",
@@ -815,16 +679,13 @@
                             "properties": {
                                 "lower_bound": {
                                     "type": "number",
-                                    "description": "Minimum reaction time threshold (e.g., 200 ms)."
-                                },
+                                    },
                                 "upper_bound": {
                                     "type": "number",
-                                    "description": "Maximum reaction time threshold (e.g., 3000 ms)."
-                                },
+                                    },
                                 "SD_threshold": {
                                     "type": "number",
-                                    "description": "Standard deviation threshold (\u00b12 SD)."
-                                }
+                                   }
                             },
                             "required": [
                                 "lower_bound",
@@ -834,8 +695,7 @@
                         },
                         "error_exclusions": {
                             "type": "boolean",
-                            "description": "Flag indicating whether incorrect-response trials are excluded."
-                        }
+                            }
                     },
                     "required": [
                         "RT_outliers",
@@ -848,20 +708,16 @@
                         "within_subject_ANOVA",
                         "mixed_effects_modeling"
                     ],
-                    "description": "Primary analysis method (e.g., ANOVA, mixed-effects modeling)."
-                },
+                    },
                 "practice_analysis": {
                     "type": "object",
-                    "description": "Analysis specific to practice effects.",
                     "properties": {
                         "pre_practice_analysis": {
                             "type": "string",
-                            "description": "Method used for pre-practice analysis."
                         },
                         "post_practice_analysis": {
                             "type": "string",
-                            "description": "Method used for post-practice analysis."
-                        }
+                           }
                     }
                 }
             },
