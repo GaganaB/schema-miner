@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Stroop Task Process Schema",
-    "description": "Comprehensive schema representing the Stroop task process for cognitive experiments measuring interference in conflicting information processing",
+    
     "type": "object",
     "required": [
         "taskVariant",
@@ -16,7 +16,7 @@
     "properties": {
         "taskVariant": {
             "type": "string",
-            "description": "Specific variant of the Stroop task being implemented",
+            
             "enum": [
                 "Standard",
                 "Emotional Stroop",
@@ -28,11 +28,11 @@
         },
         "sampleCharacteristics": {
             "type": "object",
-            "description": "Participant demographics, inclusion/exclusion criteria, and study design parameters",
+           
             "properties": {
                 "ageRange": {
                     "type": "array",
-                    "description": "Age range of participants in years",
+                    
                     "items": {
                         "type": "integer",
                         "minimum": 0
@@ -42,43 +42,43 @@
                 },
                 "population": {
                     "type": "string",
-                    "description": "Description of participant population (e.g., clinical groups, healthy controls)"
+                    
                 },
                 "sampleSize": {
                     "type": "integer",
-                    "description": "Total number of participants in the study",
+                    
                     "minimum": 1
                 },
                 "inclusionCriteria": {
                     "type": "array",
-                    "description": "Criteria for participant inclusion in the study",
+                    
                     "items": {
                         "type": "string"
                     }
                 },
                 "exclusionCriteria": {
                     "type": "array",
-                    "description": "Criteria for participant exclusion from the study (e.g., color blindness, neurological disorders)",
+                    
                     "items": {
                         "type": "string"
                     }
                 },
                 "practiceExperience": {
                     "type": "object",
-                    "description": "Participant practice history with the Stroop task or similar cognitive tasks",
+                    
                     "properties": {
                         "priorStroopExperience": {
                             "type": "boolean",
-                            "description": "Whether participants had previous experience with Stroop tasks"
+                            
                         },
                         "practiceSessionCount": {
                             "type": "integer",
-                            "description": "Number of practice sessions completed before main task",
+                           
                             "minimum": 0
                         },
                         "practiceDuration": {
                             "type": "integer",
-                            "description": "Duration of practice sessions in days",
+                           
                             "minimum": 0,
                             "unit": "days"
                         }
@@ -92,11 +92,11 @@
         },
         "stimuli": {
             "type": "object",
-            "description": "Stimulus properties, configuration, and presentation format",
+            
             "properties": {
                 "presentationFormat": {
                     "type": "string",
-                    "description": "Method of stimulus presentation",
+                   
                     "enum": [
                         "Card-based",
                         "Trial-based digital"
@@ -104,16 +104,16 @@
                 },
                 "cardConfiguration": {
                     "type": "object",
-                    "description": "Configuration for card-based implementations",
+                    
                     "properties": {
                         "cardCount": {
                             "type": "integer",
-                            "description": "Total number of stimulus cards",
+                            
                             "minimum": 1
                         },
                         "cardTypes": {
                             "type": "array",
-                            "description": "Types of cards used in the task",
+                           
                             "items": {
                                 "type": "string",
                                 "enum": [
@@ -125,30 +125,14 @@
                         }
                     }
                 },
-                "congruent": {
-                    "type": "array",
-                    "description": "Stimuli where word meaning matches ink color (e.g., 'RED' in red ink)",
-                    "items": {
+                "type": "array",
+                "items": {
                         "type": "string"
-                    }
-                },
-                "incongruent": {
-                    "type": "array",
-                    "description": "Stimuli where word meaning conflicts with ink color (e.g., 'RED' in blue ink)",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "neutral": {
-                    "type": "array",
-                    "description": "Stimuli without color meaning (e.g., 'XXXX' in colored ink)",
-                    "items": {
-                        "type": "string"
-                    }
+                    },
+                "enum": ["congruent", "incongruent", "neutral"]
                 },
                 "colorSet": {
                     "type": "array",
-                    "description": "Basic color palette used for ink (3-6 standard colors)",
                     "items": {
                         "type": "string"
                     },
@@ -157,14 +141,14 @@
                 },
                 "wordSet": {
                     "type": "array",
-                    "description": "Set of color words used in the task",
+                
                     "items": {
                         "type": "string"
                     }
                 },
                 "stimulusDensity": {
                     "type": "integer",
-                    "description": "Number of stimuli per card or per trial block",
+                    
                     "minimum": 1
                 }
             },
@@ -176,21 +160,21 @@
         },
         "taskInstructions": {
             "type": "object",
-            "description": "Response rules, instruction sets, and input modalities",
+            
             "properties": {
                 "instructionSets": {
                     "type": "array",
-                    "description": "Different instruction sets for various task phases or card types",
+                    
                     "items": {
                         "type": "object",
                         "properties": {
                             "phase": {
                                 "type": "string",
-                                "description": "Task phase or card type this instruction applies to"
+                                
                             },
                             "responseMapping": {
                                 "type": "string",
-                                "description": "Instruction for participants regarding response focus",
+                            
                                 "enum": [
                                     "Name ink color (ignore word)",
                                     "Read word (ignore ink color)"
@@ -205,7 +189,7 @@
                 },
                 "responseModality": {
                     "type": "string",
-                    "description": "Method of response capture",
+                    
                     "enum": [
                         "Verbal (voice key)",
                         "Manual keypress",
@@ -214,7 +198,7 @@
                 },
                 "timingMethod": {
                     "type": "string",
-                    "description": "Method used to measure response time",
+                    
                     "enum": [
                         "Digital recording",
                         "Stopwatch"
@@ -222,7 +206,7 @@
                 },
                 "timingUnit": {
                     "type": "string",
-                    "description": "Unit of time measurement for responses",
+                    
                     "enum": [
                         "ms",
                         "seconds",
@@ -238,11 +222,10 @@
         },
         "experimentalSettings": {
             "type": "object",
-            "description": "Temporal and procedural parameters of the experiment",
             "properties": {
                 "stimulusDuration": {
                     "type": "number",
-                    "description": "Duration of stimulus presentation in milliseconds (0 = until response)",
+                    
                     "unit": "ms",
                     "minimum": 0,
                     "maximum": 2000,
@@ -250,7 +233,7 @@
                 },
                 "interTrialInterval": {
                     "type": "number",
-                    "description": "Time between trials in milliseconds",
+                    
                     "unit": "ms",
                     "minimum": 100,
                     "maximum": 1500,
@@ -258,13 +241,13 @@
                 },
                 "trialsPerCondition": {
                     "type": "integer",
-                    "description": "Number of trials per experimental condition",
+                    
                     "minimum": 10,
                     "default": 40
                 },
                 "randomization": {
                     "type": "string",
-                    "description": "Stimulus order methodology",
+                    
                     "enum": [
                         "Randomized",
                         "Counterbalanced",
@@ -274,29 +257,29 @@
                 },
                 "environment": {
                     "type": "string",
-                    "description": "Experimental environment specifications"
+                    
                 },
                 "practiceProtocol": {
                     "type": "object",
-                    "description": "Details of any practice sessions conducted before main task",
+                    
                     "properties": {
                         "hasPractice": {
                             "type": "boolean",
-                            "description": "Whether practice sessions were conducted"
+                           
                         },
                         "practiceDuration": {
                             "type": "integer",
-                            "description": "Duration of practice period",
+                           
                             "unit": "days",
                             "minimum": 0
                         },
                         "practiceContent": {
                             "type": "string",
-                            "description": "Content of practice sessions (e.g., congruent and incongruent stimuli)"
+                            
                         },
                         "practiceMonitoring": {
                             "type": "boolean",
-                            "description": "Whether practice sessions were monitored by investigators"
+                          
                         }
                     }
                 }
@@ -307,28 +290,27 @@
         },
         "instruments": {
             "type": "object",
-            "description": "Hardware and software apparatus configuration",
+            
             "properties": {
                 "software": {
                     "type": "string",
-                    "description": "Experimental software platform"
+                    
                 },
                 "responseDevice": {
                     "type": "string",
-                    "description": "Response capture hardware"
+                    
                 },
                 "voiceKey": {
                     "type": "boolean",
-                    "description": "Whether voice key is used for verbal response timing",
+                    
                     "default": false
                 },
                 "displayCalibration": {
                     "type": "string",
-                    "description": "Display calibration specifications"
+                   
                 },
                 "timingPrecision": {
                     "type": "string",
-                    "description": "System timing resolution"
                 }
             },
             "required": [
@@ -337,33 +319,18 @@
         },
         "outputs": {
             "type": "object",
-            "description": "Primary dependent variables and derived metrics",
             "properties": {
                 "reactionTime": {
                     "type": "object",
-                    "description": "Reaction time measurements per condition",
+                    
                     "properties": {
                         "unit": {
                             "type": "string",
-                            "enum": [
-                                "ms",
-                                "seconds",
-                                "minutes"
-                            ],
-                            "default": "ms"
+                            "unit": "ms"
                         },
-                        "congruent": {
-                            "type": "number",
-                            "description": "Average reaction time for congruent trials"
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Average reaction time for incongruent trials"
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Average reaction time for neutral trials"
-                        }
+                        "type": "number",
+                        "enum": ["congruent", "incongruent", "neutral"]
+                    
                     },
                     "required": [
                         "congruent",
@@ -372,33 +339,17 @@
                 },
                 "errorRate": {
                     "type": "object",
-                    "description": "Error rate percentages per condition",
+                    
                     "properties": {
                         "unit": {
                             "type": "string",
-                            "enum": [
-                                "%"
-                            ],
-                            "default": "%"
+                            "unit": "%"
+                           
                         },
-                        "congruent": {
-                            "type": "number",
-                            "description": "Error rate for congruent trials",
-                            "minimum": 0,
-                            "maximum": 100
-                        },
-                        "incongruent": {
-                            "type": "number",
-                            "description": "Error rate for incongruent trials",
-                            "minimum": 0,
-                            "maximum": 100
-                        },
-                        "neutral": {
-                            "type": "number",
-                            "description": "Error rate for neutral trials",
-                            "minimum": 0,
-                            "maximum": 100
-                        }
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100,
+                        "enum": ["congruent", "incongruent", "neutral"]
                     },
                     "required": [
                         "congruent",
@@ -407,31 +358,30 @@
                 },
                 "interferenceScore": {
                     "type": "number",
-                    "description": "Primary interference metric: RT(incongruent) - RT(congruent)",
+                    
                     "unit": "ms"
                 },
                 "accuracyAdjustedRT": {
                     "type": "number",
-                    "description": "Composite metric combining speed and accuracy (e.g., IES = RT / (1 - error rate))",
+                  
                     "unit": "ms"
                 },
                 "practiceEffect": {
                     "type": "object",
-                    "description": "Changes in performance metrics after practice sessions",
+                   
                     "properties": {
                         "rtChange": {
                             "type": "number",
-                            "description": "Change in reaction time after practice",
+                            
                             "unit": "ms"
                         },
                         "errorRateChange": {
                             "type": "number",
-                            "description": "Change in error rate after practice",
+                            
                             "unit": "%"
                         },
                         "interferenceScoreChange": {
                             "type": "number",
-                            "description": "Change in interference score after practice",
                             "unit": "ms"
                         }
                     }
@@ -445,7 +395,7 @@
         },
         "cognitiveConstructs": {
             "type": "array",
-            "description": "Cognitive processes measured by the task",
+            
             "items": {
                 "type": "string",
                 "enum": [
@@ -462,35 +412,35 @@
         },
         "expectedBehavioralPattern": {
             "type": "string",
-            "description": "Characteristic performance pattern expected in valid implementations",
+            
             "default": "Incongruent trials produce significantly longer RTs and higher error rates than congruent trials"
         },
         "reliabilityCharacteristics": {
             "type": "string",
-            "description": "Test-retest reliability profile and influencing factors",
+           
             "default": "Moderate-to-high reliability; improves with increased trial count (>60 trials/condition)"
         },
         "dataAnalysisNorms": {
             "type": "object",
-            "description": "Standard analytical procedures for Stroop data",
+            
             "properties": {
                 "outlierExclusion": {
                     "type": "string",
-                    "description": "RT outlier handling methodology",
+                    
                     "default": "Trials <200ms or >3000ms excluded; \u00b12.5 SD within subject"
                 },
                 "incorrectTrialRemoval": {
                     "type": "boolean",
-                    "description": "Whether incorrect trials are excluded from RT analysis",
+                    
                     "default": true
                 },
                 "errorHandlingProtocol": {
                     "type": "string",
-                    "description": "Protocol for recording and handling errors during task performance"
+                    
                 },
                 "statisticalMethods": {
                     "type": "array",
-                    "description": "Primary statistical approaches used",
+                    
                     "items": {
                         "type": "string",
                         "enum": [
@@ -507,21 +457,21 @@
         },
         "validityNotes": {
             "type": "object",
-            "description": "Construct validity considerations and limitations",
+            
             "properties": {
                 "constructValidity": {
                     "type": "string",
-                    "description": "Strength of relationship to target constructs",
+                    
                     "default": "Strong validity for interference control and inhibitory processes"
                 },
                 "sensitivity": {
                     "type": "string",
-                    "description": "Clinical/neuropsychological sensitivity profile",
+                   
                     "default": "Sensitive to frontal lobe dysfunction and executive control deficits"
                 },
                 "influencingFactors": {
                     "type": "array",
-                    "description": "Factors affecting task performance",
+                    
                     "items": {
                         "type": "string"
                     },
@@ -536,42 +486,33 @@
         },
         "neuroimaging": {
             "type": "object",
-            "description": "Neurophysiological implementation details (optional extension)",
+            
             "properties": {
                 "eeg": {
                     "type": "object",
-                    "description": "EEG implementation parameters",
+                    
                     "properties": {
                         "channels": {
                             "type": "integer",
-                            "description": "Number of EEG electrodes",
+                            
                             "minimum": 16,
                             "maximum": 256
                         },
                         "samplingRate": {
                             "type": "number",
-                            "description": "EEG sampling frequency",
+                           
                             "unit": "Hz",
                             "minimum": 250
                         },
                         "keyComponents": {
                             "type": "array",
-                            "description": "Critical ERP components analyzed",
+                            
                             "items": {
                                 "type": "object",
                                 "properties": {
-                                    "component": {
-                                        "type": "string",
-                                        "description": "ERP component name"
-                                    },
-                                    "latencyRange": {
-                                        "type": "string",
-                                        "description": "Typical latency window (ms)"
-                                    },
-                                    "interpretation": {
-                                        "type": "string",
-                                        "description": "Functional significance"
-                                    }
+                                    "type": "string",
+                                    "enum": ["component", "latencyRange", "interpretation"]
+                                    
                                 },
                                 "required": [
                                     "component",
@@ -583,11 +524,11 @@
                 },
                 "fmri": {
                     "type": "object",
-                    "description": "fMRI implementation parameters",
+                    
                     "properties": {
                         "fieldStrength": {
                             "type": "number",
-                            "description": "MRI scanner strength",
+                            
                             "unit": "T",
                             "enum": [
                                 1.5,
@@ -598,23 +539,18 @@
                         },
                         "tr": {
                             "type": "number",
-                            "description": "Repetition time",
+                            
                             "unit": "ms"
                         },
                         "keyRegions": {
                             "type": "array",
-                            "description": "Critical brain regions analyzed",
+                            
                             "items": {
                                 "type": "object",
                                 "properties": {
-                                    "region": {
-                                        "type": "string",
-                                        "description": "Brain region name"
-                                    },
-                                    "functionalRole": {
-                                        "type": "string",
-                                        "description": "Cognitive function"
-                                    }
+                                    "type": "string",
+                                    "enum": ["region", "functionalRole"]
+                                    
                                 },
                                 "required": [
                                     "region",
@@ -626,7 +562,7 @@
                 },
                 "behavioralNeuralCoupling": {
                     "type": "array",
-                    "description": "Measures linking behavioral and neural data",
+                    
                     "items": {
                         "type": "string"
                     }
