@@ -23,7 +23,7 @@
                         "type": "string",
                         "enum": [
                             "Congruent",
-                            "Incongruent",
+                            "Incongrent",
                             "Neutral"
                         ]
                     },
@@ -48,15 +48,24 @@
                 "wordContent": {
                     "type": "object",
                     "properties": {
-                        "enum": [
-                            "Congruent",
-                            "Incongruent",
-                            "Neutral"
-                        ], 
-                        "type": "array",
+                        "congruent": {
+                            "type": "array",
                             "items": {
                                 "type": "string"
-                            },
+                            }
+                        },
+                        "incongruent": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "neutral": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
                     },
                     "required": [
                         "congruent",
@@ -308,7 +317,7 @@
                     },
                     "required": [
                         "congruent",
-                        "incongrent",
+                        "incongruent",
                         "neutral"
                     ]
                 },
@@ -322,6 +331,35 @@
                 "reactionTime",
                 "interferenceScore",
                 "errorRate"
+            ]
+        },
+        "expectedBehavior": {
+            "type": "object",
+            "properties": {
+                "rtPattern": {
+                    "type": "string",
+                    "enum": [
+                        "incongruent > congruent",
+                        "incongruent < congruent",
+                        "no difference"
+                    ]
+                },
+                "errorPattern": {
+                    "type": "string",
+                    "enum": [
+                        "incongruent > congruent",
+                        "incongruent < congruent",
+                        "no difference"
+                    ]
+                },
+                "robustness": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "rtPattern",
+                "errorPattern",
+                "robustness"
             ]
         }
     },
