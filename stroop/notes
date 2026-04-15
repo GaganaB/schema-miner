@@ -3,10 +3,30 @@ Random notes on the stroop task
 What if someone's color blind in the stroop task test - most likely subject is excluded from study
 How much of language fluency or proficiency is important for the task? 
 
-Font type, size are all parameters that matter
+Font type, size, viewing distance are all parameters that matter
+Left handed/right handed may matter
+covariates (e.g., IQ, education, medication)
 
 Other references:
 https://onlinelibrary.wiley.com/doi/10.1111/cogs.13243
 https://pmc.ncbi.nlm.nih.gov/articles/PMC6873370/
 https://link.springer.com/article/10.3758/s13415-020-00845-x
 https://en.wikipedia.org/wiki/Stroop_effect
+
+Commentary:
+In terms of the broader analysis across all models, (I could be wrong here - and this is just observations from memory/experience and not extensive analysis)
+
+At a bird's eye view, it seems that previous batch of schemas were trained on the seed, but this batch has been trained on seed and secondary papers
+
+Most of these schemas tend to follow similar structures: variants/properties, then elaborate sections of stimuli, effect, etc. 
+
+Thinking constructs/reasoning models seem to have non-flat hierarchies aka taxonomies than non-reasoning models. 
+
+Larger models tend to overspecify/introduce redundancy than smaller models.
+
+Large reasoning models capture subtle information than small non-thinking models aka information that is not repeatedly reinforced across papers 
+but rather have a passing reference in fewer papers. Including covariate information on influencing parameters
+
+However, unsurprisingly, implicit information is not captured by any of the models - like all errors are not equal in stroop. 
+Most papers do not mention this as it is deemed obvious to those who work in the field and because the brain is not yet well 
+parcellated to deem how manifested errors show up cogntively. 
