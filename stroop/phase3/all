@@ -1,8 +1,44 @@
-Deepseek: 
+1. Deepseek: 
 - Semantic grouping is quite nice but could be better (required attributes is better but response modality attributes can be semantically grouped)
 - Verbosity of descriptions is minimal
 - redundancy in stimuli, 
 - ALL parameters are not extensive
 
-Gemma:
-- 
+Winner so far: Deepseek
+
+2. Gemma:
+- Semantic grouping is good
+- Verbosity is high
+- redundancy is quite low
+- parameter extensivity - quite extensive but not very - trial details are missing
+
+Winner so far: Deepseek
+
+3. Mistral large instruct
+- Semantic grouping is good
+- Verbosity is high
+- redundancy is there
+- parameter extensivity is high and schema is very exhaustive
+
+Winner so far: Mistral
+
+4. Ministral 3B instruct
+- Semantic grouping is not bad
+- Verbosity is high
+- redundancy is there
+- parameter extensivity is high and schema structure is more nested
+
+Winner so far: Mistral
+
+5. Ministral 3B reasoning
+- Semantic grouping is quite poor
+- Verbosity is less
+- redundancy is there
+- parameter extensivity is okay and schema structure could be better
+
+Winner so far: Mistral
+
+6. 
+
+Winner so far: Mistral
+
