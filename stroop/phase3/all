@@ -38,7 +38,48 @@ Winner so far: Mistral
 
 Winner so far: Mistral
 
-6. 
+6. Ministral 8B instruct
+- Semantic grouping seems good 
+- Verbosity is very high
+- redundancy is quite minimal
+- parameter extensivity is high and schema structure is good
 
-Winner so far: Mistral
+Winner so far: Ministral 8B instruct
 
+7. Ministral 8B reasoning
+- Semantic grouping seems good
+- Verbosity is quite high
+- redundancy is high
+- parameter extensivity is not great and schema structure is okay
+
+Winner so far: Ministral 8B instruct
+
+8. Qwen 4B instruct
+- Semantic grouping is decent
+- Verbosity is high
+- redundancy is high
+- parameter extensivity is quite good and schema structure is good
+
+Winner so far: Ministral 8B instruct
+
+9. Qwen 4B thinking
+- Semantic grouping is nested but good
+- Verbosity is high
+- redundancy is there
+- parameter extensivity is not great and schema structure is quite nested
+
+Winner so far: Ministral 8B instruct
+
+10. Qwen a3b instruct
+- Semantic grouping is good 
+- Verbosity is unnecessarily high
+- redundancy is there
+- parameter extensivity is ununiform and schema structure is good
+
+Winner so far: Ministral 8B instruct
+
+11. Qwen a3b thinking
+- Semantic grouping is 
+- Verbosity is 
+- redundancy is 
+- parameter extensivity is  and schema structure is 
