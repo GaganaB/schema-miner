@@ -79,7 +79,23 @@ Winner so far: Ministral 8B instruct
 Winner so far: Ministral 8B instruct
 
 11. Qwen a3b thinking
-- Semantic grouping is 
-- Verbosity is 
-- redundancy is 
-- parameter extensivity is  and schema structure is 
+- Semantic grouping is good
+- Verbosity is not high
+- redundancy is there
+- parameter extensivity is high and schema structure is quite good
+
+Winner so far: Ministral 8B instruct / Qwen a3b thinking
+
+12. Qwen 235b
+- Semantic grouping is good
+- Verbosity is not high
+- redundancy is high
+- parameter extensivity is high and schema structure is quite good
+
+Winner so far: Ministral 8B instruct / Qwen a3b thinking / Qwen 235b
+
+-----------------------------------------------------------------------------------
+
+Between the three models, 
+Qwen a3b thinking has meta data mentioned and Qwen 235b doesnt
+Ministral 8B instruct has better schema structure than Qwen a3b thinking
