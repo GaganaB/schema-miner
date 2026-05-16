@@ -1,0 +1,535 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/refined-stroop-study-schema.json",
+  "title": "Comprehensive Stroop Task Experimental Schema",
+  "description": "Schema representing Stroop interference experiments involving selective attention, congruency testing, response timing, practice effects, and cognitive analysis.",
+  "type": "object",
+
+  "properties": {
+
+    "metadata": {
+      "type": "object",
+      "properties": {
+
+        "experiment_id": {
+          "type": "string"
+        },
+
+        "study_title": {
+          "type": "string"
+        },
+
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "journal": {
+          "type": "string"
+        },
+
+        "publication_year": {
+          "type": "integer"
+        },
+
+        "volume": {
+          "type": "string"
+        },
+
+        "issue": {
+          "type": "string"
+        },
+
+        "doi": {
+          "type": "string"
+        },
+
+        "study_type": {
+          "type": "string",
+          "enum": [
+            "basic",
+            "clinical",
+            "cognitive",
+            "quasi_experimental",
+            "behavioral"
+          ]
+        },
+
+        "ethical_clearance": {
+          "type": "boolean"
+        },
+
+        "institution": {
+          "type": "string"
+        }
+      },
+
+      "required": [
+        "experiment_id",
+        "study_title"
+      ]
+    },
+
+    "participants": {
+      "type": "object",
+
+      "properties": {
+
+        "sample_size": {
+          "type": "integer",
+          "minimum": 1
+        },
+
+        "age_range": {
+          "type": "object",
+          "properties": {
+            "min_age": {
+              "type": "integer"
+            },
+            "max_age": {
+              "type": "integer"
+            }
+          }
+        },
+
+        "mean_age": {
+          "type": "number"
+        },
+
+        "age_sd": {
+          "type": "number"
+        },
+
+        "gender_distribution": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+
+        "population_type": {
+          "type": "string",
+          "enum": [
+            "medical_students",
+            "healthy_adults",
+            "clinical_population",
+            "children",
+            "elderly"
+          ]
+        },
+
+        "inclusion_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+
+        "exclusion_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "cognitive_constructs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "selective_attention",
+          "divided_attention",
+          "working_memory",
+          "cognitive_flexibility",
+          "response_inhibition",
+          "processing_speed",
+          "executive_control",
+          "automatic_processing",
+          "interference_control"
+        ]
+      }
+    },
+
+    "stroop_test": {
+      "type": "object",
+
+      "properties": {
+
+        "version": {
+          "type": "string",
+          "enum": [
+            "classic",
+            "modified",
+            "computerized"
+          ]
+        },
+
+        "cards": {
+          "type": "array",
+
+          "items": {
+            "type": "object",
+
+            "properties": {
+
+              "card_id": {
+                "type": "integer"
+              },
+
+              "card_type": {
+                "type": "string",
+                "enum": [
+                  "color_patch",
+                  "congruent_word",
+                  "incongruent_word",
+                  "neutral"
+                ]
+              },
+
+              "stimulus_count": {
+                "type": "integer"
+              },
+
+              "colors_used": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "red",
+                    "blue",
+                    "green",
+                    "yellow",
+                    "black"
+                  ]
+                }
+              },
+
+              "task_instruction": {
+                "type": "string"
+              },
+
+              "requires_word_suppression": {
+                "type": "boolean"
+              },
+
+              "automaticity_level": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "practice_session": {
+      "type": "object",
+
+      "properties": {
+
+        "practice_enabled": {
+          "type": "boolean"
+        },
+
+        "practice_duration_days": {
+          "type": "integer"
+        },
+
+        "practice_frequency_per_day": {
+          "type": "integer"
+        },
+
+        "practice_monitoring": {
+          "type": "boolean"
+        },
+
+        "practice_task_description": {
+          "type": "string"
+        }
+      }
+    },
+
+    "experimental_procedure": {
+      "type": "object",
+
+      "properties": {
+
+        "pre_practice_assessment": {
+          "type": "boolean"
+        },
+
+        "post_practice_assessment": {
+          "type": "boolean"
+        },
+
+        "response_collection_method": {
+          "type": "string",
+          "enum": [
+            "manual_stopwatch",
+            "computerized_timer",
+            "sensor_based"
+          ]
+        },
+
+        "error_tracking_enabled": {
+          "type": "boolean"
+        },
+
+        "environmental_controls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "response_metrics": {
+      "type": "object",
+
+      "properties": {
+
+        "reaction_time": {
+          "type": "object",
+
+          "properties": {
+
+            "card_1": {
+              "$ref": "#/definitions/reactionTimeStats"
+            },
+
+            "card_2": {
+              "$ref": "#/definitions/reactionTimeStats"
+            },
+
+            "card_3": {
+              "$ref": "#/definitions/reactionTimeStats"
+            }
+          }
+        },
+
+        "interference_effect": {
+          "type": "object",
+
+          "properties": {
+
+            "calculation_method": {
+              "type": "string"
+            },
+
+            "mean_interference_score": {
+              "type": "number"
+            },
+
+            "interference_sd": {
+              "type": "number"
+            }
+          }
+        },
+
+        "accuracy_metrics": {
+          "type": "object",
+
+          "properties": {
+
+            "error_count": {
+              "type": "integer"
+            },
+
+            "correction_attempts": {
+              "type": "integer"
+            },
+
+            "accuracy_percentage": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+
+    "statistical_analysis": {
+      "type": "object",
+
+      "properties": {
+
+        "software_used": {
+          "type": "string"
+        },
+
+        "tests_used": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "t_test",
+              "paired_t_test",
+              "anova",
+              "mann_whitney",
+              "regression"
+            ]
+          }
+        },
+
+        "significance_threshold": {
+          "type": "number"
+        },
+
+        "p_values": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+
+        "effect_size": {
+          "type": "number"
+        }
+      }
+    },
+
+    "theoretical_framework": {
+      "type": "object",
+
+      "properties": {
+
+        "theories_considered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "speed_of_processing_theory",
+              "selective_attention_theory",
+              "automaticity_theory",
+              "executive_control_theory"
+            ]
+          }
+        },
+
+        "automatic_vs_controlled_processing": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "findings": {
+      "type": "object",
+
+      "properties": {
+
+        "stroop_effect_observed": {
+          "type": "boolean"
+        },
+
+        "practice_effect_observed": {
+          "type": "boolean"
+        },
+
+        "significant_difference_detected": {
+          "type": "boolean"
+        },
+
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "future_work": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "references": {
+      "type": "array",
+
+      "items": {
+        "type": "object",
+
+        "properties": {
+
+          "authors": {
+            "type": "string"
+          },
+
+          "title": {
+            "type": "string"
+          },
+
+          "year": {
+            "type": "integer"
+          },
+
+          "journal": {
+            "type": "string"
+          },
+
+          "doi": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+
+    "reactionTimeStats": {
+      "type": "object",
+
+      "properties": {
+
+        "mean": {
+          "type": "number"
+        },
+
+        "standard_deviation": {
+          "type": "number"
+        },
+
+        "minimum": {
+          "type": "number"
+        },
+
+        "maximum": {
+          "type": "number"
+        },
+
+        "unit": {
+          "type": "string",
+          "enum": [
+            "milliseconds",
+            "seconds",
+            "minutes"
+          ]
+        },
+
+        "pre_practice": {
+          "type": "number"
+        },
+
+        "post_practice": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
+```
