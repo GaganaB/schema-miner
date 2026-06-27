@@ -1,0 +1,298 @@
+Stroop Task Process Schema -- Property Paths Missing Descriptions
+
+
+	
+stimuli
+	stimuli
+	stimuli.colors
+	stimuli.conditions
+	stimuli.words
+	stimuli.words.neutral
+	stimuli.words.emotional
+task
+	task
+	task.response
+	task.response.modality
+	task.response.mapping
+	task.response.keys
+	task.response.keys.*
+timing
+	timing
+	timing.stimulus
+	timing.stimulus.min
+	timing.stimulus.max
+	timing.iti
+	timing.iti.min
+	timing.iti.max
+design
+	design
+	design.trials
+	design.trials.*
+	design.randomization
+instruments
+	instruments
+	instruments.software
+	instruments.device
+	instruments.voice
+	instruments.rt_precision
+	instruments.display_calibrated
+behavior
+	behavior
+	behavior.reaction_times
+	behavior.reaction_times.*
+	behavior.error_rates
+	behavior.error_rates.*
+	behavior.interference
+	behavior.interference.standard
+	behavior.interference.emotional
+neuroimaging
+	neuroimaging
+	neuroimaging.modality
+	neuroimaging.eeg
+	neuroimaging.eeg.channels
+	neuroimaging.eeg.sampling_rate
+	neuroimaging.eeg.impedance
+	neuroimaging.eeg.impedance.max
+	neuroimaging.eeg.reference
+	neuroimaging.eeg.events
+	neuroimaging.fmri
+	neuroimaging.fmri.scanner
+	neuroimaging.fmri.tr
+	neuroimaging.fmri.te
+	neuroimaging.fmri.voxel
+	neuroimaging.fmri.voxel.x
+	neuroimaging.fmri.voxel.y
+	neuroimaging.fmri.voxel.z
+	neuroimaging.fmri.design
+model
+	model
+	model.type
+	model.parameters
+	model.parameters.*
+analysis
+	analysis
+	analysis.outliers
+	analysis.outliers.sd
+	analysis.outliers.min_rt
+	analysis.outliers.max_rt
+	analysis.accuracy_adjusted
+	analysis.method
+clinical
+	clinical
+	clinical.diagnosis
+	clinical.coupling
+
+	metadata.sample
+	metadata.sample.age_range
+	metadata.sample.age_range.min
+	metadata.sample.age_range.max
+	metadata.sample.sample_size
+	metadata.sample.clinical_population
+	metadata.sample.practice
+	metadata.sample.practice.duration_days
+	metadata.sample.practice.monitored  
+	
+{
+  "metadata": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "experiment_id": "Parris_2014_TaskConflict_LowRSI",
+    "task_variant": {
+                    "type": "string",
+                    "description": "The specific variant of the Stroop task (e.g., Emotional Stroop, Numerical Stroop, Spatial Stroop, Bilingual Stroop, Standard).",
+                    "enum": [
+                        "Emotional Stroop",
+                        "Numerical Stroop",
+                        "Spatial Stroop",
+                        "Bilingual Stroop",
+                        "Color-Word Stroop"
+                    ]
+                },
+    "sample": {
+      "sample_size": {
+        "type": "integer",
+        "description": "The number of participants in the study.",
+        "minimum": 20,
+        "maximum": 200
+        },
+      "age_range": {
+        "min": null,
+        "max": null
+      },
+      "clinical_population": false,
+      "practice": {
+        "duration_days": 0,
+        "monitored": true
+      }
+    }
+  },
+  "stimuli": {
+    "colors": [
+      "brown",
+      "green",
+      "white",
+      "yellow"
+    ],
+    "conditions": [
+      "congruent",
+      "neutral",
+      "incongruent"
+    ],
+    "words": {
+      "neutral": [
+        "stage",
+        "plenty",
+        "plane",
+        "large"
+      ],
+      "emotional": null
+    }
+  },
+
+  "task": {
+    "response": {
+      "modality": "manual keyboard",
+      "mapping": {
+        "white": "z",
+        "green": "x",
+        "brown": "n",
+        "yellow": "m"
+      },
+      "keys": [
+        "z",
+        "x",
+        "n",
+        "m"
+      ]
+    }
+  },
+
+  "timing": {
+    "stimulus": {
+      "min": null,
+      "max": null
+    },
+    "iti": {
+      "min": 200,
+      "max": 3500
+    }
+  },
+
+  "design": {
+    "trials": {
+      "practice": 24,
+      "experimental_per_block": 144,
+      "blocks": 2,
+      "conditions_per_block": {
+        "congruent": 48,
+        "neutral": 48,
+        "incongruent": 48
+      }
+    },
+    "randomization": "Within each block, trial order randomized; RSI block order counterbalanced."
+  },
+
+  "instruments": {
+    "software": "Experiment Builder (SR Research)",
+    "device": {
+      "computer": "PC",
+      "keyboard": "Emprex chiclet keyboard",
+      "display_refresh_hz": 60,
+      "resolution": "1920×1080"
+    },
+    "voice": false,
+    "rt_precision": null,
+    "display_calibrated": null
+  },
+
+  "behavior": {
+    "reaction_times": {
+      "long_rsi": {
+        "incongruent": 790,
+        "neutral": 745,
+        "congruent": 737
+      },
+      "short_rsi": {
+        "incongruent": 754,
+        "neutral": 739,
+        "congruent": 693
+      }
+    },
+
+    "error_rates": {
+      "overall": 3.5,
+      "long_rsi": {
+        "incongruent": 3.2,
+        "neutral": 2.3,
+        "congruent": 2.8
+      },
+      "short_rsi": {
+        "incongruent": 6.0,
+        "neutral": 3.3,
+        "congruent": 3.6
+      }
+    },
+
+    "interference": {
+      "standard": {
+        "long_rsi": 45,
+        "short_rsi": 15
+      },
+      "emotional": null
+    }
+  },
+
+  "neuroimaging": {
+    "modality": null,
+
+    "eeg": {
+      "channels": null,
+      "sampling_rate": null,
+      "impedance": {
+        "max": null
+      },
+      "reference": null,
+      "events": null
+    },
+
+    "fmri": {
+      "scanner": null,
+      "tr": null,
+      "te": null,
+      "voxel": {
+        "x": null,
+        "y": null,
+        "z": null
+      },
+      "design": null
+    }
+  },
+
+  "model": {
+    "type": "Behavioral cognitive model (Task Conflict account)",
+    "parameters": {
+      "rsi_levels_ms": [
+        200,
+        3500
+      ],
+      "within_subject": true
+    }
+  },
+
+  "analysis": {
+    "outliers": {
+      "sd": 3,
+      "min_rt": 250,
+      "max_rt": null
+    },
+    "accuracy_adjusted": true,
+    "method": [
+      "Repeated-measures ANOVA",
+      "Paired-sample t-tests"
+    ]
+  },
+
+  "clinical": {
+    "diagnosis": null,
+    "coupling": null
+  }
+}
