@@ -1,298 +1,350 @@
-Stroop Task Process Schema -- Property Paths Missing Descriptions
-
-
-	
-stimuli
-	stimuli
-	stimuli.colors
-	stimuli.conditions
-	stimuli.words
-	stimuli.words.neutral
-	stimuli.words.emotional
-task
-	task
-	task.response
-	task.response.modality
-	task.response.mapping
-	task.response.keys
-	task.response.keys.*
-timing
-	timing
-	timing.stimulus
-	timing.stimulus.min
-	timing.stimulus.max
-	timing.iti
-	timing.iti.min
-	timing.iti.max
-design
-	design
-	design.trials
-	design.trials.*
-	design.randomization
-instruments
-	instruments
-	instruments.software
-	instruments.device
-	instruments.voice
-	instruments.rt_precision
-	instruments.display_calibrated
-behavior
-	behavior
-	behavior.reaction_times
-	behavior.reaction_times.*
-	behavior.error_rates
-	behavior.error_rates.*
-	behavior.interference
-	behavior.interference.standard
-	behavior.interference.emotional
-neuroimaging
-	neuroimaging
-	neuroimaging.modality
-	neuroimaging.eeg
-	neuroimaging.eeg.channels
-	neuroimaging.eeg.sampling_rate
-	neuroimaging.eeg.impedance
-	neuroimaging.eeg.impedance.max
-	neuroimaging.eeg.reference
-	neuroimaging.eeg.events
-	neuroimaging.fmri
-	neuroimaging.fmri.scanner
-	neuroimaging.fmri.tr
-	neuroimaging.fmri.te
-	neuroimaging.fmri.voxel
-	neuroimaging.fmri.voxel.x
-	neuroimaging.fmri.voxel.y
-	neuroimaging.fmri.voxel.z
-	neuroimaging.fmri.design
-model
-	model
-	model.type
-	model.parameters
-	model.parameters.*
-analysis
-	analysis
-	analysis.outliers
-	analysis.outliers.sd
-	analysis.outliers.min_rt
-	analysis.outliers.max_rt
-	analysis.accuracy_adjusted
-	analysis.method
-clinical
-	clinical
-	clinical.diagnosis
-	clinical.coupling
-
-	metadata.sample
-	metadata.sample.age_range
-	metadata.sample.age_range.min
-	metadata.sample.age_range.max
-	metadata.sample.sample_size
-	metadata.sample.clinical_population
-	metadata.sample.practice
-	metadata.sample.practice.duration_days
-	metadata.sample.practice.monitored  
-	
 {
   "metadata": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "experiment_id": "Parris_2014_TaskConflict_LowRSI",
+    "experiment_id": "",
+    "title": "Stroop Task Process Schema",
     "task_variant": {
-                    "type": "string",
-                    "description": "The specific variant of the Stroop task (e.g., Emotional Stroop, Numerical Stroop, Spatial Stroop, Bilingual Stroop, Standard).",
-                    "enum": [
-                        "Emotional Stroop",
-                        "Numerical Stroop",
-                        "Spatial Stroop",
-                        "Bilingual Stroop",
-                        "Color-Word Stroop"
-                    ]
-                },
+      "type": "string",
+      "enum": [
+        "Color-Word Stroop",
+        "Emotional Stroop",
+        "Numerical Stroop",
+        "Spatial Stroop",
+        "Bilingual Stroop",
+        "Counting Stroop",
+        "Face Stroop",
+        "Other"
+      ]
+    },
     "sample": {
       "sample_size": {
-        "type": "integer",
-        "description": "The number of participants in the study.",
-        "minimum": 20,
-        "maximum": 200
-        },
+        "min": 1
+	  }
       "age_range": {
-        "min": null,
-        "max": null
+        "min": 4,
+        "max": 73
       },
+      "mean_age": 35,
+
+      "sex": {
+        "male": null,
+        "female": null,
+        "other": null
+      },
+
       "clinical_population": false,
+
       "practice": {
-        "duration_days": 0,
-        "monitored": true
+        "duration_days": 45,
+        "practice_trials": null,
+        "monitored": null
       }
     }
   },
+
   "stimuli": {
-    "colors": [
-      "brown",
-      "green",
-      "white",
-      "yellow"
-    ],
-    "conditions": [
-      "congruent",
+    "colors": ["red", "blue", "green", "yellow"],
+    "conditions": ["congruent", "incongruent", "neutral"],
+    "words": [
       "neutral",
-      "incongruent"
+      "emotional",
+      "positive",
+      "negative"
     ],
-    "words": {
-      "neutral": [
-        "stage",
-        "plenty",
-        "plane",
-        "large"
-      ],
-      "emotional": null
-    }
+
+    "font": null,
+    "font_size": 16,
+    "background_color": "white",
+    "display_calibration": {
+      "type": "object",
+      "properties": {
+        "luminance": {
+            "type": "number",
+        	},
+        "contrast": {
+        	"type": "number",
+            }
   },
 
   "task": {
+    "target_dimension": null,
+    "ignored_dimension": null,
     "response": {
-      "modality": "manual keyboard",
-      "mapping": {
-        "white": "z",
-        "green": "x",
-        "brown": "n",
-        "yellow": "m"
-      },
-      "keys": [
-        "z",
-        "x",
-        "n",
-        "m"
-      ]
+
+	  "modality": {
+        "type": "string",
+        "enum": [
+            "verbal",
+            "manual"
+        ],
+        "default": "verbal"
+    }
+
+      "mapping": {                    
+		"type": "string",
+        "enum": [
+            "name_ink_color",
+            "read_word"
+        ],
+	},
+
+    "keys": ["Verbal response", "Manual keypress",]
     }
   },
 
   "timing": {
     "stimulus": {
-      "min": null,
-      "max": null
+      "type": "integer",
+      "minimum": 500,
+      "maximum": 2000,
+      "unit": "ms"
     },
+
+    "rsi": {
+      "type": "integer",
+      "minimum": 500,
+      "maximum": 1500,
+      "unit": "ms"
+    },
+
+    "isi": {
+      "type": "integer",
+      "minimum": 500,
+      "maximum": 1500,
+      "unit": "ms"
+    },
+
     "iti": {
-      "min": 200,
-      "max": 3500
+      "type": "integer",
+      "minimum": 500,
+      "maximum": 1500,
+      "unit": "ms"
     }
   },
 
   "design": {
+    "within_subject": null,
+    "between_subject": null,
+    "factors": [],
+    "blocks": null,
     "trials": {
-      "practice": 24,
-      "experimental_per_block": 144,
-      "blocks": 2,
-      "conditions_per_block": {
-        "congruent": 48,
-        "neutral": 48,
-        "incongruent": 48
-      }
+	  "minimum": 20,
     },
-    "randomization": "Within each block, trial order randomized; RSI block order counterbalanced."
+    "enum": ["Randomized", "Counterbalanced"]
   },
 
   "instruments": {
-    "software": "Experiment Builder (SR Research)",
-    "device": {
-      "computer": "PC",
-      "keyboard": "Emprex chiclet keyboard",
-      "display_refresh_hz": 60,
-      "resolution": "1920×1080"
+
+    "software": {
+        "type": "string",
+        "enum": [
+            "PsychoPy",
+            "E-Prime",
+            "MATLAB Psychtoolbox"
+        ],
     },
-    "voice": false,
-    "rt_precision": null,
-    "display_calibrated": null
+
+    "display": {
+        "type": "object",
+        "properties": {
+            "luminance": {
+            "type": "number",
+            "type": "candelas per square meter."
+            },
+            "contrast": {
+            "type": "number",
+            }
+        },
+    }, 
+
+   "device": [
+        "keyboard",
+        "response_pad",
+        "voice_key",
+        "touchscreen"
+    ],
+
+    "rt_precision": {
+        "type": "number",
+        "minimum": 0.001,
+        "unit": "Millisecond resolution"
+    },
   },
 
   "behavior": {
-    "reaction_times": {
-      "long_rsi": {
-        "incongruent": 790,
-        "neutral": 745,
-        "congruent": 737
-      },
-      "short_rsi": {
-        "incongruent": 754,
-        "neutral": 739,
-        "congruent": 693
-      }
+     "type": "object",
+     "properties": {
+            "reaction_time": {
+              "type": "object",
+              "properties": {
+                "congruent":   { "type": "array", "items": { "type": "number", "minimum": 200, "maximum": 3000 } },
+                "incongruent": { "type": "array", "items": { "type": "number", "minimum": 200, "maximum": 3000 } },
+                "neutral":     { "type": "array", "items": { "type": "number", "minimum": 200, "maximum": 3000 } },
+                "emotional":   { "type": "array", "items": { "type": "number", "minimum": 200, "maximum": 3000 } }
+              }
     },
-
-    "error_rates": {
-      "overall": 3.5,
-      "long_rsi": {
-        "incongruent": 3.2,
-        "neutral": 2.3,
-        "congruent": 2.8
-      },
-      "short_rsi": {
-        "incongruent": 6.0,
-        "neutral": 3.3,
-        "congruent": 3.6
-      }
+    "error_rate": {
+              "type": "object",
+              "properties": {
+                "congruent":   { "type": "number", "minimum": 0, "maximum": 100, "default": 0 },
+                "incongruent": { "type": "number", "minimum": 0, "maximum": 100, "default": 0 },
+                "neutral":     { "type": "number", "minimum": 0, "maximum": 100, "default": 0 },
+                "emotional":   { "type": "number", "minimum": 0, "maximum": 100, "default": 0 }
+              }
     },
-
-    "interference": {
-      "standard": {
-        "long_rsi": 45,
-        "short_rsi": 15
-      },
-      "emotional": null
-    }
+    "interference_score": { "type": "number", "minimum": 0, "default": 0 },
+    "practice_effect": {
+              "type": "object",
+              "properties": {
+                "rt_difference":    { "type": "number", "minimum": 0, "default": 0 },
+                "error_difference": { "type": "number", "minimum": 0, "default": 0 }
+              },
+            },
+          },
+        },
   },
 
   "neuroimaging": {
-    "modality": null,
+    "modality": ["eeg", "fmri"],
 
     "eeg": {
-      "channels": null,
-      "sampling_rate": null,
-      "impedance": {
-        "max": null
-      },
-      "reference": null,
-      "events": null
-    },
+       "properties": {
+                    "eeg": {
+                        "type": "object",
+                        "properties": {
+                            "capacity": {
+                                "type": "number",
+                                "minimum": 32,
+                                "maximum": 128
+                            },
+                            "sampling_rate": {
+                                "unit": "Hz",
+                                "type": "number",
+                                "minimum": 500,
+                                "maximum": 1000,
+                                "default": 500
+                            },
+                            "impedance": {
+                                "type": "number",
+                                "minimum": 5000,
+                                "maximum": 10000,
+                                "default": 7500
+                            },
+                            "reference": {
+                                "type": "string"
+                            },
+                            "channels": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "event_markers": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                  },
 
     "fmri": {
-      "scanner": null,
-      "tr": null,
-      "te": null,
-      "voxel": {
-        "x": null,
-        "y": null,
-        "z": null
-      },
-      "design": null
-    }
-  },
-
-  "model": {
-    "type": "Behavioral cognitive model (Task Conflict account)",
-    "parameters": {
-      "rsi_levels_ms": [
-        200,
-        3500
-      ],
-      "within_subject": true
-    }
-  },
-
-  "analysis": {
-    "outliers": {
-      "sd": 3,
-      "min_rt": 250,
-      "max_rt": null
+                        "type": "object",
+                        "properties": {
+                            "scanner_type": {
+                                "type": "string"
+                            },
+                            "tr": {
+                                "unit": "ms",
+                                "type": "number",
+                                "minimum": 2000,
+                                "maximum": 2500,
+                                "default": 2000
+                            },
+                            "te": {
+                                "unit": "ms",
+                                "type": "number",
+                                "minimum": 20,
+                                "maximum": 40,
+                                "default": 30
+                            },
+                            "voxel_size": {
+                                "unit": "mm",
+                                "type": "number",
+                                "minimum": 2,
+                                "maximum": 3,
+                                "default": 2.5
+                            },
+                            "design": {
+                                "type": "string",
+                                "enum": [
+                                    "event_related",
+                                    "block_design"
+                                ]
+                            },
+                         "properties": {
+                "x": { "type": "number", "minimum": 2, "maximum": 3 },
+                "y": { "type": "number", "minimum": 2, "maximum": 3 },
+                "z": { "type": "number", "minimum": 2, "maximum": 3 }
+              },
+                        },
+                    },
+ 
+"model": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["drift_diffusion", "conflict_monitoring", "None"]
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        }
+      }
     },
-    "accuracy_adjusted": true,
-    "method": [
-      "Repeated-measures ANOVA",
-      "Paired-sample t-tests"
-    ]
-  },
 
-  "clinical": {
-    "diagnosis": null,
-    "coupling": null
+    "analysis": {
+      "type": "object",
+      "properties": {
+        "outliers": {
+          "type": "object",
+          "properties": {
+            "sd": { "type": "number", "minimum": 1 },
+            "min_rt": { "type": "integer", "minimum": 200 },
+            "max_rt": { "type": "integer", "minimum": 2000 }
+          }
+        },
+        "accuracy_adjusted": { "type": "boolean" },
+        "method": {
+          "type": "string",
+          "enum": ["within_subject_anova", "mixed_effects", "other"]
+        }
+      },
+      "required": ["outliers"]
+    },
+
+    "clinical": {
+      "type": "object",
+      "properties": {
+        "diagnosis": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ADHD",
+              "depression",
+              "schizophrenia",
+              "frontal_lobe_dysfunction",
+              "aging"
+            ]
+          }
+        },
+        "coupling": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
   }
 }
